@@ -1,3 +1,4 @@
-packages: 
-  - "libs/**"
-  - "packages/**"
+packages:
+  - 'libs/**'
+  - 'packages/**'
+  - 'packages/*'
