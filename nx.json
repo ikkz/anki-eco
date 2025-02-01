@@ -28,5 +28,8 @@
         "targetName": "lint"
       }
     }
-  ]
+  ],
+  "release": {
+    "projects": ["@anki-eco/style-kit"]
+  }
 }
