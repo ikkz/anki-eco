@@ -5,6 +5,9 @@
   "references": [
     {
       "path": "./packages/style-kit"
+    },
+    {
+      "path": "./packages/utils"
     }
   ]
 }
