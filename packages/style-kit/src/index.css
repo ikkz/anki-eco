@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  @apply bg-neutral-100 dark:bg-neutral-800;
+}
+
+body {
+  @apply prose prose-neutral md:prose-lg mx-auto p-3 md:p-6;
+}

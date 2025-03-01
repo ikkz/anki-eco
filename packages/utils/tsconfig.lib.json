@@ -6,7 +6,8 @@
     "outDir": "dist",
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "emitDeclarationOnly": false,
-    "types": ["node"]
+    "types": ["node"],
+    "lib": ["ES6"]
   },
   "include": ["src/**/*.ts"],
   "references": []
