@@ -5,6 +5,16 @@
   "scripts": {
     "build": "tailwindcss -i ./src/index.css -o ./dist/index.css"
   },
+  "nx": {
+    "targets": {
+      "build": {
+        "cache": true,
+        "input": [
+          "default"
+        ]
+      }
+    }
+  },
   "type": "module",
   "style": "dist/index.css",
   "files": [

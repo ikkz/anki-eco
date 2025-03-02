@@ -5,6 +5,9 @@
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
+  "scripts": {
+    "build": "node src/index.ts"
+  },
   "exports": {
     ".": {
       "types": "./src/index.ts",
@@ -13,5 +16,14 @@
     },
     "./package.json": "./package.json"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "18.16.9",
+    "@anki-eco/style-kit": "workspace:*"
+  },
+  "nx": {
+    "implicitDependencies": [
+      "style-kit"
+    ]
+  }
 }

@@ -31,5 +31,10 @@
   ],
   "release": {
     "projects": ["@anki-eco/style-kit"]
+  },
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"]
+    }
   }
 }

@@ -54,7 +54,14 @@ importers:
         specifier: ^8.19.0
         version: 8.22.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.7.3)
 
-  apps/distribution: {}
+  apps/distribution:
+    devDependencies:
+      '@anki-eco/style-kit':
+        specifier: workspace:*
+        version: link:../../packages/style-kit
+      '@types/node':
+        specifier: 18.16.9
+        version: 18.16.9
 
   packages/style-kit:
     devDependencies:
