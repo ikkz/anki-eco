@@ -7,7 +7,7 @@
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "emitDeclarationOnly": false,
     "types": ["node"],
-    "lib": ["ES6"]
+    "lib": ["ES6", "DOM"]
   },
   "include": ["src/**/*.ts"],
   "references": []
