@@ -11,6 +11,9 @@
     },
     {
       "path": "./apps/distribution"
+    },
+    {
+      "path": "./apps/docs"
     }
   ]
 }
