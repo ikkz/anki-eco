@@ -9,5 +9,9 @@
     "types": ["node"]
   },
   "include": ["src/**/*.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../../packages/style-kit/tsconfig.lib.json"
+    }
+  ]
 }

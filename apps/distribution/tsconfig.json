@@ -4,6 +4,9 @@
   "include": [],
   "references": [
     {
+      "path": "../../packages/style-kit"
+    },
+    {
       "path": "./tsconfig.lib.json"
     }
   ]

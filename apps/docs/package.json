@@ -1,5 +1,27 @@
 {
   "name": "@anki-eco/docs",
   "version": "0.0.1",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  },
+  "dependencies": {
+    "vue": "^3.3.4"
+  },
+  "scripts": {
+    "dev": "vitepress dev src",
+    "build": "vitepress build src",
+    "preview": "vitepress preview src"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "cache": true,
+        "input": [
+          "default"
+        ]
+      }
+    }
+  }
 }
+
