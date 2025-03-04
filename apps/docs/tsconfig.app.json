@@ -14,7 +14,7 @@
   "exclude": [
     "out-tsc",
     "dist",
-    "src/.vitepress/cache/**/*",
+    ".vitepress/cache/**/*",
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
     "src/**/*.spec.vue",

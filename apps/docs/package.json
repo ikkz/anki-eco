@@ -9,9 +9,9 @@
     "vue": "^3.3.4"
   },
   "scripts": {
-    "dev": "vitepress dev src",
-    "build": "vitepress build src",
-    "preview": "vitepress preview src"
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
   },
   "nx": {
     "targets": {
@@ -24,4 +24,3 @@
     }
   }
 }
-

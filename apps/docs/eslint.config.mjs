@@ -19,6 +19,6 @@ export default [
     },
   },
   {
-    ignores: ['src/.vitepress/cache'],
+    ignores: ['.vitepress/cache'],
   },
 ];
