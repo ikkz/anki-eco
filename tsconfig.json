@@ -14,6 +14,9 @@
     },
     {
       "path": "./apps/docs"
+    },
+    {
+      "path": "./packages/context-menu"
     }
   ]
 }

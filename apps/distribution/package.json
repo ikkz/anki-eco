@@ -19,11 +19,21 @@
   "dependencies": {},
   "devDependencies": {
     "@types/node": "18.16.9",
-    "@anki-eco/style-kit": "workspace:*"
+    "@anki-eco/style-kit": "workspace:*",
+    "@anki-eco/context-menu": "workspace:*"
   },
   "nx": {
     "implicitDependencies": [
-      "style-kit"
-    ]
+      "style-kit",
+      "context-menu"
+    ],
+    "targets": {
+      "build": {
+        "cache": true,
+        "input": [
+          "production"
+        ]
+      }
+    }
   }
 }

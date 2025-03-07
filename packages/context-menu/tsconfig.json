@@ -4,12 +4,6 @@
   "include": [],
   "references": [
     {
-      "path": "../../packages/context-menu"
-    },
-    {
-      "path": "../../packages/style-kit"
-    },
-    {
       "path": "./tsconfig.lib.json"
     }
   ]

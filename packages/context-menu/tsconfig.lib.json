@@ -6,16 +6,8 @@
     "outDir": "dist",
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "emitDeclarationOnly": true,
-    "types": ["node"],
-    "resolveJsonModule": true
+    "types": ["node", "vite/client"]
   },
   "include": ["src/**/*.ts"],
-  "references": [
-    {
-      "path": "../../packages/context-menu/tsconfig.lib.json"
-    },
-    {
-      "path": "../../packages/style-kit/tsconfig.lib.json"
-    }
-  ]
+  "references": []
 }
