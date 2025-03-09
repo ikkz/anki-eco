@@ -11,9 +11,9 @@ function dataHolder(): DataHolder {
   return (window.AnkiEcoData = window.AnkiEcoData || {});
 }
 
-function getData<T>(scope: string, key: string): T {
+function getData<T>(scope: string, key: string) {
   const dataKey = `${scope}:${key}`;
-  return dataHolder()[dataKey] as T;
+  return dataHolder()[dataKey] as T | undefined;
 }
 
 function setData<T>(scope: string, key: string, data: T) {
@@ -21,7 +21,11 @@ function setData<T>(scope: string, key: string, data: T) {
   dataHolder()[dataKey] = data;
 }
 
-function mapData<T>(scope: string, key: string, mapper: (data: T) => T) {
+function mapData<T>(
+  scope: string,
+  key: string,
+  mapper: (data: T | undefined) => T
+) {
   setData(scope, key, mapper(getData(scope, key)));
 }
 

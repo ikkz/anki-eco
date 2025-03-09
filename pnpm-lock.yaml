@@ -122,7 +122,11 @@ importers:
         specifier: ^1.6.3
         version: 1.6.3(@algolia/client-search@5.20.3)(@types/node@18.16.9)(axios@1.7.9)(postcss@8.5.1)(search-insights@2.17.3)(typescript@5.7.3)
 
-  packages/context-menu: {}
+  packages/context-menu:
+    dependencies:
+      '@anki-eco/utils':
+        specifier: workspace:*
+        version: link:../utils
 
   packages/style-kit:
     devDependencies:
