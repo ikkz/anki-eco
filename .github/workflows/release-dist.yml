@@ -27,10 +27,9 @@ jobs:
       - run: pnpm nx build distribution
 
       - name: Publish
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: 'anki-eco-dist'
-          directory: 'apps/distribution/dist/'
+          command: 'pages deploy apps/distribution/dist/ --project-name=anki-eco-dist --branch=main'
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
