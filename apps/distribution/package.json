@@ -6,7 +6,8 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
-    "build": "node src/index.ts"
+    "build": "node src/index.ts",
+    "dev": "pnpm serve dist -p 3000"
   },
   "exports": {
     ".": {
@@ -16,11 +17,11 @@
     },
     "./package.json": "./package.json"
   },
-  "dependencies": {},
   "devDependencies": {
-    "@types/node": "18.16.9",
+    "@anki-eco/context-menu": "workspace:*",
     "@anki-eco/style-kit": "workspace:*",
-    "@anki-eco/context-menu": "workspace:*"
+    "@types/node": "18.16.9",
+    "serve": "^14.2.4"
   },
   "nx": {
     "implicitDependencies": [

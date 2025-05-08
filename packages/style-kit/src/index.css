@@ -2,10 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply prose prose-neutral dark:prose-invert md:prose-lg mx-auto p-4 md:p-6;
-}
-
-body.card {
+.card {
+  @apply prose prose-neutral dark:prose-invert md:prose-lg;
+  @apply mx-auto p-4 md:p-6;
   @apply text-left;
 }
