@@ -10,7 +10,6 @@ import * as t from 'at/i18n';
 import { extractItems } from 'at/virtual/extract-tf-items';
 import { AnkiField } from 'at/virtual/field';
 import clsx from 'clsx';
-import { CheckCircle, XCircle } from 'lucide-react';
 import { useEffect, useState, type ReactElement } from 'react';
 
 interface ItemProp {
@@ -99,7 +98,9 @@ const Item = ({ node, answer, index }: ItemProp) => {
               onClick={() => onStatusChange(bool)}
               key={String(bool)}
             >
-              {bool ? <CheckCircle size={24} /> : <XCircle size={24} />}
+              <span className="text-lg font-semibold select-none">
+                {bool ? 'T' : 'F'}
+              </span>
             </div>
           ))}
         </div>
