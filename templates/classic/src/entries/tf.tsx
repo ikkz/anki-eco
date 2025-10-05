@@ -62,8 +62,9 @@ const Item = ({ node, answer, index }: ItemProp) => {
         'rounded-xl pl-4 pr-2 py-2 mt-4 flex items-center justify-between transition-colors duration-200 border-transparent border-2',
         laterBack
           ? {
-              'bg-green-50 !border-green-500': status === true,
-              'bg-red-50 !border-red-500': status === false,
+              'bg-green-50 !border-green-500': status === answer,
+              'bg-red-50 !border-red-500':
+                typeof status !== 'undefined' && status !== answer,
               'bg-indigo-50': typeof status === 'undefined',
             }
           : 'bg-indigo-50',
