@@ -145,7 +145,7 @@ const Playground: FC<{ collections: Collection[] }> = ({ collections }) => {
   );
 
   const handleDragEnd = useMemoizedFn((categoryId: string) => {
-    return (event: any) => {
+    return (event: { active: { id: string }; over: { id: string } | null }) => {
       const { active, over } = event;
 
       if (over && active.id !== over.id) {
