@@ -39,6 +39,7 @@ export async function rollupOptions(
         { encoding: 'utf8' },
       )
       .then(JSON.parse);
+    const entryCode = await buildEntry();
     return {
       input: 'entry',
       transform: {
@@ -58,7 +59,7 @@ export async function rollupOptions(
             ...config,
           }),
           'at/i18n': dataToEsm(i18nMap),
-          entry: buildEntry(),
+          entry: entryCode,
           'at/virtual/field': `export {default as AnkiField} from '${path.resolve(import.meta.dirname, config.field === 'markdown' ? '../src/features/markdown/field.tsx' : '../src/components/native-field.tsx')}'`,
           'at/virtual/extract-tf-items': `export {extractItems} from '${path.resolve(import.meta.dirname, config.field === 'markdown' ? '../src/features/tf/extract-markdown-items.ts' : '../src/features/tf/extract-native-items.ts')}'`,
         }),
@@ -226,9 +227,23 @@ ${buildFields()}
       .join('\n');
   }
 
-  function buildEntry() {
+  async function buildEntry() {
+    // Try to find the full entry file first, then fall back to the base name
+    const fullEntryPath = path.resolve(
+      import.meta.dirname,
+      `../src/entries/${config.entry}.tsx`,
+    );
+
+    let entryFile = config.entry.split('_')[0];
+    try {
+      await fs.access(fullEntryPath);
+      entryFile = config.entry;
+    } catch {
+      // Fall back to base entry
+    }
+
     return `${envValue('', 'import "preact/debug";')}
-  import App from '@/entries/${config.entry.split('_')[0]}.tsx';
+  import App from '@/entries/${entryFile}.tsx';
   import { setup } from '@/entries';
   setup(App);`;
   }

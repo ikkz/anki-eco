@@ -59,6 +59,7 @@
     "wrangler": "^3.107.3"
   },
   "dependencies": {
+    "@anki-eco/analytics": "workspace:*",
     "@bytemd/plugin-breaks": "^1.21.0",
     "@bytemd/plugin-gfm": "^1.21.0",
     "@bytemd/plugin-highlight": "^1.21.0",
@@ -66,6 +67,8 @@
     "@bytemd/plugin-medium-zoom": "^1.21.0",
     "@bytemd/plugin-mermaid": "^1.21.0",
     "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "@formkit/auto-animate": "^0.8.2",
     "ahooks": "^3.8.1",
     "anki-storage": "^1.0.2",
@@ -82,7 +85,6 @@
     "react-dom": "^18.3.1",
     "react-error-boundary": "^4.1.1",
     "react-use": "^17.5.1",
-    "remeda": "^2.12.0",
-    "@anki-eco/analytics": "workspace:*"
+    "remeda": "^2.12.0"
   }
 }

@@ -260,6 +260,36 @@ const entries = {
       },
     ],
   }),
+  match_ordered: defineEntry({
+    desc: 'Ordered matching - items are sorted instead of matched',
+    fields: ['question', 'items', 'note', 'Tags'],
+    notes: [
+      {
+        config: {
+          field: 'native',
+        },
+        fields: {
+          question:
+            'Priority list of suffixes (Nomenclature: Suffixes by Priority)',
+          items:
+            '1::Ketone<br>2::Aldehyde<br>3::Alkine<br>4::Alkane<br>5::Alkohole<br>6::Carbonsäuren<br>7::Cycloalkane<br>8::Amine<br>9::Ester<br>10::Alkene<br>11::Ether',
+          note: 'Items should be arranged in the correct order within each category.',
+        },
+      },
+      {
+        config: {
+          field: 'markdown',
+        },
+        fields: {
+          question:
+            'Priority list of suffixes (Nomenclature: Suffixes by Priority)',
+          items:
+            '1::Ketone<br>2::Aldehyde<br>3::Alkine<br>4::Alkane<br>5::Alkohole<br>6::Carbonsäuren<br>7::Cycloalkane<br>8::Amine<br>9::Ester<br>10::Alkene<br>11::Ether',
+          note: 'Items should be arranged in the correct order within each category.',
+        },
+      },
+    ],
+  }),
   cloze: defineEntry({
     desc: 'Cloze template',
     fields: ['question', 'answer', 'note', 'Tags'],
