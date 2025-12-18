@@ -127,7 +127,7 @@ export async function rollupOptions(
                 target: 'es5',
                 minify: {
                   compress: {
-                    // drop_console: true,
+                    drop_console: true,
                   },
                   format: {
                     comments: false,
