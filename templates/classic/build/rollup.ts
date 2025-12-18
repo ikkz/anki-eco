@@ -13,8 +13,9 @@ import cssnano from 'cssnano';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import postcssNested from 'postcss-nested';
-import type { InputOptions, OutputChunk, OutputOptions } from 'rolldown';
-import { replacePlugin, aliasPlugin } from 'rolldown/experimental';
+import type { InputOptions, OutputOptions } from 'rolldown';
+import { viteAliasPlugin as aliasPlugin } from 'rolldown/experimental';
+import { replacePlugin } from 'rolldown/plugins';
 import postcss from 'rollup-plugin-postcss';
 import tailwindcss from 'tailwindcss';
 
@@ -126,7 +127,7 @@ export async function rollupOptions(
                 target: 'es5',
                 minify: {
                   compress: {
-                    drop_console: true,
+                    // drop_console: true,
                   },
                   format: {
                     comments: false,
@@ -142,6 +143,7 @@ export async function rollupOptions(
           fileName: `front.html`,
           template(options) {
             const { files = {} } = options || {};
+            const jsFiles = files.js ?? [];
             let frontHtml = '';
             frontHtml += `<script>
 window.atDefaultOptions =
@@ -162,9 +164,11 @@ ${buildFields()}
 </div>
 `;
             frontHtml +=
-              (files.js as OutputChunk[])
-                ?.map(({ code }) =>
-                  envValue(
+              jsFiles
+                .map((file) => {
+                  if (!('code' in file)) return '';
+                  const { code } = file;
+                  return envValue(
                     `<script>
                       (function(){
                         const code="${Buffer.from(code).toString('base64')}";
@@ -176,8 +180,9 @@ ${buildFields()}
                       })();
                     </script>`,
                     `<script>${code}</script>`,
-                  ),
-                )
+                  );
+                })
+                .filter(Boolean)
                 .join('') || '';
             return frontHtml;
           },

@@ -28,6 +28,7 @@ export const items: ConfigItem[] = [
       'match',
       'cloze',
       'input',
+      'ordering',
     ] as const satisfies (keyof typeof entries)[],
   },
   {

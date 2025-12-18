@@ -60,5 +60,16 @@
   "clozeDetail": "Para uso específico, consulte a documentação do modelo de lacunas",
   "unsupportedClozeType": "Comparação deste tipo de resposta não é suportada",
   "caseSensitiveCompare": "Comparação de resposta sensível a maiúsculas e minúsculas",
-  "instantFeedback": "Feedback colorido em tempo real ao inserir uma resposta"
+  "instantFeedback": "Feedback colorido em tempo real ao inserir uma resposta",
+  "orderingYourSentence": "Sua frase",
+  "orderingCorrectSentence": "Frase correta",
+  "orderingFragments": "Fragmentos",
+  "orderingNoFragments": "Sem fragmentos",
+  "orderingArrangeHere": "Organize aqui",
+  "orderingArrangeHint": "Arraste os fragmentos aqui para ordenar",
+  "orderingSequencePlaceholder": "...",
+  "orderingYourAnswer": "Sua resposta",
+  "orderingMatch": "correspondente",
+  "orderingMissing": "faltando",
+  "orderingExtra": "extra"
 }

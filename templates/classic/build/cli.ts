@@ -38,7 +38,7 @@ if (!args.dev) {
       dev: false,
     });
     const bundle = await rolldown(inputOptions);
-    bundle.write(outputOptions);
+    await bundle.write(outputOptions);
     bundle.close();
   }
 } else {

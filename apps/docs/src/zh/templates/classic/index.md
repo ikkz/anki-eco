@@ -10,6 +10,7 @@ title: Classic 模板概览
 - [正误题](/zh/templates/classic/tf)
 - [基础问答](/zh/templates/classic/basic)
 - [匹配](/zh/templates/classic/match)
+- [排序](/zh/templates/classic/ordering)
 - [填空](/zh/templates/classic/cloze)
 - [输入题](/zh/templates/classic/input)
 - [多项选择（10 选项）](/zh/templates/classic/mcq_10)
