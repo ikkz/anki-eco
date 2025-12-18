@@ -43,6 +43,7 @@ export default defineConfig({
           { text: 'True or False', link: '/templates/classic/tf' },
           { text: 'Basic', link: '/templates/classic/basic' },
           { text: 'Match', link: '/templates/classic/match' },
+          { text: 'Ordering', link: '/templates/classic/ordering' },
           { text: 'Cloze', link: '/templates/classic/cloze' },
           { text: 'Input', link: '/templates/classic/input' },
           {
@@ -96,6 +97,7 @@ export default defineConfig({
             { text: 'True or False', link: '/templates/classic/tf' },
             { text: 'Basic', link: '/templates/classic/basic' },
             { text: 'Match', link: '/templates/classic/match' },
+            { text: 'Ordering', link: '/templates/classic/ordering' },
             { text: 'Cloze', link: '/templates/classic/cloze' },
             { text: 'Input', link: '/templates/classic/input' },
             {

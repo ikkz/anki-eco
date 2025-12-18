@@ -10,6 +10,7 @@ title: Overview
 - [True or False](/templates/classic/tf)
 - [Basic](/templates/classic/basic)
 - [Match](/templates/classic/match)
+- [Ordering](/templates/classic/ordering)
 - [Cloze](/templates/classic/cloze)
 - [Input](/templates/classic/input)
 - [Multiple Choice (10 options)](/templates/classic/mcq_10)
