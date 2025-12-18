@@ -260,6 +260,34 @@ const entries = {
       },
     ],
   }),
+  ordering: defineEntry({
+    desc: 'Drag fragments into the correct order',
+    fields: ['question', 'items', 'note', 'Tags'],
+    notes: [
+      {
+        config: {
+          field: 'native',
+        },
+        fields: {
+          question:
+            'Use `,,` (same as the match template) to split a sentence into sortable fragments. Drag the shuffled pieces below into the correct order.',
+          items: 'Drag,,these,,pieces,,into,,the,,correct,,order',
+          note: 'note',
+        },
+      },
+      {
+        config: {
+          field: 'markdown',
+        },
+        fields: {
+          question:
+            'Use `,,` (same as the match template) to split a sentence into sortable fragments. Drag the shuffled pieces below into the correct order.',
+          items: 'Drag,,these,,pieces,,into,,the,,correct,,order',
+          note: 'note',
+        },
+      },
+    ],
+  }),
   cloze: defineEntry({
     desc: 'Cloze template',
     fields: ['question', 'answer', 'note', 'Tags'],

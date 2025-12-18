@@ -1,7 +1,7 @@
 import { crossStorage } from '@/utils/cross-storage';
 import { isBack } from '@/utils/is-back';
 import useCreation from 'ahooks/es/useCreation';
-import { useState } from 'react';
+import { useState, type SetStateAction } from 'react';
 
 export function useCrossState<T>(key: string, init: T | (() => T)) {
   const initialValue = useCreation(
@@ -20,9 +20,15 @@ export function useCrossState<T>(key: string, init: T | (() => T)) {
 
   return [
     state,
-    (value: T) => {
-      setState(value);
-      crossStorage.setItem(key, value);
+    (value: SetStateAction<T>) => {
+      setState((prev) => {
+        const next =
+          typeof value === 'function'
+            ? (value as (current: T) => T)(prev)
+            : value;
+        crossStorage.setItem(key, next);
+        return next;
+      });
     },
   ] as const;
 }

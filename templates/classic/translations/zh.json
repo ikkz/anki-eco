@@ -60,5 +60,16 @@
   "clozeDetail": "具体用法请查看官网填空模板文档",
   "unsupportedClozeType": "不支持这种类型的答案比较",
   "caseSensitiveCompare": "大小写敏感的答案比较",
-  "instantFeedback": "输入答案时实时颜色反馈"
+  "instantFeedback": "输入答案时实时颜色反馈",
+  "orderingYourSentence": "你的句子",
+  "orderingCorrectSentence": "正确句子",
+  "orderingFragments": "碎片",
+  "orderingNoFragments": "暂无碎片",
+  "orderingArrangeHere": "在此排列",
+  "orderingArrangeHint": "拖动碎片到此处调整顺序",
+  "orderingSequencePlaceholder": "...",
+  "orderingYourAnswer": "你的答案",
+  "orderingMatch": "匹配",
+  "orderingMissing": "缺失",
+  "orderingExtra": "多余"
 }

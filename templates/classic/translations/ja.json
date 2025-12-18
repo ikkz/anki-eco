@@ -60,5 +60,16 @@
   "clozeDetail": "具体的な使い方は、公式のクローズテンプレートのドキュメントをご覧ください",
   "unsupportedClozeType": "このタイプの回答の比較はサポートされていません",
   "caseSensitiveCompare": "大文字と小文字を区別する回答の比較",
-  "instantFeedback": "回答を入力する際のリアルタイムカラーのフィードバック"
+  "instantFeedback": "回答を入力する際のリアルタイムカラーのフィードバック",
+  "orderingYourSentence": "あなたの文",
+  "orderingCorrectSentence": "正しい文",
+  "orderingFragments": "断片",
+  "orderingNoFragments": "断片はありません",
+  "orderingArrangeHere": "ここに並べる",
+  "orderingArrangeHint": "断片をここにドラッグして順序を整えてください",
+  "orderingSequencePlaceholder": "...",
+  "orderingYourAnswer": "あなたの回答",
+  "orderingMatch": "一致",
+  "orderingMissing": "不足",
+  "orderingExtra": "余分"
 }

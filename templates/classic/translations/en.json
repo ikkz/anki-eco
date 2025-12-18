@@ -60,5 +60,16 @@
   "clozeDetail": "For specific usage, please refer to the cloze template documentation",
   "unsupportedClozeType": "Comparison of this type of answer is not supported",
   "caseSensitiveCompare": "Case-sensitive answer comparison",
-  "instantFeedback": "Real-time color feedback when entering an answer"
+  "instantFeedback": "Real-time color feedback when entering an answer",
+  "orderingYourSentence": "Your sentence",
+  "orderingCorrectSentence": "Correct sentence",
+  "orderingFragments": "Fragments",
+  "orderingNoFragments": "No fragments",
+  "orderingArrangeHere": "Arrange here",
+  "orderingArrangeHint": "Drag fragments here to arrange the order",
+  "orderingSequencePlaceholder": "...",
+  "orderingYourAnswer": "Your answer",
+  "orderingMatch": "match",
+  "orderingMissing": "missing",
+  "orderingExtra": "extra"
 }
