@@ -4,7 +4,7 @@ title: Ordering
 
 # Ordering
 
-Drag and drop fragments to arrange them into the correct order.
+Drag and drop fragments to arrange them into the correct order. You can also click a fragment to move it between containers.
 
 > [!TIP]
 > It is best to disable all swipe gesture controls in Anki's review settings.

@@ -66,7 +66,7 @@
   "orderingFragments": "Fragments",
   "orderingNoFragments": "No fragments",
   "orderingArrangeHere": "Arrange here",
-  "orderingArrangeHint": "Drag fragments here to arrange the order",
+  "orderingArrangeHint": "Drag or click fragments here to arrange the order",
   "orderingSequencePlaceholder": "...",
   "orderingYourAnswer": "Your answer",
   "orderingMatch": "match",

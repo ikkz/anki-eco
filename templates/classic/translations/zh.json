@@ -66,7 +66,7 @@
   "orderingFragments": "碎片",
   "orderingNoFragments": "暂无碎片",
   "orderingArrangeHere": "在此排列",
-  "orderingArrangeHint": "拖动碎片到此处调整顺序",
+  "orderingArrangeHint": "拖动或点击碎片到此处调整顺序",
   "orderingSequencePlaceholder": "...",
   "orderingYourAnswer": "你的答案",
   "orderingMatch": "匹配",

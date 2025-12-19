@@ -190,7 +190,9 @@ const SortablePiece: FC<{
   status?: Status;
   disabled?: boolean;
   position: LayoutItem;
-}> = ({ piece, status, disabled, position }) => {
+  onClick?: () => void;
+  isMoving?: boolean;
+}> = ({ piece, status, disabled, position, onClick, isMoving }) => {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: piece.id,
     disabled,
@@ -208,13 +210,19 @@ const SortablePiece: FC<{
   const innerStyle = {
     width: '100%',
     height: '100%',
-    opacity: isDragging ? 0.35 : 1,
+    opacity: isDragging ? 0.35 : isMoving ? 0 : 1,
     zIndex: isDragging ? 1 : undefined,
     touchAction: 'none' as const,
   };
   return (
-    <div style={outerStyle}>
-      <div ref={setNodeRef} style={innerStyle} {...attributes} {...listeners}>
+    <div style={outerStyle} data-piece-id={piece.id}>
+      <div
+        ref={setNodeRef}
+        style={innerStyle}
+        {...attributes}
+        {...listeners}
+        onClick={onClick}
+      >
         <PieceTag
           piece={piece}
           status={status}
@@ -248,7 +256,7 @@ const StaticPiece: FC<{
     pointerEvents: 'none' as const,
   };
   return (
-    <div style={style}>
+    <div style={style} data-piece-id={piece.id}>
       <PieceTag
         piece={piece}
         status={status}
@@ -270,6 +278,8 @@ const SortableContainer: FC<{
   isOver?: boolean;
   emptyHint?: string;
   placeholder?: Piece | null;
+  onPieceClick?: (id: string) => void;
+  movingId?: string | null;
 }> = ({
   pieces,
   statusMap,
@@ -279,6 +289,8 @@ const SortableContainer: FC<{
   isOver,
   emptyHint,
   placeholder,
+  onPieceClick,
+  movingId,
 }) => {
   const placeholderPosition = placeholder
     ? layout.positions.get(placeholder.id)
@@ -311,6 +323,10 @@ const SortableContainer: FC<{
                 status={statusMap.get(piece.id)}
                 position={position}
                 disabled={disabled}
+                isMoving={movingId === piece.id}
+                onClick={
+                  onPieceClick ? () => onPieceClick(piece.id) : undefined
+                }
               />
             );
           })
@@ -339,6 +355,13 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
   const [activeId, setActiveId] = useState<string | null>(null);
   const activeOrigin = useRef<ContainerId | null>(null);
   const measureRef = useRef<HTMLDivElement | null>(null);
+  const pendingMoveRef = useRef<{
+    id: string;
+    fromRect: DOMRect;
+  } | null>(null);
+  const moveCloneRef = useRef<HTMLElement | null>(null);
+  const moveTimeoutRef = useRef<number | null>(null);
+  const [movingId, setMovingId] = useState<string | null>(null);
   const sizeRef = useRef<Map<string, { width: number; height: number }>>(
     new Map(),
   );
@@ -398,6 +421,28 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
       body.style.touchAction = prevTouchAction;
     };
   }, [activeId]);
+
+  useLayoutEffect(() => {
+    if (!activeId) {
+      setDragState(null);
+    }
+  }, [activeId]);
+
+  const clearMoveArtifacts = useMemoizedFn((resetId: boolean) => {
+    if (moveTimeoutRef.current) {
+      window.clearTimeout(moveTimeoutRef.current);
+      moveTimeoutRef.current = null;
+    }
+    if (moveCloneRef.current) {
+      moveCloneRef.current.remove();
+      moveCloneRef.current = null;
+    }
+    if (resetId) {
+      setMovingId(null);
+    }
+  });
+
+  useLayoutEffect(() => () => clearMoveArtifacts(true), [clearMoveArtifacts]);
 
   const getSize = (id: string) =>
     sizes.get(id) ?? sizeRef.current.get(id) ?? FALLBACK_SIZE;
@@ -459,18 +504,27 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
   });
 
   const sensors = useSensors(
-    useSensor(MouseSensor),
-    useSensor(TouchSensor),
-    useSensor(PointerSensor),
+    useSensor(MouseSensor, {
+      activationConstraint: { distance: DRAG_REORDER_DISTANCE },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: { distance: DRAG_REORDER_DISTANCE },
+    }),
+    useSensor(PointerSensor, {
+      activationConstraint: { distance: DRAG_REORDER_DISTANCE },
+    }),
   );
 
-  const findContainer = useMemoizedFn((id: string | undefined | null) => {
-    if (!id) return null;
-    if ((CONTAINERS as readonly string[]).includes(id)) return id;
-    return (CONTAINERS as readonly string[]).find((key) =>
-      items[key as ContainerId].includes(id),
-    );
-  });
+  const findContainer = useMemoizedFn(
+    (id: string | undefined | null): ContainerId | null => {
+      if (!id) return null;
+      if ((CONTAINERS as readonly string[]).includes(id)) return id as ContainerId;
+      const found = (CONTAINERS as readonly ContainerId[]).find((key) =>
+        items[key].includes(id),
+      ) as ContainerId | undefined;
+      return found ?? null;
+    },
+  );
 
   const statusMap = useMemo(() => {
     if (!back) {
@@ -495,9 +549,57 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
     activeOrigin.current = null;
   });
 
+  const handlePieceClick = useMemoizedFn((pieceId: string) => {
+    if (back || activeId) return;
+    const origin = findContainer(pieceId);
+    if (!origin) return;
+    const target = origin === BANK_ID ? SEQUENCE_ID : BANK_ID;
+    const sourceNode = document.querySelector<HTMLElement>(
+      `[data-piece-id="${pieceId}"]`,
+    );
+    if (sourceNode) {
+      clearMoveArtifacts(true);
+      const fromRect = sourceNode.getBoundingClientRect();
+      const clone = sourceNode.cloneNode(true) as HTMLElement;
+      clone.style.position = 'fixed';
+      clone.style.left = `${fromRect.left}px`;
+      clone.style.top = `${fromRect.top}px`;
+      clone.style.width = `${fromRect.width}px`;
+      clone.style.height = `${fromRect.height}px`;
+      clone.style.margin = '0';
+      clone.style.transform = 'translate3d(0, 0, 0)';
+      clone.style.zIndex = '9999';
+      clone.style.pointerEvents = 'none';
+      clone.style.boxSizing = 'border-box';
+      clone.style.opacity = '1';
+      document.body.appendChild(clone);
+      moveCloneRef.current = clone;
+      pendingMoveRef.current = { id: pieceId, fromRect };
+      setMovingId(pieceId);
+    } else {
+      pendingMoveRef.current = null;
+      setMovingId(null);
+    }
+    setItems((prev) => {
+      const next: ItemsState = {
+        [BANK_ID]: [...prev[BANK_ID]],
+        [SEQUENCE_ID]: [...prev[SEQUENCE_ID]],
+      };
+      const originList = next[origin];
+      const fromIndex = originList.indexOf(pieceId);
+      if (fromIndex >= 0) {
+        originList.splice(fromIndex, 1);
+      }
+      next[target].push(pieceId);
+      return next;
+    });
+  });
+
   const handleDragStart = useMemoizedFn(({ active }: DragStartEvent) => {
     if (back) return;
     const id = active.id.toString();
+    pendingMoveRef.current = null;
+    clearMoveArtifacts(true);
     resetDrag();
     setActiveId(id);
     const origin = findContainer(id) as ContainerId | null;
@@ -586,6 +688,35 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
       return nextState;
     });
   });
+
+  useLayoutEffect(() => {
+    const pending = pendingMoveRef.current;
+    if (!pending) return;
+    const targetNode = document.querySelector<HTMLElement>(
+      `[data-piece-id="${pending.id}"]`,
+    );
+    if (!targetNode) return;
+    pendingMoveRef.current = null;
+    const clone = moveCloneRef.current;
+    if (!clone) return;
+    const toRect = targetNode.getBoundingClientRect();
+    const dx = toRect.left - pending.fromRect.left;
+    const dy = toRect.top - pending.fromRect.top;
+    if (Math.hypot(dx, dy) < 1) {
+      clearMoveArtifacts(true);
+      return;
+    }
+    clone.style.transition =
+      'transform 220ms cubic-bezier(0.22, 0.61, 0.36, 1)';
+    requestAnimationFrame(() => {
+      clone.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
+    });
+    const finalize = () => {
+      clearMoveArtifacts(true);
+    };
+    clone.addEventListener('transitionend', finalize, { once: true });
+    moveTimeoutRef.current = window.setTimeout(finalize, 260);
+  }, [items, clearMoveArtifacts]);
 
   const handleDragEnd = useMemoizedFn(({ active }: DragEndEvent) => {
     if (back || !activeOrigin.current) {
@@ -742,6 +873,8 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
                 layout={layouts[BANK_ID]}
                 isOver={dragState?.overContainer === BANK_ID}
                 placeholder={bankPlaceholder}
+                movingId={movingId}
+                onPieceClick={handlePieceClick}
               />
             </div>
             <div className="space-y-1">
@@ -757,6 +890,8 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
                 layout={layouts[SEQUENCE_ID]}
                 isOver={dragState?.overContainer === SEQUENCE_ID}
                 placeholder={sequencePlaceholder}
+                movingId={movingId}
+                onPieceClick={handlePieceClick}
               />
             </div>
             <div className="text-sm text-neutral-500">
