@@ -32,6 +32,7 @@ export default defineConfig({
     hostname: 'https://anki.ikkz.fun',
   },
   themeConfig: {
+    logo: '/logo.png',
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
@@ -131,6 +132,14 @@ export default defineConfig({
   },
   cleanUrls: true,
   head: [
+    [
+      'link',
+      {
+        rel: 'icon',
+        type: 'image/png',
+        href: '/logo.png',
+      },
+    ],
     [
       'script',
       {
