@@ -3,7 +3,6 @@ import { NativeText } from '@/components/native-text';
 import { Tag } from '@/components/tag';
 import { useBack } from '@/hooks/use-back';
 import { useCrossState } from '@/hooks/use-cross-state';
-import { caseSensitiveAtom } from '@/store/settings';
 import { tw } from '@/styles/tw';
 import { FIELD_ID } from '@/utils/const';
 import { domToText } from '@/utils/dom-to-text';
@@ -27,7 +26,6 @@ import useMemoizedFn from 'ahooks/es/useMemoizedFn';
 import * as t from 'at/i18n';
 import { AnkiField } from 'at/virtual/field';
 import clsx from 'clsx';
-import { useAtomValue } from 'jotai';
 import { FC, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { shuffle } from 'remeda';
 
@@ -47,40 +45,6 @@ const GAP = 8;
 const FALLBACK_SIZE = { width: 80, height: 32 };
 const MIN_CONTAINER_HEIGHT = '5rem';
 const DRAG_REORDER_DISTANCE = 4;
-
-const tokenizeWords = (text: string) =>
-  text.trim() ? text.trim().split(/\s+/) : [];
-
-const getWordOps = (
-  from: string,
-  to: string,
-  compare: (a: string, b: string) => boolean,
-): Op[] => {
-  const fromWords = tokenizeWords(from);
-  const toWords = tokenizeWords(to);
-  const encode = (len: number) =>
-    Array.from({ length: len }, (_, idx) => String.fromCodePoint(idx + 1)).join(
-      '',
-    );
-  const fromEncoded = encode(fromWords.length);
-  const toEncoded = encode(toWords.length);
-  const ops = getEditOps(fromEncoded, toEncoded, (a, b) => {
-    const fromWord = fromWords[(a.codePointAt(0) || 1) - 1];
-    const toWord = toWords[(b.codePointAt(0) || 1) - 1];
-    return compare(fromWord ?? '', toWord ?? '');
-  });
-  return ops
-    .map((op) => {
-      const words = Array.from(op.content)
-        .map((ch) => {
-          const idx = (ch.codePointAt(0) || 1) - 1;
-          return op.kind === 'insert' ? toWords[idx] : fromWords[idx];
-        })
-        .filter(Boolean);
-      return { ...op, content: words.join(' ') };
-    })
-    .filter((op) => op.content.length > 0);
-};
 
 type LayoutItem = {
   id: string;
@@ -160,14 +124,43 @@ const toDragRect = (
 const getActiveDragRect = (active: DragMoveEvent['active']): DragRect | null =>
   toDragRect(active.rect.current.translated ?? active.rect.current.initial);
 
-const PieceTag: FC<{ piece: Piece; status?: Status; className?: string }> = ({
-  piece,
-  status = 'default',
-  className,
-}) => {
+const getPieceOps = (
+  fromPieces: Piece[],
+  toPieces: Piece[],
+): Array<{ kind: Op['kind']; pieces: Piece[] }> => {
+  const encode = (len: number) =>
+    Array.from({ length: len }, (_, idx) => String.fromCodePoint(idx + 1)).join(
+      '',
+    );
+  const fromEncoded = encode(fromPieces.length);
+  const toEncoded = encode(toPieces.length);
+  const ops = getEditOps(fromEncoded, toEncoded, (a, b) => {
+    const fromPiece = fromPieces[(a.codePointAt(0) || 1) - 1];
+    const toPiece = toPieces[(b.codePointAt(0) || 1) - 1];
+    return (fromPiece?.text ?? '') === (toPiece?.text ?? '');
+  });
+  return ops
+    .map((op) => ({
+      kind: op.kind,
+      pieces: Array.from(op.content)
+        .map((ch) => {
+          const idx = (ch.codePointAt(0) || 1) - 1;
+          return op.kind === 'insert' ? toPieces[idx] : fromPieces[idx];
+        })
+        .filter(Boolean),
+    }))
+    .filter((op) => op.pieces.length > 0);
+};
+
+const PieceTag: FC<{
+  piece: Piece;
+  status?: Status;
+  className?: string;
+  size?: 'sm' | 'md';
+}> = ({ piece, status = 'default', className, size = 'md' }) => {
   return (
     <Tag
-      size="md"
+      size={size}
       className={className}
       color={
         (
@@ -345,9 +338,29 @@ const SortableContainer: FC<{
   );
 };
 
+const SequenceBlocks: FC<{
+  pieces: Piece[];
+  statusMap?: Map<string, Status>;
+}> = ({ pieces, statusMap }) => {
+  if (!pieces.length) {
+    return <div className="text-sm text-neutral-400">-</div>;
+  }
+  return (
+    <div className="flex flex-wrap gap-2">
+      {pieces.map((piece) => (
+        <PieceTag
+          key={piece.id}
+          piece={piece}
+          status={statusMap?.get(piece.id)}
+          size="sm"
+        />
+      ))}
+    </div>
+  );
+};
+
 const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
   const [back] = useBack();
-  const caseSensitive = useAtomValue(caseSensitiveAtom);
   const [items, setItems] = useCrossState<ItemsState>('ordering-items', () => ({
     [BANK_ID]: shuffle(pieces.map(({ id }) => id)),
     [SEQUENCE_ID]: [],
@@ -780,23 +793,10 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
     !items[SEQUENCE_ID].includes(activePiece.id)
       ? activePiece
       : null;
-  const sequenceText = useMemo(() => {
-    const sourceItems = back ? items : displayItems;
-    return sourceItems[SEQUENCE_ID].map((id) => pieceMap.get(id))
-      .filter(Boolean)
-      .map((piece) => (piece as Piece).text)
-      .join(' ');
-  }, [back, displayItems, items, pieceMap]);
-  const correctText = useMemo(
-    () => pieces.map((piece) => piece.text).join(' '),
-    [pieces],
-  );
   const diffOps = useMemo(() => {
     if (!back) return null;
-    const compare = (a: string, b: string) =>
-      caseSensitive ? a === b : a.toLowerCase() === b.toLowerCase();
-    return getWordOps(sequenceText, correctText, compare);
-  }, [back, caseSensitive, sequenceText, correctText]);
+    return getPieceOps(sequencePieces, pieces);
+  }, [back, pieces, sequencePieces]);
   const layouts = useMemo(() => {
     return {
       [BANK_ID]: buildLayout(
@@ -824,24 +824,68 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
         {back ? (
           <>
             <div
-              className={clsx('rounded border p-3 space-y-2', tw.borderColor)}
+              className={clsx('rounded border p-3 space-y-3', tw.borderColor)}
             >
-              <div className="text-sm font-medium text-neutral-700 dark:text-neutral-200">
+              <div className="text-[11px] font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
                 {t.orderingYourSentence}
               </div>
-              <div className="text-sm text-neutral-600 dark:text-neutral-300">
-                {sequenceText ? <NativeText text={sequenceText} /> : '-'}
-              </div>
+              <SequenceBlocks pieces={sequencePieces} />
             </div>
             <div
-              className={clsx('rounded border p-3 space-y-2', tw.borderColor)}
+              className={clsx('rounded border p-3 space-y-3', tw.borderColor)}
             >
-              <div className="text-sm font-medium text-neutral-700 dark:text-neutral-200">
+              <div className="text-[11px] font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
                 {t.orderingCorrectSentence}
               </div>
-              <div className="text-sm text-neutral-600 dark:text-neutral-300">
-                {correctText ? <NativeText text={correctText} /> : '-'}
+              <SequenceBlocks pieces={pieces} />
+            </div>
+            <div
+              className={clsx('rounded border p-3 space-y-3', tw.borderColor)}
+            >
+              <div className="flex items-center justify-between">
+                <div className="text-[11px] font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                  {t.orderingDiff}
+                </div>
+                <div className="text-xs text-neutral-500">
+                  <span className="inline-flex items-center gap-1 mr-2">
+                    <span className="inline-block h-2 w-2 rounded bg-green-300 dark:bg-green-800" />
+                    {t.orderingMatch}
+                  </span>
+                  <span className="inline-flex items-center gap-1 mr-2">
+                    <span className="inline-block h-2 w-2 rounded bg-yellow-300 dark:bg-yellow-800" />
+                    {t.orderingMissing}
+                  </span>
+                  <span className="inline-flex items-center gap-1">
+                    <span className="inline-block h-2 w-2 rounded bg-red-300 dark:bg-red-800" />
+                    {t.orderingExtra}
+                  </span>
+                </div>
               </div>
+              {diffOps?.length ? (
+                <div className="flex flex-wrap gap-2">
+                  {diffOps.flatMap((op, opIndex) =>
+                    op.pieces.map((piece, pieceIndex) => (
+                      <PieceTag
+                        key={`${opIndex}-${piece.id}-${pieceIndex}`}
+                        piece={piece}
+                        size="sm"
+                        status={
+                          (
+                            {
+                              retain: 'correct',
+                              insert: 'missed',
+                              delete: 'wrong',
+                            } as const
+                          )[op.kind]
+                        }
+                        className={op.kind === 'delete' ? 'line-through' : ''}
+                      />
+                    )),
+                  )}
+                </div>
+              ) : (
+                <div className="text-sm text-neutral-400">-</div>
+              )}
             </div>
           </>
         ) : (
@@ -895,67 +939,8 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
                 onPieceClick={handlePieceClick}
               />
             </div>
-            <div className="text-sm text-neutral-500">
-              {sequenceText ? (
-                <NativeText text={sequenceText} />
-              ) : (
-                t.orderingSequencePlaceholder
-              )}
-            </div>
           </>
         )}
-        {back ? (
-          <div className="space-y-3">
-            <div
-              className={clsx('rounded border p-3 space-y-2', tw.borderColor)}
-            >
-              <div className="flex items-center justify-between">
-                <div className="text-sm font-medium text-neutral-700 dark:text-neutral-200">
-                  {t.orderingYourAnswer}
-                </div>
-                <div className="text-xs text-neutral-500">
-                  <span className="inline-flex items-center gap-1 mr-2">
-                    <span className="inline-block h-2 w-2 rounded bg-green-300 dark:bg-green-800" />
-                    {t.orderingMatch}
-                  </span>
-                  <span className="inline-flex items-center gap-1 mr-2">
-                    <span className="inline-block h-2 w-2 rounded bg-yellow-300 dark:bg-yellow-800" />
-                    {t.orderingMissing}
-                  </span>
-                  <span className="inline-flex items-center gap-1">
-                    <span className="inline-block h-2 w-2 rounded bg-red-300 dark:bg-red-800" />
-                    {t.orderingExtra}
-                  </span>
-                </div>
-              </div>
-              <div className="text-sm leading-6">
-                {diffOps?.length
-                  ? diffOps.map((op, idx) => (
-                      <span
-                        key={idx}
-                        className={clsx('rounded px-1', {
-                          'bg-green-200 dark:bg-green-900/50':
-                            op.kind === 'retain',
-                          'bg-yellow-200 dark:bg-yellow-900/50':
-                            op.kind === 'insert',
-                          'bg-red-200 dark:bg-red-900/50 line-through':
-                            op.kind === 'delete',
-                        })}
-                      >
-                        <NativeText
-                          text={
-                            idx < diffOps.length - 1
-                              ? `${op.content} `
-                              : op.content
-                          }
-                        />
-                      </span>
-                    ))
-                  : '-'}
-              </div>
-            </div>
-          </div>
-        ) : null}
       </div>
       <DragOverlay dropAnimation={null}>
         {activePiece ? (
