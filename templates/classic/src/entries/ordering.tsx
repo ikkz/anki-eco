@@ -518,7 +518,8 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
   const findContainer = useMemoizedFn(
     (id: string | undefined | null): ContainerId | null => {
       if (!id) return null;
-      if ((CONTAINERS as readonly string[]).includes(id)) return id as ContainerId;
+      if ((CONTAINERS as readonly string[]).includes(id))
+        return id as ContainerId;
       const found = (CONTAINERS as readonly ContainerId[]).find((key) =>
         items[key].includes(id),
       ) as ContainerId | undefined;
