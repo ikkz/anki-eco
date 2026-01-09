@@ -19,15 +19,15 @@ if not path.exists(dist_dir):
 
 for name in os.listdir(dist_dir):
     folder = path.join(dist_dir, name)
-    with open(path.join(folder, "build.json")) as f:
+    with open(path.join(folder, "build.json"), encoding="utf-8") as f:
         build = json.load(f)
     config = build["config"]
     notes = build["notes"]
     fields = build["fields"]
     print(f"package {config['name']}")
-    with open(f"{folder}/front.html") as f:
+    with open(path.join(folder, "front.html"), encoding="utf-8") as f:
         front = f.read()
-    with open(f"{folder}/back.html") as f:
+    with open(path.join(folder, "back.html"), encoding="utf-8") as f:
         back = f.read()
 
     model = genanki.Model(
