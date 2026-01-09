@@ -3,6 +3,7 @@ import shutil
 import json
 import argparse
 import sys
+import re
 from os import path
 import os
 
@@ -178,9 +179,22 @@ Examples:
 
     args = parser.parse_args()
 
+    def normalize_cwd(value: str) -> str:
+        if os.name != "nt":
+            return value
+        if value.startswith("\\\\?\\"):
+            return value
+        if re.match(r"^[A-Za-z]:/", value):
+            return value.replace("/", "\\")
+        if re.match(r"^/[A-Za-z]/", value):
+            drive = value[1].upper()
+            rest = value[2:].replace("/", "\\").lstrip("\\")
+            return f"{drive}:\\{rest}"
+        return value
+
     # Change to specified cwd if provided
     if args.cwd:
-        os.chdir(args.cwd)
+        os.chdir(normalize_cwd(args.cwd))
 
     # Convert to absolute paths
     input_dir = path.abspath(args.input)
