@@ -44,7 +44,7 @@
     "eslint-plugin-react": "^7.35.2",
     "globals": "^15.9.0",
     "jsdom": "^25.0.1",
-    "koa": "^2.16.1",
+    "koa": "^3.0.1",
     "postcss": "^8.5.1",
     "postcss-nested": "^7.0.2",
     "prettier": "^3.3.3",
