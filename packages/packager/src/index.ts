@@ -8,6 +8,18 @@ const BIN =
     ? `${BIN_BASE}.exe`
     : BIN_BASE;
 
+const normalizeCwd = (cwd: string) => {
+  if (process.platform !== 'win32') {
+    return cwd;
+  }
+  if (/^\/[A-Za-z]\//.test(cwd)) {
+    const drive = cwd[1].toUpperCase();
+    const rest = cwd.slice(2).replace(/\//g, '\\').replace(/^\\+/, '');
+    return `${drive}:\\${rest}`;
+  }
+  return cwd;
+};
+
 export interface AnkiPackageOptions {
   input?: string;
   output?: string;
@@ -28,7 +40,7 @@ export function ankiPackage(options: AnkiPackageOptions = {}): Promise<number> {
     args.push('--multiple');
   }
 
-  const cwd = options.cwd || process.cwd();
+  const cwd = normalizeCwd(options.cwd || process.cwd());
 
   return new Promise((resolve, reject) => {
     const pythonProcess = spawn(BIN, ['--cwd', cwd, ...args], {
