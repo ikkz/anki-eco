@@ -6,8 +6,7 @@
       "options": {
         "commands": [
           "tsc --build tsconfig.lib.json",
-          "node -e \"const {spawnSync}=require('child_process');const env={...process.env,PYTHONIOENCODING:'utf-8',PYTHONUTF8:'1'};const result=spawnSync('uvx pyfuze@2.7.2 src/python --entry package.py --pyproject src/python/pyproject.toml --uv-lock src/python/uv.lock --mode online --output-name anki-eco-packager',{stdio:'inherit',shell:true,env});process.exit(result.status ?? 1);\"",
-          "node -e \"const fs=require('fs');const path=require('path');const dir='dist';if(!fs.existsSync(dir)){console.log('dist directory not found');process.exit(1);}const entries=fs.readdirSync(dir,{withFileTypes:true}).map((entry)=>entry.isDirectory()?`${entry.name}/`:entry.name);console.log(`dist contents:\\n${entries.join('\\n')}`);\"",
+          "node -e \"const {spawnSync}=require('child_process');const fs=require('fs');const env={...process.env,PYTHONIOENCODING:'utf-8',PYTHONUTF8:'1'};const result=spawnSync('uvx pyfuze@2.7.2 src/python --entry package.py --pyproject src/python/pyproject.toml --uv-lock src/python/uv.lock --mode online --output-name anki-eco-packager',{stdio:'inherit',shell:true,env});const dir='dist';if(fs.existsSync(dir)){const entries=fs.readdirSync(dir,{withFileTypes:true}).map((entry)=>entry.isDirectory()?`${entry.name}/`:entry.name);console.log(`dist contents:\\n${entries.join('\\n')}`);}else{console.log('dist directory not found');}process.exit(result.status ?? 1);\"",
           "node -e \"const fs=require('fs');if(process.platform!=='win32'&&fs.existsSync('dist/anki-eco-packager')){fs.chmodSync('dist/anki-eco-packager',0o755);}\""
         ],
         "cwd": "{projectRoot}"
