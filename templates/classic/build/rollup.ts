@@ -12,6 +12,7 @@ import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import postcssNested from 'postcss-nested';
 import type { InputOptions, OutputOptions } from 'rolldown';
 import { viteAliasPlugin as aliasPlugin } from 'rolldown/experimental';
@@ -29,6 +30,9 @@ export async function rollupOptions(
   config: BuildConfig,
   { dev = false }: { dev?: boolean } = {},
 ) {
+  const resolveImportPath = (...segments: string[]) =>
+    pathToFileURL(path.resolve(import.meta.dirname, ...segments)).href;
+
   async function buildInputOptions() {
     const i18nMap = await fs
       .readFile(
@@ -60,8 +64,16 @@ export async function rollupOptions(
           }),
           'at/i18n': dataToEsm(i18nMap),
           entry: buildEntry(),
-          'at/virtual/field': `export {default as AnkiField} from '${path.resolve(import.meta.dirname, config.field === 'markdown' ? '../src/features/markdown/field.tsx' : '../src/components/native-field.tsx')}'`,
-          'at/virtual/extract-tf-items': `export {extractItems} from '${path.resolve(import.meta.dirname, config.field === 'markdown' ? '../src/features/tf/extract-markdown-items.ts' : '../src/features/tf/extract-native-items.ts')}'`,
+          'at/virtual/field': `export {default as AnkiField} from '${resolveImportPath(
+            config.field === 'markdown'
+              ? '../src/features/markdown/field.tsx'
+              : '../src/components/native-field.tsx',
+          )}'`,
+          'at/virtual/extract-tf-items': `export {extractItems} from '${resolveImportPath(
+            config.field === 'markdown'
+              ? '../src/features/tf/extract-markdown-items.ts'
+              : '../src/features/tf/extract-native-items.ts',
+          )}'`,
         }),
         replacePlugin(
           {

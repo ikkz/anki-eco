@@ -1,7 +1,12 @@
-import path from 'node:path';
 import { spawn } from 'node:child_process';
+import { existsSync } from 'node:fs';
+import path from 'node:path';
 
-const BIN = path.resolve(import.meta.dirname, 'anki-eco-packager');
+const BIN_BASE = path.resolve(import.meta.dirname, 'anki-eco-packager');
+const BIN =
+  process.platform === 'win32' && existsSync(`${BIN_BASE}.exe`)
+    ? `${BIN_BASE}.exe`
+    : BIN_BASE;
 
 export interface AnkiPackageOptions {
   input?: string;
