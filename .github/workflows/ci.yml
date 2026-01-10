@@ -25,7 +25,7 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v3
         with:
-          version: '0.4.27'
+          version: "0.4.27"
 
       - uses: pnpm/action-setup@v4
         name: Install pnpm
@@ -41,14 +41,14 @@ jobs:
       # Cache node_modules
       - uses: actions/setup-node@v4
         with:
-          node-version: '23.6'
-          cache: 'pnpm'
+          node-version: "23.6"
+          cache: "pnpm"
 
       - run: pnpm install --frozen-lockfile
 
       # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
       # - run: pnpm exec nx-cloud record -- echo Hello World
-      - run: pnpm exec nx run-many -t lint test build typecheck package
+      - run: pnpm exec nx affected -t lint test build typecheck package
       # Nx Cloud recommends fixes for failures to help you get CI green faster. Learn more: https://nx.dev/ci/features/self-healing-ci
 # - run: pnpm exec nx fix-ci
 #   if: always()
