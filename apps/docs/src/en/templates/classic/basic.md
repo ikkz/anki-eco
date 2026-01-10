@@ -20,6 +20,8 @@ A Simple Q&A Template
 
 ## Preview and Download
 
+> If cards take a long time to display in AnkiDroid, try enabling the "New study screen" option. See the [official docs](https://forums.ankiweb.net/t/new-study-screen-official-thread/67394) for details.
+
 > If you download the Markdown template, please see docs: [Markdown support](/templates/classic/#markdown-support)
 
 <ClassicTemplateDemo entry="basic" />

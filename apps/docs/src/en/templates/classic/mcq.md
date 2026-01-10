@@ -27,6 +27,8 @@ Note: When all options are empty, the template will behave as a basic Q&A templa
 
 ## Preview and Download
 
+> If cards take a long time to display in AnkiDroid, try enabling the "New study screen" option. See the [official docs](https://forums.ankiweb.net/t/new-study-screen-official-thread/67394) for details.
+
 > If you download the Markdown template, please see docs: [Markdown support](/templates/classic/#markdown-support)
 
 <ClassicTemplateDemo entry="mcq" />
