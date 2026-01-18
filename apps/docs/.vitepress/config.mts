@@ -33,7 +33,6 @@ export default defineConfig({
   },
   themeConfig: {
     logo: '/logo.png',
-    // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
       {
@@ -113,7 +112,16 @@ export default defineConfig({
         },
       ],
     },
-    socialLinks: [{ icon: 'github', link: 'https://github.com/ikkz/anki-eco' }],
+    socialLinks: [
+      {
+        icon: 'discord',
+        link: 'https://discord.gg/wBP7H3QJ4Q'
+      },
+      {
+        icon: 'github',
+        link: 'https://github.com/ikkz/anki-eco'
+      },
+    ],
   },
 
   rewrites: {
