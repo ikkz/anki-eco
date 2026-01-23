@@ -91,18 +91,20 @@ export default () => {
 
   // Add keyboard shortcuts for options (Ctrl+1/2/3... for A/B/C...)
   useKeyPress(
-    ['ctrl.1', 'ctrl.2', 'ctrl.3', 'ctrl.4', 'ctrl.5', 'ctrl.6', 'ctrl.7', 'ctrl.8', 'ctrl.9'],
-    (event) => {
+    Array.from({ length: 9 }, (_, i) => `ctrl.${i + 1}`),
+    (event, key) => {
       event.preventDefault();
-      const key = event.key;
-      const index = parseInt(key) - 1;
+      // Extract the numeric part from the key (e.g., 'ctrl.1' -> 1)
+      const numericKey =
+        typeof key === 'string' ? key.split('.').pop() : key.toString();
+      const index = parseInt(numericKey || '0') - 1;
       if (index >= 0 && index < options.length) {
         onClick(options[index]);
       }
     },
     {
       exactMatch: true,
-    }
+    },
   );
 
   const getSelectResult = useMemoizedFn((name: string) => {
