@@ -8,7 +8,7 @@ title: Multiple Choice
 - Support single choice and multiple choice.
 - Scrambled question options are restored after showing the answer.
 - Obvious answer markers.
-- Support keyboard shortcuts: Use Ctrl+1/2/3... to quickly select options A/B/C...
+- Support keyboard shortcuts: Use Alt+1/2/3... on Windows (Option+1/2/3... on Mac) to quickly select options A/B/C...
 
 ---
 
