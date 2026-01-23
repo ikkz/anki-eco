@@ -95,6 +95,11 @@ export default () => {
   useKeyPress(
     Array.from({ length: MAX_KEYBOARD_OPTIONS }, (_, i) => `ctrl.${i + 1}`),
     (event, key) => {
+      // Don't handle shortcuts on the answer side
+      if (back) {
+        return;
+      }
+
       event.preventDefault();
       // Extract the numeric part from the key (e.g., 'ctrl.1' -> 1)
       const keyStr = typeof key === 'string' ? key : String(key);
