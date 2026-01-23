@@ -1,7 +1,7 @@
 {
   "name": "@anki-eco/classic-templates",
   "type": "module",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "",
   "scripts": {
     "build": "node --max-old-space-size=4096 build/cli.ts",
@@ -49,7 +49,7 @@
     "postcss-nested": "^7.0.2",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6",
-    "rolldown": "1.0.0-beta.55",
+    "rolldown": "1.0.0-rc.1",
     "rollup-plugin-postcss": "^4.0.2",
     "serve": "^14.2.4",
     "tailwindcss": "^3.4.10",

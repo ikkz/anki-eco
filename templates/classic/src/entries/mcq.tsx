@@ -15,6 +15,7 @@ import { FIELD_ID } from '@/utils/const';
 import { getFieldText, isFieldEmpty } from '@/utils/field';
 import { useAutoAnimate } from '@formkit/auto-animate/preact';
 import useCreation from 'ahooks/es/useCreation';
+import useKeyPress from 'ahooks/es/useKeyPress';
 import useLatest from 'ahooks/es/useLatest';
 import useMemoizedFn from 'ahooks/es/useMemoizedFn';
 import useSelections from 'ahooks/es/useSelections';
@@ -34,6 +35,8 @@ const ANSWER_TYPE_MAP = {
 };
 
 const fieldToAlpha = (field: string) => field.slice(field.length - 1);
+
+const MAX_KEYBOARD_OPTIONS = 9;
 
 export default () => {
   const prefRandomOptions = useAtomValue(randomOptionsAtom);
@@ -87,6 +90,34 @@ export default () => {
       setTimeout(flipToBack, 300);
     }
   });
+
+  // Add keyboard shortcuts for options (Ctrl+1/2/3... for A/B/C...)
+  useKeyPress(
+    Array.from({ length: MAX_KEYBOARD_OPTIONS }, (_, i) => `ctrl.${i + 1}`),
+    (event, key) => {
+      // Don't handle shortcuts on the answer side
+      if (back) {
+        return;
+      }
+
+      event.preventDefault();
+      // Extract the numeric part from the key (e.g., 'ctrl.1' -> 1)
+      const keyStr = typeof key === 'string' ? key : String(key);
+      const parts = keyStr.split('.');
+      const numericPart = parts.length > 1 ? parts[parts.length - 1] : parts[0];
+      const numericValue = parseInt(numericPart, 10);
+
+      if (!isNaN(numericValue)) {
+        const index = numericValue - 1;
+        if (index >= 0 && index < options.length) {
+          onClick(options[index]);
+        }
+      }
+    },
+    {
+      exactMatch: true,
+    },
+  );
 
   const getSelectResult = useMemoizedFn((name: string) => {
     switch (true) {
