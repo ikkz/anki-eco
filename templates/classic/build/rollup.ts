@@ -214,7 +214,7 @@ ${buildFields()}
     return {
       format: 'iife',
       dir: `output/dist/${config.name}`,
-      inlineDynamicImports: true,
+      codeSplitting: false,
       // TODO: rolldown's minify is still wip
       minify: false,
     } as OutputOptions;
