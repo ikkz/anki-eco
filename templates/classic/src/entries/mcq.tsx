@@ -15,6 +15,7 @@ import { FIELD_ID } from '@/utils/const';
 import { getFieldText, isFieldEmpty } from '@/utils/field';
 import { useAutoAnimate } from '@formkit/auto-animate/preact';
 import useCreation from 'ahooks/es/useCreation';
+import useKeyPress from 'ahooks/es/useKeyPress';
 import useLatest from 'ahooks/es/useLatest';
 import useMemoizedFn from 'ahooks/es/useMemoizedFn';
 import useSelections from 'ahooks/es/useSelections';
@@ -87,6 +88,22 @@ export default () => {
       setTimeout(flipToBack, 300);
     }
   });
+
+  // Add keyboard shortcuts for options (Ctrl+1/2/3... for A/B/C...)
+  useKeyPress(
+    ['ctrl.1', 'ctrl.2', 'ctrl.3', 'ctrl.4', 'ctrl.5', 'ctrl.6', 'ctrl.7', 'ctrl.8', 'ctrl.9'],
+    (event) => {
+      event.preventDefault();
+      const key = event.key;
+      const index = parseInt(key) - 1;
+      if (index >= 0 && index < options.length) {
+        onClick(options[index]);
+      }
+    },
+    {
+      exactMatch: true,
+    }
+  );
 
   const getSelectResult = useMemoizedFn((name: string) => {
     switch (true) {
