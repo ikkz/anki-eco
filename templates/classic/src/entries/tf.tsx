@@ -1,10 +1,12 @@
 import { CardShell } from '@/components/card-shell';
+import { getFirstUnansweredIndex } from '@/features/tf/shortcut';
 import { useBack } from '@/hooks/use-back';
 import { useCrossState } from '@/hooks/use-cross-state';
 import { FIELD_ID } from '@/utils/const';
 import { isFieldEmpty } from '@/utils/field';
 import { useAutoAnimate } from '@formkit/auto-animate/preact';
 import useCreation from 'ahooks/es/useCreation';
+import useKeyPress from 'ahooks/es/useKeyPress';
 import useMemoizedFn from 'ahooks/es/useMemoizedFn';
 import * as t from 'at/i18n';
 import { extractItems } from 'at/virtual/extract-tf-items';
@@ -15,11 +17,12 @@ import { useEffect, useState, type ReactElement } from 'react';
 
 interface ItemProp {
   index: number;
+  itemCount: number;
   node: ReactElement;
   answer: boolean;
 }
 
-const Item = ({ node, answer, index }: ItemProp) => {
+const Item = ({ node, answer, index, itemCount }: ItemProp) => {
   const [back] = useBack();
 
   const [status, setStatus] = useCrossState<boolean | undefined>(
@@ -32,6 +35,14 @@ const Item = ({ node, answer, index }: ItemProp) => {
       return;
     }
     setStatus(status);
+  });
+
+  useKeyPress(['alt.1', 'alt.2'], (event, key) => {
+    if (back || getFirstUnansweredIndex(itemCount) !== index) {
+      return;
+    }
+    event.preventDefault();
+    onStatusChange(key === 'alt.1');
   });
 
   const [laterBack, setLaterBack] = useState(false);
@@ -115,8 +126,15 @@ export default () => {
     if (!field) {
       return [];
     }
-    return extractItems(field).map(({ node, answer }, idx) => (
-      <Item index={idx} key={idx} node={node} answer={answer} />
+    const extractedItems = extractItems(field);
+    return extractedItems.map(({ node, answer }, idx) => (
+      <Item
+        index={idx}
+        itemCount={extractedItems.length}
+        key={idx}
+        node={node}
+        answer={answer}
+      />
     ));
   }, []);
 
