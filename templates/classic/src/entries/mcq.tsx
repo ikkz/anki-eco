@@ -1,3 +1,4 @@
+import { shouldShowAnswerBlock } from './mcq.utils';
 import { CardShell } from '@/components/card-shell';
 import { useBack } from '@/hooks/use-back';
 import { useCrossState } from '@/hooks/use-cross-state';
@@ -152,6 +153,11 @@ export default () => {
   );
 
   const hideMcqAnswer = useAtomValue(hideMcqAnswerAtom);
+  const showAnswerBlock = shouldShowAnswerBlock(
+    options.length > 0,
+    hideMcqAnswer,
+    hasNote,
+  );
 
   return (
     <CardShell
@@ -240,52 +246,54 @@ export default () => {
         ) : null
       }
       answer={
-        <>
-          {options.length ? (
-            hideMcqAnswer ? null : (
-              <div className="text-center text-3xl font-bold italic text-opacity-50">
-                <span className="align-super">
-                  {selected.length ? (
-                    originOptions.map((name) => {
-                      const selectResult = getSelectResult(name);
-                      if (!['wrong', 'correct'].includes(selectResult)) {
-                        return null;
-                      }
-                      return (
-                        <span
-                          key={name}
-                          className={clsx({
-                            'text-red-400': selectResult === 'wrong',
-                            'text-green-400': selectResult === 'correct',
-                          })}
-                        >
-                          {fieldToAlpha(name)}
-                        </span>
-                      );
-                    })
-                  ) : (
-                    <span className="text-amber-400">-</span>
-                  )}
-                </span>
-                <span className="text-5xl text-gray-200">/</span>
-                <span className="align-sub text-green-400">
-                  {answers.map((name) => fieldToAlpha(name))}
-                </span>
-              </div>
-            )
-          ) : (
-            <>
-              <AnkiField name="answer" />
-              <hr className="my-3" />
-            </>
-          )}
-          {hasNote ? (
-            <AnkiField
-              name="note"
-              className={clsx('prose prose-sm mt-3', 'dark:prose-invert')}
-            />
-          ) : null}
-        </>
+        showAnswerBlock ? (
+          <>
+            {options.length ? (
+              hideMcqAnswer ? null : (
+                <div className="text-center text-3xl font-bold italic text-opacity-50">
+                  <span className="align-super">
+                    {selected.length ? (
+                      originOptions.map((name) => {
+                        const selectResult = getSelectResult(name);
+                        if (!['wrong', 'correct'].includes(selectResult)) {
+                          return null;
+                        }
+                        return (
+                          <span
+                            key={name}
+                            className={clsx({
+                              'text-red-400': selectResult === 'wrong',
+                              'text-green-400': selectResult === 'correct',
+                            })}
+                          >
+                            {fieldToAlpha(name)}
+                          </span>
+                        );
+                      })
+                    ) : (
+                      <span className="text-amber-400">-</span>
+                    )}
+                  </span>
+                  <span className="text-5xl text-gray-200">/</span>
+                  <span className="align-sub text-green-400">
+                    {answers.map((name) => fieldToAlpha(name))}
+                  </span>
+                </div>
+              )
+            ) : (
+              <>
+                <AnkiField name="answer" />
+                <hr className="my-3" />
+              </>
+            )}
+            {hasNote ? (
+              <AnkiField
+                name="note"
+                className={clsx('prose prose-sm mt-3', 'dark:prose-invert')}
+              />
+            ) : null}
+          </>
+        ) : null
       }
     />
   );
