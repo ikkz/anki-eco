@@ -25,6 +25,11 @@ describe('getAnkiClient', () => {
     expect(getAnkiClient()).toBe('iPhone');
   });
 
+  test('returns iPad for iPad user agent', () => {
+    mockUserAgent('Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X)');
+    expect(getAnkiClient()).toBe('iPad');
+  });
+
   test('returns Desktop for desktop user agent', () => {
     mockUserAgent('Mozilla/5.0 (X11; Linux x86_64)');
     expect(getAnkiClient()).toBe('Desktop');

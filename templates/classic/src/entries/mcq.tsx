@@ -41,7 +41,9 @@ const fieldToAlpha = (field: string) => field.slice(field.length - 1);
 const MAX_KEYBOARD_OPTIONS = 9;
 
 export default () => {
-  const isDesktop = useCreation(() => getAnkiClient() === 'Desktop', []);
+  const ankiClient = useCreation(() => getAnkiClient(), []);
+  const supportsContextMenuElimination =
+    ankiClient === 'Desktop' || ankiClient === 'iPad';
   const prefRandomOptions = useAtomValue(randomOptionsAtom);
   const prefKeepRandomOrderOnBack = useAtomValue(keepRandomOrderOnBackAtom);
   const prefKeepRandomOrderOnBackLatest = useLatest(prefKeepRandomOrderOnBack);
@@ -73,7 +75,7 @@ export default () => {
   );
   const [storedEliminatedOptions, setStoredEliminatedOptions] = useCrossState<
     string[]
-  >('eliminated-options', []);
+  >('mcq-eliminated-options', []);
   const {
     isSelected: isEliminated,
     toggle: toggleEliminated,
@@ -207,7 +209,7 @@ export default () => {
                   onClick={() => onClick(name)}
                   onDoubleClick={() => onEliminate(name)}
                   onContextMenu={(event) => {
-                    if (!isDesktop) {
+                    if (!supportsContextMenuElimination) {
                       return;
                     }
                     event.preventDefault();
@@ -249,7 +251,7 @@ export default () => {
                     },
                     'rounded-xl border-2 border-transparent bg-indigo-50 px-4 py-2 transition-colors',
                     {
-                      'mcq-eliminated opacity-60': !back && isEliminated(name),
+                      'mcq-eliminated': !back && isEliminated(name),
                     },
                     {
                       '!border-indigo-500 !bg-indigo-50':

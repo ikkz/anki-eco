@@ -4,7 +4,7 @@
 - Support single choice and multiple choice.
 - Scrambled question options are restored after showing the answer.
 - Obvious answer markers.
-- Eliminate options before answering: double-click to toggle strikethrough; on desktop, right-click is also supported.
+- Eliminate options before answering: double-click to toggle strikethrough; on desktop and iPad, right-click is also supported.
 
 ## Fields
 
