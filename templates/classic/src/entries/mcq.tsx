@@ -14,6 +14,7 @@ import '@/styles/mcq.css';
 import { flipToBack } from '@/utils/bridge';
 import { FIELD_ID } from '@/utils/const';
 import { getFieldText, isFieldEmpty } from '@/utils/field';
+import { getAnkiClient } from '@/utils/get-anki-client';
 import { useAutoAnimate } from '@formkit/auto-animate/preact';
 import useCreation from 'ahooks/es/useCreation';
 import useKeyPress from 'ahooks/es/useKeyPress';
@@ -40,6 +41,7 @@ const fieldToAlpha = (field: string) => field.slice(field.length - 1);
 const MAX_KEYBOARD_OPTIONS = 9;
 
 export default () => {
+  const isDesktop = useCreation(() => getAnkiClient() === 'Desktop', []);
   const prefRandomOptions = useAtomValue(randomOptionsAtom);
   const prefKeepRandomOrderOnBack = useAtomValue(keepRandomOrderOnBackAtom);
   const prefKeepRandomOrderOnBackLatest = useLatest(prefKeepRandomOrderOnBack);
@@ -69,6 +71,14 @@ export default () => {
     'selected',
     [],
   );
+  const [storedEliminatedOptions, setStoredEliminatedOptions] = useCrossState<
+    string[]
+  >('eliminated-options', []);
+  const {
+    isSelected: isEliminated,
+    toggle: toggleEliminated,
+    selected: eliminatedOptions,
+  } = useSelections(options, storedEliminatedOptions);
   const { isSelected, toggle, selected, setSelected } = useSelections(
     options,
     storedSelections,
@@ -76,6 +86,9 @@ export default () => {
   useEffect(() => {
     setStoredSelections(selected);
   }, [selected]);
+  useEffect(() => {
+    setStoredEliminatedOptions(eliminatedOptions);
+  }, [eliminatedOptions]);
 
   const [back] = useBack();
 
@@ -90,6 +103,14 @@ export default () => {
       setSelected([name]);
       setTimeout(flipToBack, 300);
     }
+  });
+
+  const onEliminate = useMemoizedFn((name: string) => {
+    if (back) {
+      return;
+    }
+
+    toggleEliminated(name);
   });
 
   // Add keyboard shortcuts for options (Alt+1/2/3... for A/B/C...)
@@ -184,6 +205,14 @@ export default () => {
                 <div
                   key={name}
                   onClick={() => onClick(name)}
+                  onDoubleClick={() => onEliminate(name)}
+                  onContextMenu={(event) => {
+                    if (!isDesktop) {
+                      return;
+                    }
+                    event.preventDefault();
+                    onEliminate(name);
+                  }}
                   className={clsx(
                     'select-type-hint relative cursor-pointer transition-transform before:select-none after:select-none',
                     {
@@ -219,6 +248,9 @@ export default () => {
                       [`pointer-events-none blur`]: blurred,
                     },
                     'rounded-xl border-2 border-transparent bg-indigo-50 px-4 py-2 transition-colors',
+                    {
+                      'mcq-eliminated opacity-60': !back && isEliminated(name),
+                    },
                     {
                       '!border-indigo-500 !bg-indigo-50':
                         !back && isSelected(name),

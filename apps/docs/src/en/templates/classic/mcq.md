@@ -9,6 +9,7 @@ title: Multiple Choice
 - Scrambled question options are restored after showing the answer.
 - Obvious answer markers.
 - Support keyboard shortcuts: Use Alt+1/2/3... on Windows (Option+1/2/3... on Mac) to quickly select options A/B/C...
+- Eliminate options before answering: double-click to toggle strikethrough; on desktop, right-click is also supported.
 
 ---
 

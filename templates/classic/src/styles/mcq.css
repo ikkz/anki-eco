@@ -6,3 +6,7 @@
   writing-mode: vertical-rl;
   text-orientation: upright;
 }
+
+.mcq-eliminated {
+  text-decoration: line-through;
+}
