@@ -7,7 +7,6 @@ import nodePolyfills from '@rolldown/plugin-node-polyfills';
 import html from '@rollup/plugin-html';
 import virtual from '@rollup/plugin-virtual';
 import { dataToEsm } from '@rollup/pluginutils';
-import { transform as swcTransform } from '@swc/core';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 import fs from 'node:fs/promises';
@@ -41,7 +40,9 @@ export async function rollupOptions(
           '../translations/',
           `${config.locale}.json`,
         ),
-        { encoding: 'utf8' },
+        {
+          encoding: 'utf8',
+        },
       )
       .then(JSON.parse);
     return {
@@ -54,6 +55,7 @@ export async function rollupOptions(
       },
       moduleTypes: {
         '.svg': 'dataurl',
+        '.css': 'empty',
       },
       treeshake: true,
       plugins: [
@@ -130,27 +132,6 @@ export async function rollupOptions(
             ),
           ].filter(Boolean),
         }),
-        // visualizer(),
-        {
-          name: 'at-transform',
-          async renderChunk(code) {
-            const result = await swcTransform(code, {
-              jsc: {
-                target: 'es5',
-                minify: {
-                  compress: {
-                    drop_console: true,
-                  },
-                  format: {
-                    comments: false,
-                  },
-                },
-              },
-              minify: envValue(true, false),
-            });
-            return result.code;
-          },
-        },
         html({
           fileName: `front.html`,
           template(options) {
@@ -180,6 +161,7 @@ ${buildFields()}
                 .map((file) => {
                   if (!('code' in file)) return '';
                   const { code } = file;
+                  // return `<script>${code}</script>`;
                   return envValue(
                     `<script>
                       (function(){
@@ -215,8 +197,15 @@ ${buildFields()}
       format: 'iife',
       dir: `output/dist/${config.name}`,
       codeSplitting: false,
-      // TODO: rolldown's minify is still wip
-      minify: false,
+      minify: envValue(
+        {
+          compress: {
+            dropConsole: true,
+            dropDebugger: true,
+          },
+        },
+        false,
+      ),
     } as OutputOptions;
   }
 
