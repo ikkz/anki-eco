@@ -1,10 +1,13 @@
 import { CardShell } from '@/components/card-shell';
+import { getFirstUnansweredIndex } from '@/features/tf/shortcut';
 import { useBack } from '@/hooks/use-back';
 import { useCrossState } from '@/hooks/use-cross-state';
 import { FIELD_ID } from '@/utils/const';
 import { isFieldEmpty } from '@/utils/field';
 import { useAutoAnimate } from '@formkit/auto-animate/preact';
 import useCreation from 'ahooks/es/useCreation';
+import useEventEmitter from 'ahooks/es/useEventEmitter';
+import useKeyPress from 'ahooks/es/useKeyPress';
 import useMemoizedFn from 'ahooks/es/useMemoizedFn';
 import * as t from 'at/i18n';
 import { extractItems } from 'at/virtual/extract-tf-items';
@@ -13,13 +16,21 @@ import clsx from 'clsx';
 import { CheckCircle, XCircle } from 'lucide-react';
 import { useEffect, useState, type ReactElement } from 'react';
 
+type ShortcutRequest = {
+  index: number;
+  value: boolean;
+};
+
 interface ItemProp {
   index: number;
   node: ReactElement;
   answer: boolean;
+  shortcutEvent$: {
+    useSubscription: (callback: (val: ShortcutRequest) => void) => void;
+  };
 }
 
-const Item = ({ node, answer, index }: ItemProp) => {
+const Item = ({ node, answer, index, shortcutEvent$ }: ItemProp) => {
   const [back] = useBack();
 
   const [status, setStatus] = useCrossState<boolean | undefined>(
@@ -32,6 +43,13 @@ const Item = ({ node, answer, index }: ItemProp) => {
       return;
     }
     setStatus(status);
+  });
+
+  shortcutEvent$.useSubscription((shortcutRequest) => {
+    if (shortcutRequest.index !== index) {
+      return;
+    }
+    onStatusChange(shortcutRequest.value);
   });
 
   const [laterBack, setLaterBack] = useState(false);
@@ -110,22 +128,58 @@ const Item = ({ node, answer, index }: ItemProp) => {
 };
 
 export default () => {
+  const [back] = useBack();
+  const shortcutEvent$ = useEventEmitter<ShortcutRequest>();
+
   const items = useCreation(() => {
     const field = document.getElementById(FIELD_ID('items'));
     if (!field) {
       return [];
     }
-    return extractItems(field).map(({ node, answer }, idx) => (
-      <Item index={idx} key={idx} node={node} answer={answer} />
-    ));
+    return extractItems(field);
   }, []);
+
+  useKeyPress(
+    ['alt.1', 'alt.2'],
+    (event, key) => {
+      if (back) {
+        return;
+      }
+
+      const index = getFirstUnansweredIndex(items.length);
+      if (index < 0) {
+        return;
+      }
+
+      event.preventDefault();
+      shortcutEvent$.emit({
+        index,
+        value: key === 'alt.1',
+      });
+    },
+    {
+      exactMatch: true,
+    },
+  );
 
   const hasNote = !isFieldEmpty(FIELD_ID('note'));
 
   return (
     <CardShell
       title={t.question}
-      questionExtra={<>{items}</>}
+      questionExtra={
+        <>
+          {items.map(({ node, answer }, idx) => (
+            <Item
+              index={idx}
+              key={idx}
+              node={node}
+              answer={answer}
+              shortcutEvent$={shortcutEvent$}
+            />
+          ))}
+        </>
+      }
       answerTitle={t.note}
       answer={
         hasNote ? (
