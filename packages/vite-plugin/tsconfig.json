@@ -4,15 +4,6 @@
   "include": [],
   "references": [
     {
-      "path": "../dev-ui"
-    },
-    {
-      "path": "../shared"
-    },
-    {
-      "path": "../packager"
-    },
-    {
       "path": "./tsconfig.lib.json"
     }
   ]
