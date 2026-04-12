@@ -6,8 +6,3 @@
   writing-mode: vertical-rl;
   text-orientation: upright;
 }
-
-.mcq-eliminated {
-  opacity: 0.6;
-  text-decoration: line-through;
-}

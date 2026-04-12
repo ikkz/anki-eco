@@ -251,7 +251,7 @@ export default () => {
                     },
                     'rounded-xl border-2 border-transparent bg-indigo-50 px-4 py-2 transition-colors',
                     {
-                      'mcq-eliminated': !back && isEliminated(name),
+                      'opacity-60 line-through': !back && isEliminated(name),
                     },
                     {
                       '!border-indigo-500 !bg-indigo-50':
