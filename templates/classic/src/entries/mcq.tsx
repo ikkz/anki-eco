@@ -14,6 +14,7 @@ import '@/styles/mcq.css';
 import { flipToBack } from '@/utils/bridge';
 import { FIELD_ID } from '@/utils/const';
 import { getFieldText, isFieldEmpty } from '@/utils/field';
+import { getAnkiClient } from '@/utils/get-anki-client';
 import { useAutoAnimate } from '@formkit/auto-animate/preact';
 import useCreation from 'ahooks/es/useCreation';
 import useKeyPress from 'ahooks/es/useKeyPress';
@@ -26,7 +27,7 @@ import { fields } from 'at/options';
 import { AnkiField } from 'at/virtual/field';
 import clsx from 'clsx';
 import { useAtomValue } from 'jotai';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { doNothing, shuffle } from 'remeda';
 
 const ANSWER_TYPE_MAP = {
@@ -38,8 +39,12 @@ const ANSWER_TYPE_MAP = {
 const fieldToAlpha = (field: string) => field.slice(field.length - 1);
 
 const MAX_KEYBOARD_OPTIONS = 9;
+const SINGLE_CHOICE_CLICK_DELAY = 300;
 
 export default () => {
+  const ankiClient = useCreation(() => getAnkiClient(), []);
+  const supportsContextMenuElimination =
+    ankiClient === 'Desktop' || ankiClient === 'iPad';
   const prefRandomOptions = useAtomValue(randomOptionsAtom);
   const prefKeepRandomOrderOnBack = useAtomValue(keepRandomOrderOnBackAtom);
   const prefKeepRandomOrderOnBackLatest = useLatest(prefKeepRandomOrderOnBack);
@@ -69,6 +74,14 @@ export default () => {
     'selected',
     [],
   );
+  const [storedEliminatedOptions, setStoredEliminatedOptions] = useCrossState<
+    string[]
+  >('mcq-eliminated-options', []);
+  const {
+    isSelected: isEliminated,
+    toggle: toggleEliminated,
+    selected: eliminatedOptions,
+  } = useSelections(options, storedEliminatedOptions);
   const { isSelected, toggle, selected, setSelected } = useSelections(
     options,
     storedSelections,
@@ -76,8 +89,27 @@ export default () => {
   useEffect(() => {
     setStoredSelections(selected);
   }, [selected]);
+  useEffect(() => {
+    setStoredEliminatedOptions(eliminatedOptions);
+  }, [eliminatedOptions]);
 
   const [back] = useBack();
+  const pendingSingleChoiceTimerRef = useRef<number | null>(null);
+
+  const clearPendingSingleChoice = useMemoizedFn(() => {
+    if (pendingSingleChoiceTimerRef.current === null) {
+      return;
+    }
+
+    clearTimeout(pendingSingleChoiceTimerRef.current);
+    pendingSingleChoiceTimerRef.current = null;
+  });
+
+  const submitSingleChoice = useMemoizedFn((name: string) => {
+    clearPendingSingleChoice();
+    setSelected([name]);
+    flipToBack();
+  });
 
   const onClick = useMemoizedFn((name: string) => {
     if (back) {
@@ -87,10 +119,25 @@ export default () => {
     if (isMultipleChoice || prefHideQuestionType) {
       toggle(name);
     } else {
+      clearPendingSingleChoice();
       setSelected([name]);
-      setTimeout(flipToBack, 300);
+      pendingSingleChoiceTimerRef.current = window.setTimeout(() => {
+        pendingSingleChoiceTimerRef.current = null;
+        flipToBack();
+      }, SINGLE_CHOICE_CLICK_DELAY);
     }
   });
+
+  const onEliminate = useMemoizedFn((name: string) => {
+    if (back) {
+      return;
+    }
+
+    clearPendingSingleChoice();
+    toggleEliminated(name);
+  });
+
+  useEffect(() => clearPendingSingleChoice, [clearPendingSingleChoice]);
 
   // Add keyboard shortcuts for options (Alt+1/2/3... for A/B/C...)
   useKeyPress(
@@ -111,7 +158,11 @@ export default () => {
       if (!isNaN(numericValue)) {
         const index = numericValue - 1;
         if (index >= 0 && index < options.length) {
-          onClick(options[index]);
+          if (isMultipleChoice || prefHideQuestionType) {
+            onClick(options[index]);
+          } else {
+            submitSingleChoice(options[index]);
+          }
         }
       }
     },
@@ -184,6 +235,14 @@ export default () => {
                 <div
                   key={name}
                   onClick={() => onClick(name)}
+                  onDoubleClick={() => onEliminate(name)}
+                  onContextMenu={(event) => {
+                    if (!supportsContextMenuElimination) {
+                      return;
+                    }
+                    event.preventDefault();
+                    onEliminate(name);
+                  }}
                   className={clsx(
                     'select-type-hint relative cursor-pointer transition-transform before:select-none after:select-none',
                     {
@@ -219,6 +278,9 @@ export default () => {
                       [`pointer-events-none blur`]: blurred,
                     },
                     'rounded-xl border-2 border-transparent bg-indigo-50 px-4 py-2 transition-colors',
+                    {
+                      'opacity-60 line-through': !back && isEliminated(name),
+                    },
                     {
                       '!border-indigo-500 !bg-indigo-50':
                         !back && isSelected(name),
