@@ -27,7 +27,7 @@ import { fields } from 'at/options';
 import { AnkiField } from 'at/virtual/field';
 import clsx from 'clsx';
 import { useAtomValue } from 'jotai';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { doNothing, shuffle } from 'remeda';
 
 const ANSWER_TYPE_MAP = {
@@ -39,6 +39,7 @@ const ANSWER_TYPE_MAP = {
 const fieldToAlpha = (field: string) => field.slice(field.length - 1);
 
 const MAX_KEYBOARD_OPTIONS = 9;
+const SINGLE_CHOICE_CLICK_DELAY = 300;
 
 export default () => {
   const ankiClient = useCreation(() => getAnkiClient(), []);
@@ -93,6 +94,22 @@ export default () => {
   }, [eliminatedOptions]);
 
   const [back] = useBack();
+  const pendingSingleChoiceTimerRef = useRef<number | null>(null);
+
+  const clearPendingSingleChoice = useMemoizedFn(() => {
+    if (pendingSingleChoiceTimerRef.current === null) {
+      return;
+    }
+
+    clearTimeout(pendingSingleChoiceTimerRef.current);
+    pendingSingleChoiceTimerRef.current = null;
+  });
+
+  const submitSingleChoice = useMemoizedFn((name: string) => {
+    clearPendingSingleChoice();
+    setSelected([name]);
+    flipToBack();
+  });
 
   const onClick = useMemoizedFn((name: string) => {
     if (back) {
@@ -102,8 +119,12 @@ export default () => {
     if (isMultipleChoice || prefHideQuestionType) {
       toggle(name);
     } else {
+      clearPendingSingleChoice();
       setSelected([name]);
-      setTimeout(flipToBack, 300);
+      pendingSingleChoiceTimerRef.current = window.setTimeout(() => {
+        pendingSingleChoiceTimerRef.current = null;
+        flipToBack();
+      }, SINGLE_CHOICE_CLICK_DELAY);
     }
   });
 
@@ -112,8 +133,11 @@ export default () => {
       return;
     }
 
+    clearPendingSingleChoice();
     toggleEliminated(name);
   });
+
+  useEffect(() => clearPendingSingleChoice, [clearPendingSingleChoice]);
 
   // Add keyboard shortcuts for options (Alt+1/2/3... for A/B/C...)
   useKeyPress(
@@ -134,7 +158,11 @@ export default () => {
       if (!isNaN(numericValue)) {
         const index = numericValue - 1;
         if (index >= 0 && index < options.length) {
-          onClick(options[index]);
+          if (isMultipleChoice || prefHideQuestionType) {
+            onClick(options[index]);
+          } else {
+            submitSingleChoice(options[index]);
+          }
         }
       }
     },
