@@ -14,15 +14,11 @@ export const EnAbout = () => (
       Thanks for using my carefully crafted Anki template! The best way to
       support my work is to star it on{' '}
       <a href="https://github.com/ikkz/anki-eco">GitHub</a>, or consider
-      sponsoring me on
-      <a href="https://ko-fi.com/M4M212WUCI" target="_blank" rel="noreferrer">
-        <img
-          height="36"
-          className="border-none h-9"
-          src="https://storage.ko-fi.com/cdn/kofi6.png?v=6"
-          alt="Buy Me a Coffee at ko-fi.com"
-        />
+      sponsoring me via{' '}
+      <a href="https://github.com/sponsors/ikkz" target="_blank" rel="noreferrer">
+        GitHub Sponsors
       </a>
+      .
     </p>
 
     <p>
@@ -47,7 +43,10 @@ export const ZhAbout = () => (
     <p>
       感谢你使用我精心打磨的 Anki 模板！支持我的最佳方式是在{' '}
       <a href="https://github.com/ikkz/anki-eco">GitHub</a> 点个 Star，或在{' '}
-      <a href="https://afdian.com/a/leoly">爱发电</a> 赞助我 ❤️
+      <a href="https://github.com/sponsors/ikkz" target="_blank" rel="noreferrer">
+        GitHub Sponsors
+      </a>{' '}
+      赞助我 ❤️
     </p>
     <p>
       你可以在 <a href="https://anki.ikkz.fun/">这里</a> 浏览我制作的所有模板。

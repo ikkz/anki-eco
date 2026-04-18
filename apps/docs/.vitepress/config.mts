@@ -114,12 +114,16 @@ export default defineConfig({
     },
     socialLinks: [
       {
+        icon: 'githubsponsors',
+        link: 'https://github.com/sponsors/ikkz',
+      },
+      {
         icon: 'discord',
-        link: 'https://discord.gg/wBP7H3QJ4Q'
+        link: 'https://discord.gg/wBP7H3QJ4Q',
       },
       {
         icon: 'github',
-        link: 'https://github.com/ikkz/anki-eco'
+        link: 'https://github.com/ikkz/anki-eco',
       },
     ],
   },
