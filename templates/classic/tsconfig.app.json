@@ -2,7 +2,7 @@
   "extends": ["../../tsconfig.base.json"],
   "compilerOptions": {
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "baseUrl": ".",
+
     "rootDir": ".",
     "outDir": "dist-types",
     "tsBuildInfoFile": "dist-types/tsconfig.lib.tsbuildinfo",
