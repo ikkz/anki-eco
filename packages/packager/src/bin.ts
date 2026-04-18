@@ -4,9 +4,7 @@ import path from 'node:path';
 
 const BIN_BASE = path.resolve(import.meta.dirname, 'anki-eco-packager');
 const BIN =
-  process.platform === 'win32' && existsSync(`${BIN_BASE}.exe`)
-    ? `${BIN_BASE}.exe`
-    : BIN_BASE;
+  process.platform === 'win32' && existsSync(`${BIN_BASE}.exe`) ? `${BIN_BASE}.exe` : BIN_BASE;
 
 const normalizeCwd = (cwd: string) => {
   if (process.platform !== 'win32') {

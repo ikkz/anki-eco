@@ -80,15 +80,9 @@ const classes = {
 
 function main() {
   const isBack = !!document.getElementById(consts.backIndicatorId);
-  const container: HTMLDivElement | null = document.querySelector(
-    '.' + classes.container
-  );
-  const card: HTMLDivElement | null = document.querySelector(
-    '.' + classes.card
-  );
-  const face: HTMLDivElement | null = document.querySelector(
-    '.' + classes.face
-  );
+  const container: HTMLDivElement | null = document.querySelector('.' + classes.container);
+  const card: HTMLDivElement | null = document.querySelector('.' + classes.card);
+  const face: HTMLDivElement | null = document.querySelector('.' + classes.face);
 
   if (!container || !card || !face) {
     return;

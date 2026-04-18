@@ -1,4 +1,5 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": ["**/dist/**", "**/coverage/**", ".nx/cache/**", ".nx/workspace-data/**"]
+  "ignorePatterns": ["**/dist/**", "**/coverage/**", ".nx/cache/**", ".nx/workspace-data/**"],
+  "singleQuote": true
 }

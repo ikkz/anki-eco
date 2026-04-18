@@ -5,23 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Redirecting…</title>
     <style>
-      html, body { height: 100%; margin: 0; }
-      body { display: grid; place-items: center; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif; color: #111; }
-      .box { max-width: 720px; padding: 24px; }
-      .muted { color: #666; font-size: 14px; }
-      a { color: #0b63f6; text-decoration: none; }
-      a:hover { text-decoration: underline; }
-      code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        display: grid;
+        place-items: center;
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          Segoe UI,
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
+        color: #111;
+      }
+      .box {
+        max-width: 720px;
+        padding: 24px;
+      }
+      .muted {
+        color: #666;
+        font-size: 14px;
+      }
+      a {
+        color: #0b63f6;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      code {
+        background: #f5f5f5;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
     </style>
   </head>
   <body>
     <div class="box">
       <h1>Redirecting…</h1>
       <p class="muted" id="msg">Taking you to the new docs site.</p>
-      <p class="muted">If you are not redirected automatically, <a id="link" href="#">click here</a>.</p>
+      <p class="muted">
+        If you are not redirected automatically, <a id="link" href="#">click here</a>.
+      </p>
     </div>
     <script>
-      (function() {
+      (function () {
         const params = new URLSearchParams(location.search);
         const tpl = params.get('template') || '';
         // Expect format: entry.locale.field, we only care entry + locale
@@ -41,4 +74,4 @@
       })();
     </script>
   </body>
-  </html>
+</html>

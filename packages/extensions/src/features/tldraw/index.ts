@@ -8,10 +8,7 @@ import { pv } from '@/utils/event.js';
 
 export type ScreenShotType = 'html2canvas' | 'html-to-image';
 
-export async function initTldraw(
-  selector = '#qa',
-  screenshot: ScreenShotType = 'html2canvas'
-) {
+export async function initTldraw(selector = '#qa', screenshot: ScreenShotType = 'html2canvas') {
   pv('/tldraw/show');
   try {
     const target = document.querySelector(selector);
@@ -48,9 +45,7 @@ export async function initTldraw(
       throw new Error('Failed to convert QA element to PNG');
     }
 
-    const dim = imageDimensionsFromData(
-      new Uint8Array(await png.arrayBuffer())
-    );
+    const dim = imageDimensionsFromData(new Uint8Array(await png.arrayBuffer()));
     if (!dim) {
       throw new Error('Failed to get dimensions of PNG');
     }

@@ -6,20 +6,13 @@ export const EnAbout = () => (
   <div className={clsx('prose prose-sm', 'dark:prose-invert')}>
     <p>
       Docs & updates for this template:{' '}
-      <a href={`https://anki.ikkz.fun/templates/classic/${entry}.html`}>
-        View docs/updates
-      </a>
+      <a href={`https://anki.ikkz.fun/templates/classic/${entry}.html`}>View docs/updates</a>
     </p>
     <p>
-      Thanks for using my carefully crafted Anki template! The best way to
-      support my work is to star it on{' '}
-      <a href="https://github.com/ikkz/anki-eco">GitHub</a>, or consider
-      sponsoring me via{' '}
-      <a
-        href="https://github.com/sponsors/ikkz"
-        target="_blank"
-        rel="noreferrer"
-      >
+      Thanks for using my carefully crafted Anki template! The best way to support my work is to
+      star it on <a href="https://github.com/ikkz/anki-eco">GitHub</a>, or consider sponsoring me
+      via{' '}
+      <a href="https://github.com/sponsors/ikkz" target="_blank" rel="noreferrer">
         GitHub Sponsors
       </a>
       .
@@ -40,18 +33,12 @@ export const ZhAbout = () => (
   <div className={clsx('prose prose-sm', 'dark:prose-invert')}>
     <p>
       本模板的文档与更新：{' '}
-      <a href={`https://anki.ikkz.fun/templates/classic/${entry}.html`}>
-        点击此处
-      </a>
+      <a href={`https://anki.ikkz.fun/templates/classic/${entry}.html`}>点击此处</a>
     </p>
     <p>
       感谢你使用我精心打磨的 Anki 模板！支持我的最佳方式是在{' '}
       <a href="https://github.com/ikkz/anki-eco">GitHub</a> 点个 Star，或在{' '}
-      <a
-        href="https://github.com/sponsors/ikkz"
-        target="_blank"
-        rel="noreferrer"
-      >
+      <a href="https://github.com/sponsors/ikkz" target="_blank" rel="noreferrer">
         GitHub Sponsors
       </a>{' '}
       赞助我 ❤️
@@ -61,8 +48,7 @@ export const ZhAbout = () => (
     </p>
 
     <p>
-      如果有建议或反馈，请在{' '}
-      <a href="https://github.com/ikkz/anki-eco/issues">这里</a> 提交 Issue。
+      如果有建议或反馈，请在 <a href="https://github.com/ikkz/anki-eco/issues">这里</a> 提交 Issue。
     </p>
   </div>
 );

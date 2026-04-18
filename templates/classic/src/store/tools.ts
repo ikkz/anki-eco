@@ -14,10 +14,7 @@ export const DEFAULT_TOOLS: Tool[] = [
   {
     id: 'search',
     name: t.search,
-    url:
-      locale === 'zh'
-        ? 'https://www.baidu.com/#wd={q}'
-        : 'https://www.google.com/search?q={q}',
+    url: locale === 'zh' ? 'https://www.baidu.com/#wd={q}' : 'https://www.google.com/search?q={q}',
   },
   {
     id: 'translate',

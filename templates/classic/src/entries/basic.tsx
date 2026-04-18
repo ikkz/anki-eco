@@ -15,15 +15,10 @@ export default () => {
       answer={
         hasAnswer || hasNote ? (
           <>
-            {hasAnswer ? (
-              <AnkiField name="answer" className="prose dark:prose-invert" />
-            ) : null}
+            {hasAnswer ? <AnkiField name="answer" className="prose dark:prose-invert" /> : null}
             {hasAnswer && hasNote ? <hr className="my-4" /> : null}
             {hasNote ? (
-              <AnkiField
-                name="note"
-                className={clsx('prose prose-sm', 'dark:prose-invert')}
-              />
+              <AnkiField name="note" className={clsx('prose prose-sm', 'dark:prose-invert')} />
             ) : null}
           </>
         ) : null

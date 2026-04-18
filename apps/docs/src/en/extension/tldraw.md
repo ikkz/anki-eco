@@ -19,10 +19,7 @@ Open Anki’s card template editor and add the following to the end of any templ
 
 ```html
 <ae-tldraw></ae-tldraw>
-<script
-  src="https://cdn.jsdelivr.net/npm/@anki-eco/extensions/dist/tldraw.js"
-  defer
-></script>
+<script src="https://cdn.jsdelivr.net/npm/@anki-eco/extensions/dist/tldraw.js" defer></script>
 ```
 
 During review, you’ll see a button; click it to open the canvas. The button only includes basic styles — feel free to customize its CSS.

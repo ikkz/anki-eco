@@ -91,10 +91,7 @@ const buildLayout = (
   return { positions, ordered, height };
 };
 
-const getInsertIndex = (
-  ordered: LayoutItem[],
-  point: { x: number; y: number },
-) => {
+const getInsertIndex = (ordered: LayoutItem[], point: { x: number; y: number }) => {
   for (let i = 0; i < ordered.length; i += 1) {
     const item = ordered[i];
     if (point.y < item.y) {
@@ -129,9 +126,7 @@ const getPieceOps = (
   toPieces: Piece[],
 ): Array<{ kind: Op['kind']; pieces: Piece[] }> => {
   const encode = (len: number) =>
-    Array.from({ length: len }, (_, idx) => String.fromCodePoint(idx + 1)).join(
-      '',
-    );
+    Array.from({ length: len }, (_, idx) => String.fromCodePoint(idx + 1)).join('');
   const fromEncoded = encode(fromPieces.length);
   const toEncoded = encode(toPieces.length);
   const ops = getEditOps(fromEncoded, toEncoded, (a, b) => {
@@ -209,20 +204,11 @@ const SortablePiece: FC<{
   };
   return (
     <div style={outerStyle} data-piece-id={piece.id}>
-      <div
-        ref={setNodeRef}
-        style={innerStyle}
-        {...attributes}
-        {...listeners}
-        onClick={onClick}
-      >
+      <div ref={setNodeRef} style={innerStyle} {...attributes} {...listeners} onClick={onClick}>
         <PieceTag
           piece={piece}
           status={status}
-          className={clsx(
-            'cursor-grab select-none',
-            isDragging ? 'cursor-grabbing' : '',
-          )}
+          className={clsx('cursor-grab select-none', isDragging ? 'cursor-grabbing' : '')}
         />
       </div>
     </div>
@@ -285,9 +271,7 @@ const SortableContainer: FC<{
   onPieceClick,
   movingId,
 }) => {
-  const placeholderPosition = placeholder
-    ? layout.positions.get(placeholder.id)
-    : null;
+  const placeholderPosition = placeholder ? layout.positions.get(placeholder.id) : null;
   const hasItems = pieces.length > 0 || placeholderPosition;
   return (
     <div
@@ -317,9 +301,7 @@ const SortableContainer: FC<{
                 position={position}
                 disabled={disabled}
                 isMoving={movingId === piece.id}
-                onClick={
-                  onPieceClick ? () => onPieceClick(piece.id) : undefined
-                }
+                onClick={onPieceClick ? () => onPieceClick(piece.id) : undefined}
               />
             );
           })
@@ -348,12 +330,7 @@ const SequenceBlocks: FC<{
   return (
     <div className="flex flex-wrap gap-2">
       {pieces.map((piece) => (
-        <PieceTag
-          key={piece.id}
-          piece={piece}
-          status={statusMap?.get(piece.id)}
-          size="sm"
-        />
+        <PieceTag key={piece.id} piece={piece} status={statusMap?.get(piece.id)} size="sm" />
       ))}
     </div>
   );
@@ -375,21 +352,15 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
   const moveCloneRef = useRef<HTMLElement | null>(null);
   const moveTimeoutRef = useRef<number | null>(null);
   const [movingId, setMovingId] = useState<string | null>(null);
-  const sizeRef = useRef<Map<string, { width: number; height: number }>>(
-    new Map(),
-  );
-  const [sizes, setSizes] = useState<
-    Map<string, { width: number; height: number }>
-  >(new Map());
+  const sizeRef = useRef<Map<string, { width: number; height: number }>>(new Map());
+  const [sizes, setSizes] = useState<Map<string, { width: number; height: number }>>(new Map());
   const containerRefs = useRef(new Map<ContainerId, HTMLDivElement>());
   const containerIdByNode = useRef(new WeakMap<Element, ContainerId>());
   const resizeObserverRef = useRef<ResizeObserver | null>(null);
   const containerRefCallbacks = useRef(
     new Map<ContainerId, (node: HTMLDivElement | null) => void>(),
   );
-  const [containerWidths, setContainerWidths] = useState<
-    Record<ContainerId, number>
-  >({
+  const [containerWidths, setContainerWidths] = useState<Record<ContainerId, number>>({
     [BANK_ID]: 0,
     [SEQUENCE_ID]: 0,
   });
@@ -406,13 +377,9 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
 
   useLayoutEffect(() => {
     if (!measureRef.current) return;
-    const map = new Map<string, { width: number; height: number }>(
-      sizeRef.current,
-    );
+    const map = new Map<string, { width: number; height: number }>(sizeRef.current);
     pieces.forEach((piece) => {
-      const el = measureRef.current?.querySelector<HTMLElement>(
-        `[data-measure-id="${piece.id}"]`,
-      );
+      const el = measureRef.current?.querySelector<HTMLElement>(`[data-measure-id="${piece.id}"]`);
       if (el) {
         const rect = el.getBoundingClientRect();
         map.set(piece.id, { width: rect.width, height: rect.height });
@@ -457,8 +424,7 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
 
   useLayoutEffect(() => () => clearMoveArtifacts(true), [clearMoveArtifacts]);
 
-  const getSize = (id: string) =>
-    sizes.get(id) ?? sizeRef.current.get(id) ?? FALLBACK_SIZE;
+  const getSize = (id: string) => sizes.get(id) ?? sizeRef.current.get(id) ?? FALLBACK_SIZE;
 
   useLayoutEffect(() => {
     resizeObserverRef.current = new ResizeObserver((entries) => {
@@ -528,17 +494,14 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
     }),
   );
 
-  const findContainer = useMemoizedFn(
-    (id: string | undefined | null): ContainerId | null => {
-      if (!id) return null;
-      if ((CONTAINERS as readonly string[]).includes(id))
-        return id as ContainerId;
-      const found = (CONTAINERS as readonly ContainerId[]).find((key) =>
-        items[key].includes(id),
-      ) as ContainerId | undefined;
-      return found ?? null;
-    },
-  );
+  const findContainer = useMemoizedFn((id: string | undefined | null): ContainerId | null => {
+    if (!id) return null;
+    if ((CONTAINERS as readonly string[]).includes(id)) return id as ContainerId;
+    const found = (CONTAINERS as readonly ContainerId[]).find((key) => items[key].includes(id)) as
+      | ContainerId
+      | undefined;
+    return found ?? null;
+  });
 
   const statusMap = useMemo(() => {
     if (!back) {
@@ -568,9 +531,7 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
     const origin = findContainer(pieceId);
     if (!origin) return;
     const target = origin === BANK_ID ? SEQUENCE_ID : BANK_ID;
-    const sourceNode = document.querySelector<HTMLElement>(
-      `[data-piece-id="${pieceId}"]`,
-    );
+    const sourceNode = document.querySelector<HTMLElement>(`[data-piece-id="${pieceId}"]`);
     if (sourceNode) {
       clearMoveArtifacts(true);
       const fromRect = sourceNode.getBoundingClientRect();
@@ -649,37 +610,33 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
     return next;
   }, [activeId, dragState, items]);
 
-  const resolveDragState = useMemoizedFn(
-    (activeIdStr: string, rect?: DragRect | null) => {
-      if (!rect) return null;
-      const center = {
-        x: rect.left + rect.width / 2,
-        y: rect.top + rect.height / 2,
-      };
+  const resolveDragState = useMemoizedFn((activeIdStr: string, rect?: DragRect | null) => {
+    if (!rect) return null;
+    const center = {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+    };
 
-      for (const id of CONTAINERS) {
-        const node = containerRefs.current.get(id);
-        if (!node) continue;
-        const box = node.getBoundingClientRect();
-        if (
-          center.x >= box.left &&
-          center.x <= box.right &&
-          center.y >= box.top &&
-          center.y <= box.bottom
-        ) {
-          const local = { x: center.x - box.left, y: center.y - box.top };
-          const list = displayItems[id].filter(
-            (itemId) => itemId !== activeIdStr,
-          );
-          const layout = buildLayout(list, box.width, getSize);
-          const index = getInsertIndex(layout.ordered, local);
-          return { overContainer: id, overIndex: index };
-        }
+    for (const id of CONTAINERS) {
+      const node = containerRefs.current.get(id);
+      if (!node) continue;
+      const box = node.getBoundingClientRect();
+      if (
+        center.x >= box.left &&
+        center.x <= box.right &&
+        center.y >= box.top &&
+        center.y <= box.bottom
+      ) {
+        const local = { x: center.x - box.left, y: center.y - box.top };
+        const list = displayItems[id].filter((itemId) => itemId !== activeIdStr);
+        const layout = buildLayout(list, box.width, getSize);
+        const index = getInsertIndex(layout.ordered, local);
+        return { overContainer: id, overIndex: index };
       }
+    }
 
-      return null;
-    },
-  );
+    return null;
+  });
 
   const handleDragMove = useMemoizedFn(({ active, delta }: DragMoveEvent) => {
     if (back) return;
@@ -706,9 +663,7 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
   useLayoutEffect(() => {
     const pending = pendingMoveRef.current;
     if (!pending) return;
-    const targetNode = document.querySelector<HTMLElement>(
-      `[data-piece-id="${pending.id}"]`,
-    );
+    const targetNode = document.querySelector<HTMLElement>(`[data-piece-id="${pending.id}"]`);
     if (!targetNode) return;
     pendingMoveRef.current = null;
     const clone = moveCloneRef.current;
@@ -720,8 +675,7 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
       clearMoveArtifacts(true);
       return;
     }
-    clone.style.transition =
-      'transform 220ms cubic-bezier(0.22, 0.61, 0.36, 1)';
+    clone.style.transition = 'transform 220ms cubic-bezier(0.22, 0.61, 0.36, 1)';
     requestAnimationFrame(() => {
       clone.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
     });
@@ -770,21 +724,15 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
   });
 
   const bankPieces = useMemo(
-    () =>
-      items[BANK_ID].map((id) => pieceMap.get(id)).filter(Boolean) as Piece[],
+    () => items[BANK_ID].map((id) => pieceMap.get(id)).filter(Boolean) as Piece[],
     [items, pieceMap],
   );
   const sequencePieces = useMemo(
-    () =>
-      items[SEQUENCE_ID].map((id) => pieceMap.get(id)).filter(
-        Boolean,
-      ) as Piece[],
+    () => items[SEQUENCE_ID].map((id) => pieceMap.get(id)).filter(Boolean) as Piece[],
     [items, pieceMap],
   );
   const bankPlaceholder =
-    activePiece &&
-    dragState?.overContainer === BANK_ID &&
-    !items[BANK_ID].includes(activePiece.id)
+    activePiece && dragState?.overContainer === BANK_ID && !items[BANK_ID].includes(activePiece.id)
       ? activePiece
       : null;
   const sequencePlaceholder =
@@ -799,16 +747,8 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
   }, [back, pieces, sequencePieces]);
   const layouts = useMemo(() => {
     return {
-      [BANK_ID]: buildLayout(
-        displayItems[BANK_ID],
-        containerWidths[BANK_ID],
-        getSize,
-      ),
-      [SEQUENCE_ID]: buildLayout(
-        displayItems[SEQUENCE_ID],
-        containerWidths[SEQUENCE_ID],
-        getSize,
-      ),
+      [BANK_ID]: buildLayout(displayItems[BANK_ID], containerWidths[BANK_ID], getSize),
+      [SEQUENCE_ID]: buildLayout(displayItems[SEQUENCE_ID], containerWidths[SEQUENCE_ID], getSize),
     };
   }, [containerWidths, displayItems, getSize]);
 
@@ -823,25 +763,19 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
       <div className={clsx('mt-3 space-y-3', back ? '' : 'select-none')}>
         {back ? (
           <>
-            <div
-              className={clsx('rounded border p-3 space-y-3', tw.borderColor)}
-            >
+            <div className={clsx('rounded border p-3 space-y-3', tw.borderColor)}>
               <div className="text-[11px] font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
                 {t.orderingYourSentence}
               </div>
               <SequenceBlocks pieces={sequencePieces} />
             </div>
-            <div
-              className={clsx('rounded border p-3 space-y-3', tw.borderColor)}
-            >
+            <div className={clsx('rounded border p-3 space-y-3', tw.borderColor)}>
               <div className="text-[11px] font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
                 {t.orderingCorrectSentence}
               </div>
               <SequenceBlocks pieces={pieces} />
             </div>
-            <div
-              className={clsx('rounded border p-3 space-y-3', tw.borderColor)}
-            >
+            <div className={clsx('rounded border p-3 space-y-3', tw.borderColor)}>
               <div className="flex items-center justify-between">
                 <div className="text-[11px] font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
                   {t.orderingDiff}
@@ -906,9 +840,7 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
               ))}
             </div>
             <div className="space-y-1">
-              <div className="text-xs font-medium text-neutral-500">
-                {t.orderingFragments}
-              </div>
+              <div className="text-xs font-medium text-neutral-500">{t.orderingFragments}</div>
               <SortableContainer
                 pieces={bankPieces}
                 statusMap={statusMap}
@@ -923,9 +855,7 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
               />
             </div>
             <div className="space-y-1">
-              <div className="text-xs font-medium text-neutral-500">
-                {t.orderingArrangeHere}
-              </div>
+              <div className="text-xs font-medium text-neutral-500">{t.orderingArrangeHere}</div>
               <SortableContainer
                 pieces={sequencePieces}
                 statusMap={statusMap}
@@ -978,12 +908,7 @@ export default () => {
       title={t.question}
       questionExtra={<Playground pieces={pieces} />}
       answer={
-        hasNote ? (
-          <AnkiField
-            name="note"
-            className={'prose prose-sm dark:prose-invert'}
-          />
-        ) : null
+        hasNote ? <AnkiField name="note" className={'prose prose-sm dark:prose-invert'} /> : null
       }
     />
   );

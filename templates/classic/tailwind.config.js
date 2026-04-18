@@ -8,11 +8,7 @@ import zh from './translations/zh.json';
 module.exports = {
   darkMode: [
     'variant',
-    [
-      '@media (prefers-color-scheme: dark) {&}',
-      '&.night-mode',
-      '.night-mode &',
-    ],
+    ['@media (prefers-color-scheme: dark) {&}', '&.night-mode', '.night-mode &'],
   ],
   content: ['./src/**/*.{ts,tsx}'],
   plugins: [
@@ -21,14 +17,9 @@ module.exports = {
     require('@tailwindcss/forms'),
   ],
   safelist: [
-    Array.from(
-      { length: 26 },
-      (_, i) => `before:content-['${String.fromCharCode(65 + i)}']`,
-    ),
+    Array.from({ length: 26 }, (_, i) => `before:content-['${String.fromCharCode(65 + i)}']`),
     ['missedAnswer', 'correctAnswer', 'wrongAnswer']
-      .map((key) =>
-        [zh, en, ja, ptBr].map((map) => `after:content-['${map[key]}']`),
-      )
+      .map((key) => [zh, en, ja, ptBr].map((map) => `after:content-['${map[key]}']`))
       .flat(),
   ].flat(),
 };

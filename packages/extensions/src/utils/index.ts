@@ -4,10 +4,7 @@ export const customElementOnce: typeof customElement =
   (tagName) => (classOrTarget, context?: ClassDecoratorContext) => {
     const define = () => {
       if (!customElements.get(tagName)) {
-        customElements.define(
-          tagName,
-          classOrTarget as CustomElementConstructor
-        );
+        customElements.define(tagName, classOrTarget as CustomElementConstructor);
       }
     };
     if (context) {

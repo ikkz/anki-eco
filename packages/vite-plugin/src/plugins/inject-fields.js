@@ -1,7 +1,5 @@
 /** @returns {import('vite').Plugin} */
-export const injectFields = (
-  /** @type import('../index.d.ts').Props */ props
-) => {
+export const injectFields = (/** @type import('../index.d.ts').Props */ props) => {
   let config;
 
   return {
@@ -29,10 +27,7 @@ export const injectFields = (
             attrs: {
               [consts.fieldNameAttr]: name,
             },
-            children:
-              config?.command === 'build'
-                ? `{{${name}}}`
-                : devFields[name] || name,
+            children: config?.command === 'build' ? `{{${name}}}` : devFields[name] || name,
           })),
         },
       ];

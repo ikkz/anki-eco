@@ -34,10 +34,7 @@ function fallbackRender({ error }: FallbackProps) {
       <p>Something went wrong.</p>
       <p>
         Please open an issue at{' '}
-        <a
-          className="underline"
-          href="https://github.com/ikkz/anki-template/issues"
-        >
+        <a className="underline" href="https://github.com/ikkz/anki-template/issues">
           https://github.com/ikkz/anki-template/issues
         </a>{' '}
         with screenshot

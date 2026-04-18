@@ -46,16 +46,10 @@ export default () => {
     <>
       <Block
         name={t.tool}
-        action={
-          <Button onClick={() => navigate(Page.Settings)}>{t.back}</Button>
-        }
+        action={<Button onClick={() => navigate(Page.Settings)}>{t.back}</Button>}
       >
         {edit ? (
-          <ToolEdit
-            initialTool={edit}
-            onSave={onSave}
-            onCancel={() => setEdit(null)}
-          />
+          <ToolEdit initialTool={edit} onSave={onSave} onCancel={() => setEdit(null)} />
         ) : (
           <div className="space-y-1">
             <Button onClick={onAdd}>{t.add}</Button>

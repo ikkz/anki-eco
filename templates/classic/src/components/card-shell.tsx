@@ -67,10 +67,7 @@ export const CardShell: FC<Props> = ({
               </span>
             }
             action={
-              <Button
-                onClick={() => setPage(Page.Settings)}
-                data-testid="index:setting"
-              >
+              <Button onClick={() => setPage(Page.Settings)} data-testid="index:setting">
                 {t.templateSetting}
               </Button>
             }
@@ -80,19 +77,12 @@ export const CardShell: FC<Props> = ({
             {question ? (
               question
             ) : (
-              <ClozeField
-                name="question"
-                className={clsx(prefBiggerText ? 'prose-xl' : '')}
-              />
+              <ClozeField name="question" className={clsx(prefBiggerText ? 'prose-xl' : '')} />
             )}
             {questionExtra}
           </Block>
           {back && answer ? (
-            <Block
-              name={answerTitle}
-              id={prefNoScroll ? undefined : 'answer'}
-              enableTools
-            >
+            <Block name={answerTitle} id={prefNoScroll ? undefined : 'answer'} enableTools>
               {answer}
             </Block>
           ) : null}

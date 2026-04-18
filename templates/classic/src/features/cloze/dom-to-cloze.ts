@@ -82,14 +82,11 @@ function asWhole(node: Node): node is HTMLElement {
 }
 
 export function getClozeNodes(container: Element, node: Element | number) {
-  const index =
-    typeof node === 'number' ? node : node.getAttribute(CLOZE_INDEX_ATTR);
+  const index = typeof node === 'number' ? node : node.getAttribute(CLOZE_INDEX_ATTR);
   if (index === null) {
     return [];
   }
-  return Array.from(
-    container.querySelectorAll(`[${CLOZE_INDEX_ATTR}='${index}']`),
-  );
+  return Array.from(container.querySelectorAll(`[${CLOZE_INDEX_ATTR}='${index}']`));
 }
 
 export function domToCloze(container: HTMLElement): number {
@@ -124,16 +121,11 @@ export function domToCloze(container: HTMLElement): number {
           );
           insertAfter(node, unit);
 
-          const remain = document.createTextNode(
-            content.slice(endIndex + UNIT_END.length),
-          );
+          const remain = document.createTextNode(content.slice(endIndex + UNIT_END.length));
           insertAfter(unit, remain);
           traverseNode(remain);
         } else {
-          const unit = createTextUnit(
-            content.slice(startIndex + UNIT_START.length),
-            unitIndex,
-          );
+          const unit = createTextUnit(content.slice(startIndex + UNIT_START.length), unitIndex);
           insertAfter(node, unit);
           inUnit = true;
         }

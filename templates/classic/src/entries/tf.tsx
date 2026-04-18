@@ -33,10 +33,7 @@ interface ItemProp {
 const Item = ({ node, answer, index, shortcutEvent$ }: ItemProp) => {
   const [back] = useBack();
 
-  const [status, setStatus] = useCrossState<boolean | undefined>(
-    `status-${index}`,
-    undefined,
-  );
+  const [status, setStatus] = useCrossState<boolean | undefined>(`status-${index}`, undefined);
 
   const onStatusChange = useMemoizedFn((status: boolean) => {
     if (back) {
@@ -81,20 +78,14 @@ const Item = ({ node, answer, index, shortcutEvent$ }: ItemProp) => {
         laterBack
           ? {
               'bg-green-50 !border-green-500': status === answer,
-              'bg-red-50 !border-red-500':
-                typeof status !== 'undefined' && status !== answer,
+              'bg-red-50 !border-red-500': typeof status !== 'undefined' && status !== answer,
               'bg-indigo-50': typeof status === 'undefined',
             }
           : 'bg-indigo-50',
         'dark:bg-opacity-10',
       )}
     >
-      <div
-        className={clsx(
-          'prose prose-neutral dark:prose-invert rm-prose-y',
-          'flex-grow mr-2',
-        )}
-      >
+      <div className={clsx('prose prose-neutral dark:prose-invert rm-prose-y', 'flex-grow mr-2')}>
         {node}
       </div>
       <div className="relative">
@@ -108,8 +99,7 @@ const Item = ({ node, answer, index, shortcutEvent$ }: ItemProp) => {
               className={clsx(
                 'p-2 rounded-full relative',
                 {
-                  'cursor-pointer transition-transform hover:scale-105 active:scale-95':
-                    !back,
+                  'cursor-pointer transition-transform hover:scale-105 active:scale-95': !back,
                 },
                 status === bool
                   ? 'bg-indigo-500 text-white'
@@ -183,10 +173,7 @@ export default () => {
       answerTitle={t.note}
       answer={
         hasNote ? (
-          <AnkiField
-            name="note"
-            className={clsx('prose prose-sm', 'dark:prose-invert')}
-          />
+          <AnkiField name="note" className={clsx('prose prose-sm', 'dark:prose-invert')} />
         ) : null
       }
     />

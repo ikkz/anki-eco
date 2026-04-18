@@ -12,10 +12,7 @@ export const Input: FC<{
   return (
     <div className={className}>
       <div
-        className={clsx(
-          'block text-sm font-medium leading-6 text-neutral-900',
-          'dark:text-white',
-        )}
+        className={clsx('block text-sm font-medium leading-6 text-neutral-900', 'dark:text-white')}
       >
         {title}
       </div>

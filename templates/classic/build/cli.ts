@@ -30,9 +30,7 @@ const argConfig: Partial<Pick<BuildConfig, 'entry' | 'locale' | 'field'>> = {
 };
 
 if (!args.dev) {
-  for (const config of configs.filter((config) =>
-    configMatch(argConfig, config),
-  )) {
+  for (const config of configs.filter((config) => configMatch(argConfig, config))) {
     console.log('build', config);
     const { inputOptions, outputOptions } = await rollupOptions(config, {
       dev: false,

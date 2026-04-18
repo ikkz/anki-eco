@@ -17,7 +17,7 @@ for (const entry of entries) {
     root: __dirname,
     ...commonConfig,
     esbuild: {
-      legalComments: 'none'
+      legalComments: 'none',
     },
     build: {
       outDir: './dist',
