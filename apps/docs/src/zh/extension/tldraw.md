@@ -19,10 +19,7 @@ description: Anki Tldraw 插件
 
 ```html
 <ae-tldraw></ae-tldraw>
-<script
-  src="https://cdn.jsdelivr.net/npm/@anki-eco/extensions/dist/tldraw.js"
-  defer
-></script>
+<script src="https://cdn.jsdelivr.net/npm/@anki-eco/extensions/dist/tldraw.js" defer></script>
 ```
 
 在复习时就能看到一个按钮，点击后就能打开画板。该按钮只包括基础样式，你可以按自己的喜好设置它的 css

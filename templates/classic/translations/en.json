@@ -12,7 +12,7 @@
   "hideTimer": "Hide countdown",
   "randomOption": "Random option",
   "randomOptionDetail": "The options after random shuffling will be displayed, and the original order will be restored after displaying the answer",
-  "keepRandomOrderOnBack": "Keep random order when showing answer", 
+  "keepRandomOrderOnBack": "Keep random order when showing answer",
   "keepRandomOrderOnBackDetail": "When enabled, the randomized option order will be maintained after flipping to the answer side",
   "selMenu": "Text selection menu",
   "selMenuDetail": "After selecting the text, a menu will pop up, and you can click to quickly jump to tools like Google Search or Google Translate to view information related to the selected text",

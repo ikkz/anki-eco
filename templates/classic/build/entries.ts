@@ -11,9 +11,7 @@ interface Entry<F extends readonly string[]> {
   notes: Note<F[number]>[];
 }
 
-function defineEntry<F extends readonly string[]>(
-  entry: Entry<readonly [...F]>,
-) {
+function defineEntry<F extends readonly string[]>(entry: Entry<readonly [...F]>) {
   return entry;
 }
 
@@ -242,8 +240,7 @@ const entries = {
         fields: {
           question:
             'This is the stem of the question. It supports various content formats in Anki, including bold, formulas, etc.',
-          items:
-            'Mammals::Tiger,,Elephant<br>Birds::Penguin,,Parrot<br>Reptiles::Cobra,,Crocodile',
+          items: 'Mammals::Tiger,,Elephant<br>Birds::Penguin,,Parrot<br>Reptiles::Cobra,,Crocodile',
           note: 'note',
         },
       },
@@ -253,8 +250,7 @@ const entries = {
         },
         fields: {
           question: mdQuestion,
-          items:
-            'Mammals::Tiger,,Elephant<br>Birds::Penguin,,Parrot<br>Reptiles::Cobra,,Crocodile',
+          items: 'Mammals::Tiger,,Elephant<br>Birds::Penguin,,Parrot<br>Reptiles::Cobra,,Crocodile',
           note: 'note',
         },
       },

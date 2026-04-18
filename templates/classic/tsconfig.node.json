@@ -1,11 +1,6 @@
 {
   "extends": ["../../tsconfig.base.json"],
-  "include": [
-    "build",
-    "eslint.config.js",
-    "tailwind.config.js",
-    "vitest.config.ts"
-  ],
+  "include": ["build", "tailwind.config.js", "vitest.config.ts"],
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,

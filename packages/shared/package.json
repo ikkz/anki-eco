@@ -2,6 +2,9 @@
   "name": "@anki-eco/shared",
   "version": "1.1.5",
   "license": "GPL-3.0-or-later",
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -16,13 +19,10 @@
       "default": "./dist/index.js"
     }
   },
-  "dependencies": {
-    "tslib": "^2.3.0"
-  },
-  "files": [
-    "dist"
-  ],
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
   }
 }

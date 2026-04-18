@@ -1,11 +1,7 @@
 patchConsole();
 
 import { LitElement } from 'lit';
-import {
-  customElementOnce,
-  markInteractive,
-  patchConsole,
-} from '../utils/index.js';
+import { customElementOnce, markInteractive, patchConsole } from '../utils/index.js';
 import { html } from 'lit/static-html.js';
 
 import { initTldraw, ScreenShotType } from '@/features/tldraw/index.js';

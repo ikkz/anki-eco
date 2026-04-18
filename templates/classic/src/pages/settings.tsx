@@ -37,10 +37,7 @@ const CommonOptions: FC = () => {
         subtitle={
           <span>
             {t.selMenuDetail}
-            <Button
-              className="px-1 ml-auto float-right"
-              onClick={() => navigate(Page.Tools)}
-            >
+            <Button className="px-1 ml-auto float-right" onClick={() => navigate(Page.Tools)}>
               {t.setting}
             </Button>
           </span>
@@ -86,11 +83,8 @@ let OptionList: FC;
 if (entry === 'mcq' || entry === 'mcq_10' || entry === 'mcq_26') {
   OptionList = () => {
     const [randomOptions, setRandomOptions] = useAtom(randomOptionsAtom);
-    const [keepRandomOrderOnBack, setKeepRandomOrderOnBack] = useAtom(
-      keepRandomOrderOnBackAtom,
-    );
-    const [hideQuestionType, setHideQuestionType] =
-      useAtom(hideQuestionTypeAtom);
+    const [keepRandomOrderOnBack, setKeepRandomOrderOnBack] = useAtom(keepRandomOrderOnBackAtom);
+    const [hideQuestionType, setHideQuestionType] = useAtom(hideQuestionTypeAtom);
     const [blurOptions, setBlurOptions] = useAtom(blurOptionsAtom);
     const [hideMcqAnswer, setHideMcqAnswer] = useAtom(hideMcqAnswerAtom);
 

@@ -26,7 +26,7 @@ export function useReviewState<T>(key: string, init: T | (() => T)) {
   const initialValue = typeof init === 'function' ? (init as () => T)() : init;
 
   const state = ref<T>(
-    isBack() ? (prefixStorage.getItem(key, initialValue) as T) : initialValue
+    isBack() ? (prefixStorage.getItem(key, initialValue) as T) : initialValue,
   ) as Ref<T>;
 
   watch(state, (value) => {

@@ -2,6 +2,9 @@
   "name": "@anki-eco/kit",
   "version": "1.1.5",
   "license": "GPL-3.0-or-later",
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -27,11 +30,15 @@
       "default": "./dist/vue.js"
     }
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@anki-eco/shared": "workspace:*",
     "@preact/signals-core": "^1.12.1",
     "jotai": "^2.11.0"
   },
+  "devDependencies": {},
   "peerDependencies": {
     "react": "*",
     "vue": "*"
@@ -43,12 +50,5 @@
     "vue": {
       "optional": true
     }
-  },
-  "devDependencies": {},
-  "files": [
-    "dist"
-  ],
-  "publishConfig": {
-    "access": "public"
   }
 }

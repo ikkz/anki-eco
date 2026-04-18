@@ -64,4 +64,3 @@ window.ankiEcoExtCMHooks = {
 ```
 
 <!--@include: @/parts/feedback-en.md -->
-

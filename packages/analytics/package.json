@@ -1,8 +1,8 @@
 {
   "name": "@anki-eco/analytics",
   "version": "1.1.5",
-  "license": "GPL-3.0-or-later",
   "private": true,
+  "license": "GPL-3.0-or-later",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

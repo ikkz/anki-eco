@@ -47,9 +47,7 @@ export const Markdown: FC<{
     const markdownBody = ref.current;
     if (!markdownBody || !file) return;
 
-    const cbs = plugins?.map(({ viewerEffect }) =>
-      viewerEffect?.({ markdownBody, file }),
-    );
+    const cbs = plugins?.map(({ viewerEffect }) => viewerEffect?.({ markdownBody, file }));
     return () => {
       cbs?.forEach((cb) => cb && cb());
     };

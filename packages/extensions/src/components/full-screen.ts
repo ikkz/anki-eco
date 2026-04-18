@@ -1,10 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import {
-  customElementOnce,
-  getAnkiClient,
-  markInteractive,
-} from '../utils/index.js';
+import { customElementOnce, getAnkiClient, markInteractive } from '../utils/index.js';
 import { twStyle } from '../style.js';
 import { X, BadgeQuestionMark } from 'lucide-static';
 import '@/components/icon-button.js';
@@ -13,9 +9,8 @@ import '@/components/icon-button.js';
 export class FullScreen extends LitElement {
   @property({ type: String }) docs?: string;
 
-  @property({ type: String, reflect: true }) client: ReturnType<
-    typeof getAnkiClient
-  > = getAnkiClient();
+  @property({ type: String, reflect: true }) client: ReturnType<typeof getAnkiClient> =
+    getAnkiClient();
 
   private handleClose = () => {
     this.remove();

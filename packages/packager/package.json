@@ -1,20 +1,23 @@
 {
   "name": "@anki-eco/packager",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ikkz/anki-eco.git"
-  },
+  "version": "1.1.5",
   "homepage": "https://anki.ikkz.fun",
   "bugs": {
     "url": "https://github.com/ikkz/anki-eco/issues"
+  },
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ikkz/anki-eco.git"
   },
   "bin": {
     "@anki-eco/packager": "./bin/packager.js",
     "_assign_perm": "./dist/anki-eco-packager"
   },
+  "files": [
+    "dist"
+  ],
   "type": "module",
-  "version": "1.1.5",
-  "license": "GPL-3.0-or-later",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -27,13 +30,10 @@
       "default": "./dist/index.js"
     }
   },
-  "dependencies": {
-    "tslib": "^2.3.0"
-  },
-  "files": [
-    "dist"
-  ],
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
   }
 }

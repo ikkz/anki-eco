@@ -191,15 +191,11 @@ export const ClozeInputField: FC<
       };
     } else {
       const reports: Report[] = clozeInfos.map((info, idx) => {
-        const value = (
-          crossStorage.getItem(inputKey(idx), '') as string
-        ).trim();
+        const value = (crossStorage.getItem(inputKey(idx), '') as string).trim();
         return {
           ...info,
           value,
-          ops: info.hasWholeType
-            ? undefined
-            : getEditOps(value, info.answer, compare),
+          ops: info.hasWholeType ? undefined : getEditOps(value, info.answer, compare),
         };
       });
       setReports(reports);

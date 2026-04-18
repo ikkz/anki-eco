@@ -22,10 +22,7 @@ export function useCrossState<T>(key: string, init: T | (() => T)) {
     state,
     (value: SetStateAction<T>) => {
       setState((prev) => {
-        const next =
-          typeof value === 'function'
-            ? (value as (current: T) => T)(prev)
-            : value;
+        const next = typeof value === 'function' ? (value as (current: T) => T)(prev) : value;
         crossStorage.setItem(key, next);
         return next;
       });

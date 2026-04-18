@@ -1,18 +1,18 @@
 {
   "name": "@anki-eco/docs",
   "version": "0.0.1",
-  "license": "GPL-3.0-or-later",
   "private": true,
-  "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.5.1",
-    "tailwindcss": "3",
-    "vitepress": "2.0.0-alpha.12",
-    "@anki-eco/extensions": "workspace:*"
-  },
+  "license": "GPL-3.0-or-later",
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
     "preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "@anki-eco/extensions": "workspace:*",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.1",
+    "tailwindcss": "3",
+    "vitepress": "2.0.0-alpha.12"
   }
 }

@@ -11,21 +11,10 @@ export const Checkbox: FC<{
   subtitle?: ReactNode;
   disabled?: boolean;
   'data-testid'?: string;
-}> = ({
-  onChange,
-  className,
-  checked,
-  title,
-  subtitle,
-  disabled,
-  ...props
-}) => {
+}> = ({ onChange, className, checked, title, subtitle, disabled, ...props }) => {
   const id = useId();
   return (
-    <div
-      className={clsx('relative flex gap-x-3', className)}
-      data-testid={props['data-testid']}
-    >
+    <div className={clsx('relative flex gap-x-3', className)} data-testid={props['data-testid']}>
       <div className="flex h-6 items-center">
         <input
           id={id}
@@ -36,22 +25,15 @@ export const Checkbox: FC<{
             'dark:bg-neutral-600',
           )}
           checked={checked}
-          onChange={
-            disabled ? doNothing : (e) => onChange?.(Boolean(e.target.checked))
-          }
+          onChange={disabled ? doNothing : (e) => onChange?.(Boolean(e.target.checked))}
           disabled={disabled}
         />
       </div>
       <div className="text-sm leading-6">
-        <label
-          htmlFor={id}
-          className={clsx('font-medium text-gray-900', 'dark:text-white')}
-        >
+        <label htmlFor={id} className={clsx('font-medium text-gray-900', 'dark:text-white')}>
           {title}
         </label>
-        <p className={clsx('text-gray-500', 'dark:text-gray-400')}>
-          {subtitle}
-        </p>
+        <p className={clsx('text-gray-500', 'dark:text-gray-400')}>{subtitle}</p>
       </div>
     </div>
   );

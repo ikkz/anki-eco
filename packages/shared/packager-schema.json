@@ -3,14 +3,7 @@
   "title": "Anki Deck Build Configuration",
   "description": "Schema for build.json files used in Anki deck packaging",
   "type": "object",
-  "required": [
-    "note_type_name",
-    "deck_name",
-    "note_type_id",
-    "deck_id",
-    "fields",
-    "notes"
-  ],
+  "required": ["note_type_name", "deck_name", "note_type_id", "deck_id", "fields", "notes"],
   "properties": {
     "note_type_name": {
       "type": "string",
@@ -56,6 +49,7 @@
           }
         },
         "additionalProperties": false
+      }
     },
     "additionalProperties": false
   }

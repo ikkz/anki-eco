@@ -22,10 +22,7 @@
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
     "src/**/*.spec.vue",
-    "src/**/*.test.vue",
-    "eslint.config.js",
-    "eslint.config.cjs",
-    "eslint.config.mjs"
+    "src/**/*.test.vue"
   ],
   "include": [
     ".vitepress/**/*.js",

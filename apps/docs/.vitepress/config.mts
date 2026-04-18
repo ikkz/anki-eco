@@ -3,23 +3,17 @@ import fs from 'node:fs/promises';
 import path from 'node:path/posix';
 
 const EXT_CM_SCRIPT = await fs.readFile(
-  path.join(
-    import.meta.dirname,
-    '../../../packages/extensions/dist/card-motion.js'
-  ),
+  path.join(import.meta.dirname, '../../../packages/extensions/dist/card-motion.js'),
   {
     encoding: 'utf8',
-  }
+  },
 );
 
 const EXT_CM_CSS = await fs.readFile(
-  path.join(
-    import.meta.dirname,
-    '../../../packages/extensions/src/features/card-motion/index.css'
-  ),
+  path.join(import.meta.dirname, '../../../packages/extensions/src/features/card-motion/index.css'),
   {
     encoding: 'utf8',
-  }
+  },
 );
 
 // https://vitepress.dev/reference/site-config

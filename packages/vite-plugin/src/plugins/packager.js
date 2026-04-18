@@ -7,7 +7,7 @@ const genFrontHtml = (html) => {
 
   const headNodes = DomUtils.getElementsByTagName(
     (name) => ['script', 'style'].includes(name),
-    DomUtils.getElementsByTagName('head', dom)
+    DomUtils.getElementsByTagName('head', dom),
   );
 
   headNodes.reverse().forEach((node) => DomUtils.prependChild(body, node));
@@ -62,9 +62,7 @@ export const packager = (/** @type import('../index.d.ts').Props */ props) => {
       this.emitFile({
         type: 'asset',
         fileName: 'back.html',
-        source: prependBanner(
-          `<div id="${consts.backIndicatorId}"></div>{{FrontSide}}`
-        ),
+        source: prependBanner(`<div id="${consts.backIndicatorId}"></div>{{FrontSide}}`),
       });
     },
 

@@ -47,7 +47,7 @@ export class TldrawContainer extends LitElement {
         dataUrl: this.dataUrl,
         width: this.width,
         height: this.height,
-      })
+      }),
     );
   }
 

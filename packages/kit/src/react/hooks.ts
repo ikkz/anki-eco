@@ -14,7 +14,7 @@ export const useIsBack = () => {
       effect(() => {
         setIsBack(isBackSignal.value);
       }),
-    []
+    [],
   );
 
   return isBack;

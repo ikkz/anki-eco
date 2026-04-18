@@ -28,9 +28,7 @@ export const Timer: FC = () => {
 
   return (
     <>
-      <div className="mb-4 text-center font-bold text-indigo-500">
-        {timer?.title}
-      </div>
+      <div className="mb-4 text-center font-bold text-indigo-500">{timer?.title}</div>
       <div className="flex flex-row items-center justify-center gap-3">
         {displayBlocks.map(([name, num]) => (
           <div key={name} className="flex flex-col items-center">
@@ -56,10 +54,7 @@ const defaultTimerProps = {
   title: t.defaultTimerTitle,
 };
 
-export const timerAtom = atomWithScopedStorage<TimerProps>(
-  'timer',
-  defaultTimerProps,
-);
+export const timerAtom = atomWithScopedStorage<TimerProps>('timer', defaultTimerProps);
 
 export const TimerBlock = () => {
   const prefHideTimer = useAtomValue(hideTimerAtom);

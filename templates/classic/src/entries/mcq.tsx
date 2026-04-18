@@ -43,8 +43,7 @@ const SINGLE_CHOICE_CLICK_DELAY = 300;
 
 export default () => {
   const ankiClient = useCreation(() => getAnkiClient(), []);
-  const supportsContextMenuElimination =
-    ankiClient === 'Desktop' || ankiClient === 'iPad';
+  const supportsContextMenuElimination = ankiClient === 'Desktop' || ankiClient === 'iPad';
   const prefRandomOptions = useAtomValue(randomOptionsAtom);
   const prefKeepRandomOrderOnBack = useAtomValue(keepRandomOrderOnBackAtom);
   const prefKeepRandomOrderOnBackLatest = useLatest(prefKeepRandomOrderOnBack);
@@ -70,22 +69,17 @@ export default () => {
     prefRandomOptions ? shuffledOptions : originOptions,
   );
 
-  const [storedSelections, setStoredSelections] = useCrossState<string[]>(
-    'selected',
+  const [storedSelections, setStoredSelections] = useCrossState<string[]>('selected', []);
+  const [storedEliminatedOptions, setStoredEliminatedOptions] = useCrossState<string[]>(
+    'mcq-eliminated-options',
     [],
   );
-  const [storedEliminatedOptions, setStoredEliminatedOptions] = useCrossState<
-    string[]
-  >('mcq-eliminated-options', []);
   const {
     isSelected: isEliminated,
     toggle: toggleEliminated,
     selected: eliminatedOptions,
   } = useSelections(options, storedEliminatedOptions);
-  const { isSelected, toggle, selected, setSelected } = useSelections(
-    options,
-    storedSelections,
-  );
+  const { isSelected, toggle, selected, setSelected } = useSelections(options, storedSelections);
   useEffect(() => {
     setStoredSelections(selected);
   }, [selected]);
@@ -198,17 +192,10 @@ export default () => {
   const hasNote = !isFieldEmpty(FIELD_ID('note'));
   const isMultipleChoice = answers.length > 1;
 
-  const [blurred, setBlurred] = useCrossState(
-    'blurred',
-    useAtomValue(blurOptionsAtom),
-  );
+  const [blurred, setBlurred] = useCrossState('blurred', useAtomValue(blurOptionsAtom));
 
   const hideMcqAnswer = useAtomValue(hideMcqAnswerAtom);
-  const showAnswerBlock = shouldShowAnswerBlock(
-    options.length > 0,
-    hideMcqAnswer,
-    hasNote,
-  );
+  const showAnswerBlock = shouldShowAnswerBlock(options.length > 0, hideMcqAnswer, hasNote);
 
   return (
     <CardShell
@@ -222,10 +209,7 @@ export default () => {
       questionExtra={
         options.length ? (
           <div
-            className={clsx(
-              'mt-5 space-y-3 lg:space-y-6',
-              prefBiggerText ? 'prose-xl' : '',
-            )}
+            className={clsx('mt-5 space-y-3 lg:space-y-6', prefBiggerText ? 'prose-xl' : '')}
             ref={parent}
             onClick={() => setBlurred(false)}
           >
@@ -250,19 +234,13 @@ export default () => {
                       'after:absolute after:left-0 after:top-[-2px] after:block after:-translate-x-full after:rounded-l after:px-0.5 after:py-1 after:text-xs after:text-white':
                         selectResult !== 'none',
                       'after:origin-top-right after:scale-75':
-                        selectResult !== 'none' &&
-                        ['en', 'ja', 'pt_br'].includes(locale),
-                      'before:text-red-500 after:bg-red-500':
-                        selectResult === 'wrong',
-                      'before:text-green-500 after:bg-green-500':
-                        selectResult === 'correct',
-                      'before:text-amber-500 after:bg-amber-500':
-                        selectResult === 'missed',
+                        selectResult !== 'none' && ['en', 'ja', 'pt_br'].includes(locale),
+                      'before:text-red-500 after:bg-red-500': selectResult === 'wrong',
+                      'before:text-green-500 after:bg-green-500': selectResult === 'correct',
+                      'before:text-amber-500 after:bg-amber-500': selectResult === 'missed',
                       [`after:content-['${
                         ANSWER_TYPE_MAP[
-                          `${
-                            selectResult as Exclude<typeof selectResult, 'none'>
-                          }Answer`
+                          `${selectResult as Exclude<typeof selectResult, 'none'>}Answer`
                         ]
                       }']`]: selectResult !== 'none',
                       [clsx(
@@ -271,8 +249,7 @@ export default () => {
                         )}'] before:-top-5 before:right-1 before:text-4xl before:font-extrabold before:italic before:opacity-20`,
                         'dark:before:opacity-50',
                       )]: back,
-                      'before:text-indigo-500 after:hidden':
-                        selectResult === 'none',
+                      'before:text-indigo-500 after:hidden': selectResult === 'none',
                     },
                     {
                       [`pointer-events-none blur`]: blurred,
@@ -282,13 +259,10 @@ export default () => {
                       'opacity-60 line-through': !back && isEliminated(name),
                     },
                     {
-                      '!border-indigo-500 !bg-indigo-50':
-                        !back && isSelected(name),
+                      '!border-indigo-500 !bg-indigo-50': !back && isSelected(name),
                       '!border-red-500 !bg-red-50': selectResult === 'wrong',
-                      '!border-green-500 !bg-green-50':
-                        selectResult === 'correct',
-                      '!border-amber-500 !bg-amber-50':
-                        selectResult === 'missed',
+                      '!border-green-500 !bg-green-50': selectResult === 'correct',
+                      '!border-amber-500 !bg-amber-50': selectResult === 'missed',
                       '!rounded-tl-none': selectResult !== 'none',
                     },
                     'dark:!bg-opacity-10',
@@ -349,10 +323,7 @@ export default () => {
               </>
             )}
             {hasNote ? (
-              <AnkiField
-                name="note"
-                className={clsx('prose prose-sm mt-3', 'dark:prose-invert')}
-              />
+              <AnkiField name="note" className={clsx('prose prose-sm mt-3', 'dark:prose-invert')} />
             ) : null}
           </>
         ) : null

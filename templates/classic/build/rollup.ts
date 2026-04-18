@@ -25,25 +25,15 @@ const packageJson = JSON.parse(
   }),
 );
 
-export async function rollupOptions(
-  config: BuildConfig,
-  { dev = false }: { dev?: boolean } = {},
-) {
+export async function rollupOptions(config: BuildConfig, { dev = false }: { dev?: boolean } = {}) {
   const resolveImportPath = (...segments: string[]) =>
     pathToFileURL(path.resolve(import.meta.dirname, ...segments)).href;
 
   async function buildInputOptions() {
     const i18nMap = await fs
-      .readFile(
-        path.resolve(
-          import.meta.dirname,
-          '../translations/',
-          `${config.locale}.json`,
-        ),
-        {
-          encoding: 'utf8',
-        },
-      )
+      .readFile(path.resolve(import.meta.dirname, '../translations/', `${config.locale}.json`), {
+        encoding: 'utf8',
+      })
       .then(JSON.parse);
     return {
       input: 'entry',
@@ -79,13 +69,9 @@ export async function rollupOptions(
         }),
         replacePlugin(
           {
-            'process.env.NODE_ENV': JSON.stringify(
-              envValue('production', 'development'),
-            ),
+            'process.env.NODE_ENV': JSON.stringify(envValue('production', 'development')),
             'import.meta.env': '({})',
-            'import.meta.env.MODE': JSON.stringify(
-              envValue('production', 'development'),
-            ),
+            'import.meta.env.MODE': JSON.stringify(envValue('production', 'development')),
           },
           {
             preventAssignment: true,
@@ -95,10 +81,7 @@ export async function rollupOptions(
           entries: [
             {
               find: 'lodash/isPlainObject',
-              replacement: path.resolve(
-                import.meta.dirname,
-                '../src/polyfills/is-plain-object',
-              ),
+              replacement: path.resolve(import.meta.dirname, '../src/polyfills/is-plain-object'),
             },
             {
               find: '@',

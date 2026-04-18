@@ -16,7 +16,6 @@ Anki's cloze field is formatted as `{{c1::text}}`, so we can use [Find and Repla
 - Replace With: `{{`
 - Select "regular expression"
 
-
 ## Fields
 
 All fields are consistent with the basic template.

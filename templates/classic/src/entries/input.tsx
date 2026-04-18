@@ -49,10 +49,8 @@ export default () => {
                       <span
                         key={idx}
                         className={clsx({
-                          'bg-green-200 dark:bg-green-900/50 typeGood':
-                            op.kind === 'retain',
-                          'bg-yellow-200 dark:bg-yellow-900/50 typeMissed':
-                            op.kind === 'insert',
+                          'bg-green-200 dark:bg-green-900/50 typeGood': op.kind === 'retain',
+                          'bg-yellow-200 dark:bg-yellow-900/50 typeMissed': op.kind === 'insert',
                           'bg-red-200 dark:bg-red-900/50 line-through typeBad':
                             op.kind === 'delete',
                         })}
@@ -64,10 +62,7 @@ export default () => {
                       '-'}
                   </div>
                 </div>
-                <div
-                  className="p-2 cursor-pointer"
-                  onClick={() => highlightCloze(report)}
-                >
+                <div className="p-2 cursor-pointer" onClick={() => highlightCloze(report)}>
                   <LocateFixed strokeWidth="1.5px" />
                 </div>
               </div>
@@ -77,12 +72,8 @@ export default () => {
       answer={
         <>
           {hasAnswer ? <AnkiField name="answer" className={tw.prose} /> : null}
-          {hasAnswer && hasNote ? (
-            <hr className={clsx('my-4', tw.borderColor)} />
-          ) : null}
-          {hasNote ? (
-            <AnkiField name="note" className={clsx('prose-sm', tw.prose)} />
-          ) : null}
+          {hasAnswer && hasNote ? <hr className={clsx('my-4', tw.borderColor)} /> : null}
+          {hasNote ? <AnkiField name="note" className={clsx('prose-sm', tw.prose)} /> : null}
         </>
       }
     />

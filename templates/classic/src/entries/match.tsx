@@ -39,19 +39,17 @@ type Collection = {
   items: Item[];
 };
 
-const belongTo = (item: Item, items: Item[]) =>
-  !!items.find(({ name }) => name === item.name);
+const belongTo = (item: Item, items: Item[]) => !!items.find(({ name }) => name === item.name);
 
 const ItemComponent: FC<{
   item: Item;
   status?: 'correct' | 'missed' | 'wrong' | 'default';
 }> = ({ item, status = 'default' }) => {
   const [back] = useBack();
-  const { attributes, listeners, setNodeRef, transform, isDragging } =
-    useDraggable({
-      id: item.id,
-      disabled: back,
-    });
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id: item.id,
+    disabled: back,
+  });
   const style = transform
     ? {
         transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
@@ -100,21 +98,12 @@ const CategoryContainer: FC<{
     [collection.items, dropped],
   );
   return (
-    <div
-      ref={setNodeRef}
-      className={clsx('border p-2 min-h-20 rounded', tw.borderColor)}
-    >
+    <div ref={setNodeRef} className={clsx('border p-2 min-h-20 rounded', tw.borderColor)}>
       <div className="font-semibold text-lg">{category.name}</div>
       <div className="flex flex-wrap gap-2 mt-2">
         {dropped.map((item) => (
           <ItemComponent
-            status={
-              back
-                ? belongTo(item, collection.items)
-                  ? 'correct'
-                  : 'wrong'
-                : 'default'
-            }
+            status={back ? (belongTo(item, collection.items) ? 'correct' : 'wrong') : 'default'}
             key={item.id}
             item={item}
           />
@@ -132,17 +121,11 @@ const CategoryContainer: FC<{
 };
 
 const Playground: FC<{ collections: Collection[] }> = ({ collections }) => {
-  const allItems = useCreation(
-    () => collections.map(({ items }) => items).flat(),
-    [],
-  );
+  const allItems = useCreation(() => collections.map(({ items }) => items).flat(), []);
   const [items, setItems] = useCrossState('match-items', () =>
     shuffle(collections.map(({ items }) => items).flat()),
   );
-  const [dropped, setDropped] = useCrossState(
-    'dropped-items',
-    {} as Record<string, Item[]>,
-  );
+  const [dropped, setDropped] = useCrossState('dropped-items', {} as Record<string, Item[]>);
 
   const onDrop = useMemoizedFn((itemId: string, categoryId: string) => {
     const item = allItems.find(({ id }) => id === itemId)!;
@@ -242,21 +225,14 @@ export default () => {
       );
   }, []);
 
-  const [shuffledCollections] = useCrossState('shuffled-collections', () =>
-    shuffle(collections),
-  );
+  const [shuffledCollections] = useCrossState('shuffled-collections', () => shuffle(collections));
 
   return (
     <CardShell
       title={t.question}
       questionExtra={<Playground collections={shuffledCollections} />}
       answer={
-        hasNote ? (
-          <AnkiField
-            name="note"
-            className={'prose prose-sm dark:prose-invert'}
-          />
-        ) : null
+        hasNote ? <AnkiField name="note" className={'prose prose-sm dark:prose-invert'} /> : null
       }
     />
   );

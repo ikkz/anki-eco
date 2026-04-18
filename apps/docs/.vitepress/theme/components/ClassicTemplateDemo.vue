@@ -2,15 +2,7 @@
 import { computed, ref, watch, onMounted } from 'vue';
 import hostHtml from './anki-host.html?raw';
 
-type Entry =
-  | 'mcq'
-  | 'tf'
-  | 'basic'
-  | 'match'
-  | 'cloze'
-  | 'input'
-  | 'mcq_10'
-  | 'mcq_26';
+type Entry = 'mcq' | 'tf' | 'basic' | 'match' | 'cloze' | 'input' | 'mcq_10' | 'mcq_26';
 
 const props = defineProps<{
   entry: Entry;
@@ -23,26 +15,18 @@ const locales: Locale[] = ['en', 'zh', 'ja', 'pt_br'];
 const fields: Field[] = ['native', 'markdown'];
 
 const selectedLocale = ref<Locale>(
-  typeof location !== 'undefined' && location.pathname.startsWith('/zh/')
-    ? 'zh'
-    : 'en'
+  typeof location !== 'undefined' && location.pathname.startsWith('/zh/') ? 'zh' : 'en',
 );
 const selectedField = ref<Field>('native');
 
-const distHost = import.meta.env.DEV
-  ? 'http://localhost:4200'
-  : 'https://classic.anki.ikkz.fun';
+const distHost = import.meta.env.DEV ? 'http://localhost:4200' : 'https://classic.anki.ikkz.fun';
 
 const distPublicBase = `${distHost}/dist`;
 const releasePublicBase = `${distHost}/release`;
 
-const variantKey = computed(
-  () => `${props.entry}.${selectedLocale.value}.${selectedField.value}`
-);
+const variantKey = computed(() => `${props.entry}.${selectedLocale.value}.${selectedField.value}`);
 
-const downloadPath = computed(
-  () => `${releasePublicBase}/${variantKey.value}.apkg`
-);
+const downloadPath = computed(() => `${releasePublicBase}/${variantKey.value}.apkg`);
 
 const downloadName = computed(() => `${variantKey.value}.apkg`);
 
@@ -150,9 +134,7 @@ async function loadAndRender() {
     const page = iframeRef.value!.contentWindow!;
 
     // prepare fields
-    const baseFields: Record<string, string> = Object.fromEntries(
-      build.fields.map((k) => [k, ''])
-    );
+    const baseFields: Record<string, string> = Object.fromEntries(build.fields.map((k) => [k, '']));
     const noteFields = build.notes[0]?.fields ?? {};
     const renderFields = { ...baseFields, ...noteFields };
 
@@ -174,9 +156,7 @@ async function loadAndRender() {
       requestAnimationFrame(() => {
         (page as any).e2eAnki.render(backHtml);
         setTimeout(() => {
-          page.document
-            .getElementById('answer')
-            ?.scrollIntoView({ behavior: 'smooth' });
+          page.document.getElementById('answer')?.scrollIntoView({ behavior: 'smooth' });
         }, 300);
       });
     };
@@ -266,19 +246,11 @@ onMounted(() => {
         </a>
       </div>
     </div>
-    <div v-if="loading" class="tw-text-xs tw-text-gray-500 tw-mt-2">
-      Loading…
-    </div>
+    <div v-if="loading" class="tw-text-xs tw-text-gray-500 tw-mt-2">Loading…</div>
 
     <div>
-      <div
-        class="tw-border tw-rounded tw-overflow-hidden tw-bg-white tw-h-[680px] tw-shadow-sm"
-      >
-        <iframe
-          ref="iframeRef"
-          class="tw-w-full tw-h-full"
-          :srcdoc="hostHtml"
-        />
+      <div class="tw-border tw-rounded tw-overflow-hidden tw-bg-white tw-h-[680px] tw-shadow-sm">
+        <iframe ref="iframeRef" class="tw-w-full tw-h-full" :srcdoc="hostHtml" />
       </div>
       <div v-if="error" class="tw-text-xs tw-text-red-500 tw-mt-2">
         {{ error }}

@@ -2,7 +2,7 @@ export function sendEvent(
   domain: string,
   pathname: string,
   name: 'pageview' | string,
-  props?: Record<string, any>
+  props?: Record<string, any>,
 ) {
   return fetch('https://pla.ikkz.fun/api/event', {
     method: 'POST',
