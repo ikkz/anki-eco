@@ -74,6 +74,11 @@ export default defineConfig({
         ],
       },
       { text: 'Dev Guide', link: '/guide/packager' },
+      {
+        text: 'Sponsor',
+        link: 'https://github.com/sponsors/ikkz',
+        target: '_blank',
+      },
     ],
 
     sidebar: {
@@ -115,11 +120,11 @@ export default defineConfig({
     socialLinks: [
       {
         icon: 'discord',
-        link: 'https://discord.gg/wBP7H3QJ4Q'
+        link: 'https://discord.gg/wBP7H3QJ4Q',
       },
       {
         icon: 'github',
-        link: 'https://github.com/ikkz/anki-eco'
+        link: 'https://github.com/ikkz/anki-eco',
       },
     ],
   },
