@@ -15,7 +15,11 @@ export const EnAbout = () => (
       support my work is to star it on{' '}
       <a href="https://github.com/ikkz/anki-eco">GitHub</a>, or consider
       sponsoring me via{' '}
-      <a href="https://github.com/sponsors/ikkz" target="_blank" rel="noreferrer">
+      <a
+        href="https://github.com/sponsors/ikkz"
+        target="_blank"
+        rel="noreferrer"
+      >
         GitHub Sponsors
       </a>
       .
@@ -43,7 +47,11 @@ export const ZhAbout = () => (
     <p>
       感谢你使用我精心打磨的 Anki 模板！支持我的最佳方式是在{' '}
       <a href="https://github.com/ikkz/anki-eco">GitHub</a> 点个 Star，或在{' '}
-      <a href="https://github.com/sponsors/ikkz" target="_blank" rel="noreferrer">
+      <a
+        href="https://github.com/sponsors/ikkz"
+        target="_blank"
+        rel="noreferrer"
+      >
         GitHub Sponsors
       </a>{' '}
       赞助我 ❤️

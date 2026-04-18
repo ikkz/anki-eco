@@ -74,6 +74,11 @@ export default defineConfig({
         ],
       },
       { text: 'Dev Guide', link: '/guide/packager' },
+      {
+        text: 'Sponsor',
+        link: 'https://github.com/sponsors/ikkz',
+        target: '_blank',
+      },
     ],
 
     sidebar: {
@@ -113,10 +118,6 @@ export default defineConfig({
       ],
     },
     socialLinks: [
-      {
-        icon: 'githubsponsors',
-        link: 'https://github.com/sponsors/ikkz',
-      },
       {
         icon: 'discord',
         link: 'https://discord.gg/wBP7H3QJ4Q',

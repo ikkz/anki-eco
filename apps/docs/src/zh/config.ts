@@ -37,6 +37,11 @@ export default defineAdditionalConfig({
         ],
       },
       { text: '开发指南', link: '/zh/guide/quick-start' },
+      {
+        text: '赞助',
+        link: 'https://github.com/sponsors/ikkz',
+        target: '_blank',
+      },
     ],
     sidebar: {
       '/zh/guide/': [
@@ -75,8 +80,14 @@ export default defineAdditionalConfig({
             { text: '排序', link: '/zh/templates/classic/ordering' },
             { text: '填空', link: '/zh/templates/classic/cloze' },
             { text: '输入题', link: '/zh/templates/classic/input' },
-            { text: '多项选择（10 选项）', link: '/zh/templates/classic/mcq_10' },
-            { text: '多项选择（26 选项）', link: '/zh/templates/classic/mcq_26' },
+            {
+              text: '多项选择（10 选项）',
+              link: '/zh/templates/classic/mcq_10',
+            },
+            {
+              text: '多项选择（26 选项）',
+              link: '/zh/templates/classic/mcq_26',
+            },
           ],
         },
       ],
