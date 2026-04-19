@@ -284,6 +284,32 @@ const entries = {
       },
     ],
   }),
+  'item-ordering': defineEntry({
+    desc: 'Sort list items into the correct order',
+    fields: ['question', 'items', 'note', 'Tags'],
+    notes: [
+      {
+        config: {
+          field: 'native',
+        },
+        fields: {
+          question: 'Sort the following items into the correct order',
+          items: 'First Item<br>===<br>Second Item<br>===<br>Third Item',
+          note: 'note',
+        },
+      },
+      {
+        config: {
+          field: 'markdown',
+        },
+        fields: {
+          question: 'Sort the following items into the correct order',
+          items: 'First Item<br>===<br>Second Item<br>===<br>Third Item',
+          note: 'note',
+        },
+      },
+    ],
+  }),
   cloze: defineEntry({
     desc: 'Cloze template',
     fields: ['question', 'answer', 'note', 'Tags'],

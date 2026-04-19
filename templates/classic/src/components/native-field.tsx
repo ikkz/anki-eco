@@ -8,9 +8,10 @@ export interface FieldProps {
   name: string;
   className?: string;
   domRef?: RefObject<HTMLDivElement>;
+  clone?: boolean;
 }
 
-export const NativeField: FC<FieldProps> = memo(({ name, className, domRef }) => {
+export const NativeField: FC<FieldProps> = memo(({ name, className, domRef, clone }) => {
   const fieldNode = useCreation(
     () => document.getElementById(FIELD_ID(name)) as HTMLDivElement | null,
     [name],
@@ -19,11 +20,14 @@ export const NativeField: FC<FieldProps> = memo(({ name, className, domRef }) =>
   const attachNode = useCallback(
     (node: HTMLDivElement) => {
       if (fieldNode && node) {
-        fieldNode.remove();
-        node.appendChild(fieldNode);
+        if (!clone) {
+          fieldNode.remove();
+        }
+        node.innerHTML = '';
+        node.appendChild(clone ? fieldNode.cloneNode(true) : fieldNode);
       }
     },
-    [fieldNode],
+    [fieldNode, clone],
   );
 
   useEffect(() => {
