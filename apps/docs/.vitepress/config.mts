@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress';
 import fs from 'node:fs/promises';
 import path from 'node:path/posix';
-import { loadSponsors } from './sponsors.mts';
+import { loadSponsors } from './sponsors.js';
 
 const EXT_CM_SCRIPT = await fs.readFile(
   path.join(import.meta.dirname, '../../../packages/extensions/dist/card-motion.js'),
