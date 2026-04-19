@@ -91,7 +91,7 @@ export default defineConfig({
       ],
       '/templates/classic/': [
         {
-          text: 'Classic Templates',
+          text: 'Templates',
           items: [
             { text: 'Overview', link: '/templates/classic/' },
             { text: 'Multiple Choice', link: '/templates/classic/mcq' },
