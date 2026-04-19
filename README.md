@@ -1,5 +1,8 @@
 # AnkiEco
 
+> [!NOTE]
+> If you are here to download templates/extensions, please visit https://anki.ikkz.fun/
+
 AnkiEco is a toolkit for building cross-platform Anki experiences with template-driven extensions, interactive templates, and developer utilities.
 
 ## Documentation
