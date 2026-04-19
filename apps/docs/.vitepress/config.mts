@@ -37,16 +37,17 @@ export default defineConfig({
         items: [
           { text: 'Overview', link: '/templates/classic/' },
           { text: 'Multiple Choice', link: '/templates/classic/mcq' },
-          { text: 'True or False', link: '/templates/classic/tf' },
-          { text: 'Basic', link: '/templates/classic/basic' },
           { text: 'Match', link: '/templates/classic/match' },
-          { text: 'Ordering', link: '/templates/classic/ordering' },
+          { text: 'Basic', link: '/templates/classic/basic' },
           { text: 'Cloze', link: '/templates/classic/cloze' },
-          { text: 'Input', link: '/templates/classic/input' },
           {
             text: 'Multiple Choice (10 options)',
             link: '/templates/classic/mcq_10',
           },
+          { text: 'True or False', link: '/templates/classic/tf' },
+          { text: 'Item Ordering', link: '/templates/classic/item-ordering' },
+          { text: 'Ordering', link: '/templates/classic/ordering' },
+          { text: 'Input', link: '/templates/classic/input' },
           {
             text: 'Multiple Choice (26 options)',
             link: '/templates/classic/mcq_26',
@@ -95,16 +96,17 @@ export default defineConfig({
           items: [
             { text: 'Overview', link: '/templates/classic/' },
             { text: 'Multiple Choice', link: '/templates/classic/mcq' },
-            { text: 'True or False', link: '/templates/classic/tf' },
-            { text: 'Basic', link: '/templates/classic/basic' },
             { text: 'Match', link: '/templates/classic/match' },
-            { text: 'Ordering', link: '/templates/classic/ordering' },
+            { text: 'Basic', link: '/templates/classic/basic' },
             { text: 'Cloze', link: '/templates/classic/cloze' },
-            { text: 'Input', link: '/templates/classic/input' },
             {
               text: 'Multiple Choice (10 options)',
               link: '/templates/classic/mcq_10',
             },
+            { text: 'True or False', link: '/templates/classic/tf' },
+            { text: 'Item Ordering', link: '/templates/classic/item-ordering' },
+            { text: 'Ordering', link: '/templates/classic/ordering' },
+            { text: 'Input', link: '/templates/classic/input' },
             {
               text: 'Multiple Choice (26 options)',
               link: '/templates/classic/mcq_26',

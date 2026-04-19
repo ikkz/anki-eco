@@ -72,5 +72,8 @@
   "orderingDiff": "顺序差异",
   "orderingMatch": "匹配",
   "orderingMissing": "缺失",
-  "orderingExtra": "多余"
+  "orderingExtra": "多余",
+  "itemOrderingYourOrder": "你的顺序",
+  "itemOrderingCorrectOrder": "正确顺序",
+  "itemOrderingItems": "排序项目"
 }

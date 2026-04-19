@@ -72,5 +72,8 @@
   "orderingDiff": "順序の差分",
   "orderingMatch": "一致",
   "orderingMissing": "不足",
-  "orderingExtra": "余分"
+  "orderingExtra": "余分",
+  "itemOrderingYourOrder": "あなたの順序",
+  "itemOrderingCorrectOrder": "正しい順序",
+  "itemOrderingItems": "項目"
 }

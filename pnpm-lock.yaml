@@ -26,7 +26,7 @@ importers:
         version: 22.6.4(@babel/traverse@7.29.0)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21))(@types/node@20.19.9)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(eslint@9.39.4(jiti@2.4.2))(nx@22.6.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21)))(typescript@5.8.2)
       '@nx/react':
         specifier: 22.6.4
-        version: 22.6.4(@babel/core@7.29.0)(@babel/traverse@7.29.0)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)(@types/babel__core@7.20.5)(@zkochan/js-yaml@0.0.7)(esbuild@0.17.19)(eslint@9.39.4(jiti@2.4.2))(node-fetch@2.7.0(encoding@0.1.13))(nx@22.6.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vite@6.4.2(@types/node@20.19.9)(jiti@2.4.2)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.19.9)(@vitest/ui@3.2.4)(jiti@2.4.2)(jsdom@22.1.0)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))(vue-tsc@2.2.12(typescript@5.8.2))
+        version: 22.6.4(@babel/core@7.29.0)(@babel/traverse@7.29.0)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)(@types/babel__core@7.20.5)(@zkochan/js-yaml@0.0.7)(eslint@9.39.4(jiti@2.4.2))(node-fetch@2.7.0(encoding@0.1.13))(nx@22.6.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vite@6.4.2(@types/node@20.19.9)(jiti@2.4.2)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.19.9)(@vitest/ui@3.2.4)(jiti@2.4.2)(jsdom@22.1.0)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))(vue-tsc@2.2.12(typescript@5.8.2))
       '@nx/vite':
         specifier: 22.6.4
         version: 22.6.4(@babel/traverse@7.29.0)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21))(nx@22.6.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21)))(typescript@5.8.2)(vite@6.4.2(@types/node@20.19.9)(jiti@2.4.2)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.19.9)(@vitest/ui@3.2.4)(jiti@2.4.2)(jsdom@22.1.0)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))
@@ -275,6 +275,12 @@ importers:
       '@dnd-kit/core':
         specifier: ^6.3.1
         version: 6.3.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@dnd-kit/sortable':
+        specifier: ^10.0.0
+        version: 10.0.0(@dnd-kit/core@6.3.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+      '@dnd-kit/utilities':
+        specifier: ^3.2.2
+        version: 3.2.2(react@18.3.1)
       '@formkit/auto-animate':
         specifier: ^0.8.2
         version: 0.8.4
@@ -1326,6 +1332,12 @@ packages:
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
+
+  '@dnd-kit/sortable@10.0.0':
+    resolution: {integrity: sha512-+xqhmIIzvAYMGfBYYnbKuNicfSsk4RksY2XdmJhT+HAC01nix6fHCztU68jooFiMUB01Ky3F0FyOvhG/BZrWkg==}
+    peerDependencies:
+      '@dnd-kit/core': ^6.3.0
+      react: '>=16.8.0'
 
   '@dnd-kit/utilities@3.2.2':
     resolution: {integrity: sha512-+MKAJEOfaBe5SmV6t34p80MMKhjvUz0vRrvVJbPT0WElzaOJ/1xs+D+KDv+tD/NE5ujfrChEcshd4fLn0wpiqg==}
@@ -11908,6 +11920,13 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       tslib: 2.8.1
 
+  '@dnd-kit/sortable@10.0.0(@dnd-kit/core@6.3.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@dnd-kit/core': 6.3.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@dnd-kit/utilities': 3.2.2(react@18.3.1)
+      react: 18.3.1
+      tslib: 2.8.1
+
   '@dnd-kit/utilities@3.2.2(react@18.3.1)':
     dependencies:
       react: 18.3.1
@@ -12812,7 +12831,7 @@ snapshots:
       - node-fetch
       - utf-8-validate
 
-  '@module-federation/enhanced@2.3.1(@rspack/core@1.6.8(@swc/helpers@0.5.21))(node-fetch@2.7.0(encoding@0.1.13))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vue-tsc@2.2.12(typescript@5.8.2))(webpack@5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21))(esbuild@0.17.19))':
+  '@module-federation/enhanced@2.3.1(@rspack/core@1.6.8(@swc/helpers@0.5.21))(node-fetch@2.7.0(encoding@0.1.13))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vue-tsc@2.2.12(typescript@5.8.2))(webpack@5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21)))':
     dependencies:
       '@module-federation/bridge-react-webpack-plugin': 2.3.1(node-fetch@2.7.0(encoding@0.1.13))
       '@module-federation/cli': 2.3.1(node-fetch@2.7.0(encoding@0.1.13))(typescript@5.8.2)(vue-tsc@2.2.12(typescript@5.8.2))
@@ -12832,7 +12851,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.8.2
       vue-tsc: 2.2.12(typescript@5.8.2)
-      webpack: 5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21))(esbuild@0.17.19)
+      webpack: 5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21))
     transitivePeerDependencies:
       - '@rspack/core'
       - bufferutil
@@ -12873,16 +12892,16 @@ snapshots:
       - utf-8-validate
       - vue-tsc
 
-  '@module-federation/node@2.7.39(@rspack/core@1.6.8(@swc/helpers@0.5.21))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vue-tsc@2.2.12(typescript@5.8.2))(webpack@5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21))(esbuild@0.17.19))':
+  '@module-federation/node@2.7.39(@rspack/core@1.6.8(@swc/helpers@0.5.21))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vue-tsc@2.2.12(typescript@5.8.2))(webpack@5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21)))':
     dependencies:
-      '@module-federation/enhanced': 2.3.1(@rspack/core@1.6.8(@swc/helpers@0.5.21))(node-fetch@2.7.0(encoding@0.1.13))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vue-tsc@2.2.12(typescript@5.8.2))(webpack@5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21))(esbuild@0.17.19))
+      '@module-federation/enhanced': 2.3.1(@rspack/core@1.6.8(@swc/helpers@0.5.21))(node-fetch@2.7.0(encoding@0.1.13))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vue-tsc@2.2.12(typescript@5.8.2))(webpack@5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21)))
       '@module-federation/runtime': 2.3.1(node-fetch@2.7.0(encoding@0.1.13))
       '@module-federation/sdk': 2.3.1(node-fetch@2.7.0(encoding@0.1.13))
       encoding: 0.1.13
       node-fetch: 2.7.0(encoding@0.1.13)
       tapable: 2.3.0
     optionalDependencies:
-      webpack: 5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21))(esbuild@0.17.19)
+      webpack: 5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21))
     transitivePeerDependencies:
       - '@rspack/core'
       - bufferutil
@@ -13120,10 +13139,10 @@ snapshots:
       - nx
       - supports-color
 
-  '@nx/module-federation@22.6.4(@babel/traverse@7.29.0)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)(esbuild@0.17.19)(node-fetch@2.7.0(encoding@0.1.13))(nx@22.6.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vue-tsc@2.2.12(typescript@5.8.2))':
+  '@nx/module-federation@22.6.4(@babel/traverse@7.29.0)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)(node-fetch@2.7.0(encoding@0.1.13))(nx@22.6.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vue-tsc@2.2.12(typescript@5.8.2))':
     dependencies:
-      '@module-federation/enhanced': 2.3.1(@rspack/core@1.6.8(@swc/helpers@0.5.21))(node-fetch@2.7.0(encoding@0.1.13))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vue-tsc@2.2.12(typescript@5.8.2))(webpack@5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21))(esbuild@0.17.19))
-      '@module-federation/node': 2.7.39(@rspack/core@1.6.8(@swc/helpers@0.5.21))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vue-tsc@2.2.12(typescript@5.8.2))(webpack@5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21))(esbuild@0.17.19))
+      '@module-federation/enhanced': 2.3.1(@rspack/core@1.6.8(@swc/helpers@0.5.21))(node-fetch@2.7.0(encoding@0.1.13))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vue-tsc@2.2.12(typescript@5.8.2))(webpack@5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21)))
+      '@module-federation/node': 2.7.39(@rspack/core@1.6.8(@swc/helpers@0.5.21))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vue-tsc@2.2.12(typescript@5.8.2))(webpack@5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21)))
       '@module-federation/sdk': 2.3.1(node-fetch@2.7.0(encoding@0.1.13))
       '@nx/devkit': 22.6.4(nx@22.6.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21)))
       '@nx/js': 22.6.4(@babel/traverse@7.29.0)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21))(nx@22.6.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21)))
@@ -13133,7 +13152,7 @@ snapshots:
       http-proxy-middleware: 3.0.5
       picocolors: 1.1.1
       tslib: 2.8.1
-      webpack: 5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21))(esbuild@0.17.19)
+      webpack: 5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21))
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@swc-node/register'
@@ -13211,12 +13230,12 @@ snapshots:
   '@nx/nx-win32-x64-msvc@22.6.4':
     optional: true
 
-  '@nx/react@22.6.4(@babel/core@7.29.0)(@babel/traverse@7.29.0)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)(@types/babel__core@7.20.5)(@zkochan/js-yaml@0.0.7)(esbuild@0.17.19)(eslint@9.39.4(jiti@2.4.2))(node-fetch@2.7.0(encoding@0.1.13))(nx@22.6.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vite@6.4.2(@types/node@20.19.9)(jiti@2.4.2)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.19.9)(@vitest/ui@3.2.4)(jiti@2.4.2)(jsdom@22.1.0)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))(vue-tsc@2.2.12(typescript@5.8.2))':
+  '@nx/react@22.6.4(@babel/core@7.29.0)(@babel/traverse@7.29.0)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)(@types/babel__core@7.20.5)(@zkochan/js-yaml@0.0.7)(eslint@9.39.4(jiti@2.4.2))(node-fetch@2.7.0(encoding@0.1.13))(nx@22.6.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vite@6.4.2(@types/node@20.19.9)(jiti@2.4.2)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.19.9)(@vitest/ui@3.2.4)(jiti@2.4.2)(jsdom@22.1.0)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))(vue-tsc@2.2.12(typescript@5.8.2))':
     dependencies:
       '@nx/devkit': 22.6.4(nx@22.6.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21)))
       '@nx/eslint': 22.6.4(@babel/traverse@7.29.0)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21))(@zkochan/js-yaml@0.0.7)(eslint@9.39.4(jiti@2.4.2))(nx@22.6.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21)))
       '@nx/js': 22.6.4(@babel/traverse@7.29.0)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21))(nx@22.6.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21)))
-      '@nx/module-federation': 22.6.4(@babel/traverse@7.29.0)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)(esbuild@0.17.19)(node-fetch@2.7.0(encoding@0.1.13))(nx@22.6.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vue-tsc@2.2.12(typescript@5.8.2))
+      '@nx/module-federation': 22.6.4(@babel/traverse@7.29.0)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)(node-fetch@2.7.0(encoding@0.1.13))(nx@22.6.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2)(vue-tsc@2.2.12(typescript@5.8.2))
       '@nx/rollup': 22.6.4(@babel/core@7.29.0)(@babel/traverse@7.29.0)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21))(@types/babel__core@7.20.5)(nx@22.6.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21)))(typescript@5.8.2)
       '@nx/web': 22.6.4(@babel/traverse@7.29.0)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21))(nx@22.6.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.21)))
       '@phenomnomnominal/tsquery': 6.1.4(typescript@5.8.2)
@@ -21474,16 +21493,15 @@ snapshots:
 
   term-size@2.2.1: {}
 
-  terser-webpack-plugin@5.4.0(@swc/core@1.5.29(@swc/helpers@0.5.21))(esbuild@0.17.19)(webpack@5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21))(esbuild@0.17.19)):
+  terser-webpack-plugin@5.4.0(@swc/core@1.5.29(@swc/helpers@0.5.21))(webpack@5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21))):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
       schema-utils: 4.3.3
       terser: 5.46.1
-      webpack: 5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21))(esbuild@0.17.19)
+      webpack: 5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21))
     optionalDependencies:
       '@swc/core': 1.5.29(@swc/helpers@0.5.21)
-      esbuild: 0.17.19
 
   terser@5.46.1:
     dependencies:
@@ -22214,7 +22232,7 @@ snapshots:
 
   webpack-sources@3.3.4: {}
 
-  webpack@5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21))(esbuild@0.17.19):
+  webpack@5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21)):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.8
@@ -22238,7 +22256,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.3
       tapable: 2.3.2
-      terser-webpack-plugin: 5.4.0(@swc/core@1.5.29(@swc/helpers@0.5.21))(esbuild@0.17.19)(webpack@5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21))(esbuild@0.17.19))
+      terser-webpack-plugin: 5.4.0(@swc/core@1.5.29(@swc/helpers@0.5.21))(webpack@5.106.0(@swc/core@1.5.29(@swc/helpers@0.5.21)))
       watchpack: 2.5.1
       webpack-sources: 3.3.4
     transitivePeerDependencies:

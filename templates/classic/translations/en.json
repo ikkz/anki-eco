@@ -72,5 +72,8 @@
   "orderingDiff": "Order diff",
   "orderingMatch": "match",
   "orderingMissing": "missing",
-  "orderingExtra": "extra"
+  "orderingExtra": "extra",
+  "itemOrderingYourOrder": "Your Order",
+  "itemOrderingCorrectOrder": "Correct Order",
+  "itemOrderingItems": "Items"
 }
