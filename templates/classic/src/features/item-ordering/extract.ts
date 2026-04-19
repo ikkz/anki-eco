@@ -6,9 +6,11 @@ function deepTrimLeft(node: Node): boolean {
   if (isBrNode(node)) return true;
   if (node.nodeType === Node.TEXT_NODE) return !node.textContent?.trim();
   if (node.nodeType === Node.ELEMENT_NODE) {
-    const isVoid = /^(IMG|HR|INPUT|AREA|BASE|COL|EMBED|LINK|META|PARAM|SOURCE|TRACK|WBR)$/i.test(node.nodeName);
+    const isVoid = /^(IMG|HR|INPUT|AREA|BASE|COL|EMBED|LINK|META|PARAM|SOURCE|TRACK|WBR)$/i.test(
+      node.nodeName,
+    );
     if (isVoid) return false;
-    
+
     while (node.firstChild) {
       if (deepTrimLeft(node.firstChild)) {
         node.firstChild.remove();
@@ -28,7 +30,9 @@ function deepTrimRight(node: Node): boolean {
   if (isBrNode(node)) return true;
   if (node.nodeType === Node.TEXT_NODE) return !node.textContent?.trim();
   if (node.nodeType === Node.ELEMENT_NODE) {
-    const isVoid = /^(IMG|HR|INPUT|AREA|BASE|COL|EMBED|LINK|META|PARAM|SOURCE|TRACK|WBR)$/i.test(node.nodeName);
+    const isVoid = /^(IMG|HR|INPUT|AREA|BASE|COL|EMBED|LINK|META|PARAM|SOURCE|TRACK|WBR)$/i.test(
+      node.nodeName,
+    );
     if (isVoid) return false;
 
     while (node.lastChild) {
