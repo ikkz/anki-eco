@@ -7,6 +7,7 @@ import {
   getClozeData,
   getClozeNodes,
 } from '@/features/cloze/dom-to-cloze';
+import { hasSelectedText } from '@/features/cloze/has-selected-text';
 import { clozeAtom } from '@/store/settings';
 import { entry } from 'at/options';
 import { useAtomValue } from 'jotai';
@@ -97,9 +98,9 @@ const useCloze = (ref: RefObject<HTMLElement>) => {
     });
     el.style.visibility = 'visible';
 
-    const onClick = (event: MouseEvent) => {
+    const onPointerUp = (event: PointerEvent) => {
       const { target } = event;
-      if (back || !target || !(target instanceof Element)) {
+      if (back || hasSelectedText(el) || !target || !(target instanceof Element)) {
         return;
       }
       const node =
@@ -116,10 +117,10 @@ const useCloze = (ref: RefObject<HTMLElement>) => {
         }
       });
     };
-    el.addEventListener('click', onClick, true);
+    el.addEventListener('pointerup', onPointerUp, true);
 
     return () => {
-      el.removeEventListener('click', onClick, true);
+      el.removeEventListener('pointerup', onPointerUp, true);
     };
   }, [back, clozeEnabled]);
 };
