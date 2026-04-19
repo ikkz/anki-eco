@@ -23,6 +23,20 @@ AnkiEco is a toolkit for building cross-platform Anki experiences with template-
 - `packages/kit`, `packages/shared`, `packages/dev-ui`: Internal libraries that power extensions and template state
 - `templates/`: Reference template projects, including the Classic bundle plus React and Vue examples
 
+## Sponsors
+
+Thanks to the following sponsors for their support! ❤️
+
+<!-- sponsors-start -->
+
+| Avatar                                                                                                                     | Sponsor                                |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| <a href="https://github.com/PEDR0HK"><img src="https://github.com/PEDR0HK.png" width="50" height="50" alt="PEDR0HK" /></a> | [@PEDR0HK](https://github.com/PEDR0HK) |
+
+<!-- sponsors-end -->
+
+[Become a sponsor →](https://github.com/sponsors/ikkz)
+
 ## Getting Started
 
 **Prerequisites**

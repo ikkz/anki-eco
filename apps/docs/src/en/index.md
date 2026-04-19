@@ -8,21 +8,21 @@ hero:
   # tagline: My great project tagline
   actions:
     - theme: brand
-      text: Extensions
-      link: /extension/
-    - theme: alt
       text: Templates
       link: /templates/classic/
+    - theme: alt
+      text: Extensions
+      link: /extension/
 features:
+  - title: Templates
+    details: Interactive templates (MCQ, TF, Basic, Match, Cloze, Input) with preview & download
+    link: /templates/classic/
   - title: Tldraw Integration
     details: Draw freely on cards during review; integrates with any template you use
     link: /extension/tldraw
   - title: CardMotion
     details: Realistic flip and next-card animations; works across all Anki clients
     link: /extension/card-motion
-  - title: Classic Templates
-    details: Interactive templates (MCQ, TF, Basic, Match, Cloze, Input) with preview & download
-    link: /templates/classic/
 #   - title: Feature C
 #     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---

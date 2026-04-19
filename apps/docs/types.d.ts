@@ -15,6 +15,12 @@ declare const EXT_CM: {
   script: string;
 };
 
+declare const SPONSORS: Array<{
+  username: string;
+  avatar: string;
+  url: string;
+}>;
+
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }

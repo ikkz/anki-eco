@@ -4,52 +4,47 @@ import { memo, useEffect, useState } from 'react';
 
 export const EnAbout = () => (
   <div className={clsx('prose prose-sm', 'dark:prose-invert')}>
-    <p>
-      Docs & updates for this template:{' '}
-      <a href={`https://anki.ikkz.fun/templates/classic/${entry}.html`}>View docs/updates</a>
-    </p>
-    <p>
-      Thanks for using my carefully crafted Anki template! The best way to support my work is to
-      star it on <a href="https://github.com/ikkz/anki-eco">GitHub</a>, or consider sponsoring me
-      via{' '}
-      <a href="https://github.com/sponsors/ikkz" target="_blank" rel="noreferrer">
-        GitHub Sponsors
-      </a>
-      .
-    </p>
-
-    <p>
-      Explore all my templates <a href="https://anki.ikkz.fun/">here</a>.
-    </p>
-
-    <p>
-      Have suggestions or feedback? Open an issue{' '}
-      <a href="https://github.com/ikkz/anki-eco/issues">here</a>.
-    </p>
+    <p>Thanks for using my carefully crafted Anki template!</p>
+    <ul>
+      <li>
+        <a href={`https://anki.ikkz.fun/templates/classic/${entry}.html`}>Docs &amp; updates</a>
+      </li>
+      <li>
+        <a href="https://anki.ikkz.fun/sponsor" target="_blank" rel="noreferrer">
+          Sponsor
+        </a>{' '}
+        ❤️ — support this project
+      </li>
+      <li>
+        <a href="https://github.com/ikkz/anki-eco">Star on GitHub</a>
+      </li>
+      <li>
+        <a href="https://github.com/ikkz/anki-eco/issues">Feedback / issues</a>
+      </li>
+    </ul>
   </div>
 );
 
 export const ZhAbout = () => (
   <div className={clsx('prose prose-sm', 'dark:prose-invert')}>
-    <p>
-      本模板的文档与更新：{' '}
-      <a href={`https://anki.ikkz.fun/templates/classic/${entry}.html`}>点击此处</a>
-    </p>
-    <p>
-      感谢你使用我精心打磨的 Anki 模板！支持我的最佳方式是在{' '}
-      <a href="https://github.com/ikkz/anki-eco">GitHub</a> 点个 Star，或在{' '}
-      <a href="https://github.com/sponsors/ikkz" target="_blank" rel="noreferrer">
-        GitHub Sponsors
-      </a>{' '}
-      赞助我 ❤️
-    </p>
-    <p>
-      你可以在 <a href="https://anki.ikkz.fun/">这里</a> 浏览我制作的所有模板。
-    </p>
-
-    <p>
-      如果有建议或反馈，请在 <a href="https://github.com/ikkz/anki-eco/issues">这里</a> 提交 Issue。
-    </p>
+    <p>感谢你使用我精心打磨的 Anki 模板！</p>
+    <ul>
+      <li>
+        <a href={`https://anki.ikkz.fun/templates/classic/${entry}.html`}>文档与更新</a>
+      </li>
+      <li>
+        <a href="https://anki.ikkz.fun/zh/sponsor" target="_blank" rel="noreferrer">
+          赞助
+        </a>{' '}
+        ❤️ — 支持本项目
+      </li>
+      <li>
+        <a href="https://github.com/ikkz/anki-eco">在 GitHub 点个 Star</a>
+      </li>
+      <li>
+        <a href="https://github.com/ikkz/anki-eco/issues">反馈 / 提交 Issue</a>
+      </li>
+    </ul>
   </div>
 );
 

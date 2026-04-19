@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress';
 import fs from 'node:fs/promises';
 import path from 'node:path/posix';
+import { loadSponsors } from './sponsors.js';
 
 const EXT_CM_SCRIPT = await fs.readFile(
   path.join(import.meta.dirname, '../../../packages/extensions/dist/card-motion.js'),
@@ -8,6 +9,8 @@ const EXT_CM_SCRIPT = await fs.readFile(
     encoding: 'utf8',
   },
 );
+
+const SPONSORS = await loadSponsors();
 
 const EXT_CM_CSS = await fs.readFile(
   path.join(import.meta.dirname, '../../../packages/extensions/src/features/card-motion/index.css'),
@@ -70,8 +73,7 @@ export default defineConfig({
       { text: 'Dev Guide', link: '/guide/packager' },
       {
         text: 'Sponsor',
-        link: 'https://github.com/sponsors/ikkz',
-        target: '_blank',
+        link: '/sponsor',
       },
     ],
 
@@ -89,7 +91,7 @@ export default defineConfig({
       ],
       '/templates/classic/': [
         {
-          text: 'Classic Templates',
+          text: 'Templates',
           items: [
             { text: 'Overview', link: '/templates/classic/' },
             { text: 'Multiple Choice', link: '/templates/classic/mcq' },
@@ -160,6 +162,7 @@ export default defineConfig({
   vite: {
     define: {
       EXT_CM: { css: EXT_CM_CSS, script: EXT_CM_SCRIPT },
+      SPONSORS: JSON.stringify(SPONSORS),
     },
   },
 });

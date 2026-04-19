@@ -39,8 +39,7 @@ export default defineAdditionalConfig({
       { text: '开发指南', link: '/zh/guide/quick-start' },
       {
         text: '赞助',
-        link: 'https://github.com/sponsors/ikkz',
-        target: '_blank',
+        link: '/zh/sponsor',
       },
     ],
     sidebar: {
