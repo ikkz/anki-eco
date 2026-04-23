@@ -8,6 +8,7 @@ import { FIELD_ID } from '@/utils/const';
 import { domToText } from '@/utils/dom-to-text';
 import { getEditOps, type Op } from '@/utils/edit-ops';
 import { isFieldEmpty } from '@/utils/field';
+import { buildOrderingLayout, clampPieceWidth, type LayoutItem } from '@/features/ordering/layout';
 import {
   DndContext,
   DragOverlay,
@@ -41,54 +42,15 @@ type ItemsState = Record<ContainerId, string[]>;
 const BANK_ID = 'ordering-bank';
 const SEQUENCE_ID = 'ordering-sequence';
 const CONTAINERS = [BANK_ID, SEQUENCE_ID] as const;
-const GAP = 8;
 const FALLBACK_SIZE = { width: 80, height: 32 };
-const MIN_CONTAINER_HEIGHT = '5rem';
+const MIN_CONTAINER_HEIGHT = '7rem';
 const DRAG_REORDER_DISTANCE = 4;
-
-type LayoutItem = {
-  id: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-};
 
 type DragRect = {
   left: number;
   top: number;
   width: number;
   height: number;
-};
-
-const buildLayout = (
-  ids: string[],
-  containerWidth: number,
-  getSize: (id: string) => { width: number; height: number },
-) => {
-  const widthLimit = Math.max(containerWidth, 1);
-  const positions = new Map<string, LayoutItem>();
-  const ordered: LayoutItem[] = [];
-  let x = 0;
-  let y = 0;
-  let rowHeight = 0;
-  ids.forEach((id) => {
-    const size = getSize(id);
-    const width = size.width || FALLBACK_SIZE.width;
-    const height = size.height || FALLBACK_SIZE.height;
-    if (x > 0 && x + width > widthLimit) {
-      x = 0;
-      y += rowHeight + GAP;
-      rowHeight = 0;
-    }
-    const item = { id, x, y, width, height };
-    positions.set(id, item);
-    ordered.push(item);
-    x += width + GAP;
-    rowHeight = Math.max(rowHeight, height);
-  });
-  const height = ordered.length ? y + rowHeight : 0;
-  return { positions, ordered, height };
 };
 
 const getInsertIndex = (ordered: LayoutItem[], point: { x: number; y: number }) => {
@@ -152,11 +114,12 @@ const PieceTag: FC<{
   status?: Status;
   className?: string;
   size?: 'sm' | 'md';
-}> = ({ piece, status = 'default', className, size = 'md' }) => {
+  fullWidth?: boolean;
+}> = ({ piece, status = 'default', className, size = 'md', fullWidth }) => {
   return (
     <Tag
       size={size}
-      className={className}
+      className={clsx(fullWidth ? 'w-full max-w-full' : 'max-w-full', className)}
       color={
         (
           {
@@ -168,7 +131,12 @@ const PieceTag: FC<{
         )[status]
       }
     >
-      <NativeText text={piece.text} />
+      <span
+        className="block whitespace-normal"
+        style={{ overflowWrap: 'anywhere', wordBreak: 'break-word' }}
+      >
+        <NativeText text={piece.text} />
+      </span>
     </Tag>
   );
 };
@@ -208,6 +176,7 @@ const SortablePiece: FC<{
         <PieceTag
           piece={piece}
           status={status}
+          fullWidth
           className={clsx('cursor-grab select-none', isDragging ? 'cursor-grabbing' : '')}
         />
       </div>
@@ -239,6 +208,7 @@ const StaticPiece: FC<{
       <PieceTag
         piece={piece}
         status={status}
+        fullWidth
         className={clsx('cursor-grab select-none', className)}
       />
     </div>
@@ -352,8 +322,12 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
   const moveCloneRef = useRef<HTMLElement | null>(null);
   const moveTimeoutRef = useRef<number | null>(null);
   const [movingId, setMovingId] = useState<string | null>(null);
-  const sizeRef = useRef<Map<string, { width: number; height: number }>>(new Map());
-  const [sizes, setSizes] = useState<Map<string, { width: number; height: number }>>(new Map());
+  const sizeRef = useRef<Map<ContainerId, Map<string, { width: number; height: number }>>>(
+    new Map(),
+  );
+  const [sizes, setSizes] = useState<
+    Map<ContainerId, Map<string, { width: number; height: number }>>
+  >(new Map());
   const containerRefs = useRef(new Map<ContainerId, HTMLDivElement>());
   const containerIdByNode = useRef(new WeakMap<Element, ContainerId>());
   const resizeObserverRef = useRef<ResizeObserver | null>(null);
@@ -377,17 +351,26 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
 
   useLayoutEffect(() => {
     if (!measureRef.current) return;
-    const map = new Map<string, { width: number; height: number }>(sizeRef.current);
-    pieces.forEach((piece) => {
-      const el = measureRef.current?.querySelector<HTMLElement>(`[data-measure-id="${piece.id}"]`);
-      if (el) {
+    const next = new Map<ContainerId, Map<string, { width: number; height: number }>>();
+    CONTAINERS.forEach((containerId) => {
+      const containerWidth = containerWidths[containerId];
+      const containerSizes = new Map<string, { width: number; height: number }>();
+      pieces.forEach((piece) => {
+        const el = measureRef.current?.querySelector<HTMLElement>(
+          `[data-measure-container="${containerId}"][data-measure-id="${piece.id}"]`,
+        );
+        if (!el) return;
         const rect = el.getBoundingClientRect();
-        map.set(piece.id, { width: rect.width, height: rect.height });
-      }
+        containerSizes.set(piece.id, {
+          width: clampPieceWidth(rect.width, containerWidth || rect.width),
+          height: rect.height || FALLBACK_SIZE.height,
+        });
+      });
+      next.set(containerId, containerSizes);
     });
-    sizeRef.current = map;
-    setSizes(map);
-  }, [pieces]);
+    sizeRef.current = next;
+    setSizes(next);
+  }, [containerWidths, pieces]);
 
   useLayoutEffect(() => {
     if (!activeId) return;
@@ -424,7 +407,8 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
 
   useLayoutEffect(() => () => clearMoveArtifacts(true), [clearMoveArtifacts]);
 
-  const getSize = (id: string) => sizes.get(id) ?? sizeRef.current.get(id) ?? FALLBACK_SIZE;
+  const getSize = (containerId: ContainerId, id: string) =>
+    sizes.get(containerId)?.get(id) ?? sizeRef.current.get(containerId)?.get(id) ?? FALLBACK_SIZE;
 
   useLayoutEffect(() => {
     resizeObserverRef.current = new ResizeObserver((entries) => {
@@ -629,7 +613,7 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
       ) {
         const local = { x: center.x - box.left, y: center.y - box.top };
         const list = displayItems[id].filter((itemId) => itemId !== activeIdStr);
-        const layout = buildLayout(list, box.width, getSize);
+        const layout = buildOrderingLayout(list, box.width, (itemId) => getSize(id, itemId));
         const index = getInsertIndex(layout.ordered, local);
         return { overContainer: id, overIndex: index };
       }
@@ -747,10 +731,16 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
   }, [back, pieces, sequencePieces]);
   const layouts = useMemo(() => {
     return {
-      [BANK_ID]: buildLayout(displayItems[BANK_ID], containerWidths[BANK_ID], getSize),
-      [SEQUENCE_ID]: buildLayout(displayItems[SEQUENCE_ID], containerWidths[SEQUENCE_ID], getSize),
+      [BANK_ID]: buildOrderingLayout(displayItems[BANK_ID], containerWidths[BANK_ID], (id) =>
+        getSize(BANK_ID, id),
+      ),
+      [SEQUENCE_ID]: buildOrderingLayout(
+        displayItems[SEQUENCE_ID],
+        containerWidths[SEQUENCE_ID],
+        (id) => getSize(SEQUENCE_ID, id),
+      ),
     };
-  }, [containerWidths, displayItems, getSize]);
+  }, [containerWidths, displayItems, sizes]);
 
   return (
     <DndContext
@@ -829,15 +819,33 @@ const Playground: FC<{ pieces: Piece[] }> = ({ pieces }) => {
               className="fixed top-[-9999px] left-[-9999px] pointer-events-none"
               style={{ visibility: 'hidden' }}
             >
-              {pieces.map((piece) => (
-                <div
-                  key={piece.id}
-                  data-measure-id={piece.id}
-                  style={{ display: 'inline-flex', boxSizing: 'border-box' }}
-                >
-                  <PieceTag piece={piece} />
-                </div>
-              ))}
+              {CONTAINERS.map((containerId) => {
+                const containerWidth = containerWidths[containerId];
+                return (
+                  <div
+                    key={containerId}
+                    style={{
+                      width: containerWidth || undefined,
+                      maxWidth: containerWidth || undefined,
+                    }}
+                  >
+                    {pieces.map((piece) => (
+                      <div
+                        key={`${containerId}-${piece.id}`}
+                        data-measure-container={containerId}
+                        data-measure-id={piece.id}
+                        style={{
+                          display: 'inline-block',
+                          boxSizing: 'border-box',
+                          maxWidth: '100%',
+                        }}
+                      >
+                        <PieceTag piece={piece} />
+                      </div>
+                    ))}
+                  </div>
+                );
+              })}
             </div>
             <div className="space-y-1">
               <div className="text-xs font-medium text-neutral-500">{t.orderingFragments}</div>
