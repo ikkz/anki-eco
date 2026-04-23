@@ -8,6 +8,7 @@ import {
   blurOptionsAtom,
   caseSensitiveAtom,
   clozeAtom,
+  clozeRevealNextOnOutsideClickAtom,
   hideMcqAnswerAtom,
   hideQuestionTypeAtom,
   hideTimerAtom,
@@ -28,6 +29,9 @@ const CommonOptions: FC = () => {
   const [hideTimer, setHideTimer] = useAtom(hideTimerAtom);
   const [noScorll, setNoScorll] = useAtom(noScrollAtom);
   const [cloze, setCloze] = useAtom(clozeAtom);
+  const [clozeRevealNextOnOutsideClick, setClozeRevealNextOnOutsideClick] = useAtom(
+    clozeRevealNextOnOutsideClickAtom,
+  );
   const navigate = useNavigate();
 
   return (
@@ -53,6 +57,15 @@ const CommonOptions: FC = () => {
           checked={cloze}
           onChange={setCloze}
           data-testid="setting:cloze"
+        />
+      ) : null}
+      {entry === 'cloze' || cloze ? (
+        <Checkbox
+          title={t.clozeRevealNextOnOutsideClick}
+          subtitle={t.clozeRevealNextOnOutsideClickDetail}
+          checked={clozeRevealNextOnOutsideClick}
+          onChange={setClozeRevealNextOnOutsideClick}
+          data-testid="setting:clozeRevealNextOnOutsideClick"
         />
       ) : null}
       <Checkbox

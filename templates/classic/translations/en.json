@@ -58,6 +58,8 @@
   "optionsHelp": "The following content can be selected and copied. For detailed steps, please refer to <a target=\"_blank\" href=\"https://template.ikkz.fun/docs/embed-options?from=anki\">here</a>",
   "cloze": "Enable Cloze",
   "clozeDetail": "For specific usage, please refer to the cloze template documentation",
+  "clozeRevealNextOnOutsideClick": "Reveal next cloze when clicking outside",
+  "clozeRevealNextOnOutsideClickDetail": "When enabled, clicking outside a cloze unit reveals the next hidden answer",
   "unsupportedClozeType": "Comparison of this type of answer is not supported",
   "caseSensitiveCompare": "Case-sensitive answer comparison",
   "instantFeedback": "Real-time color feedback when entering an answer",

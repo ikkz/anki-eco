@@ -58,6 +58,8 @@
   "optionsHelp": "以下内容可以选中复制，详细步骤请查看 <a target=\"_blank\" href=\"https://template.ikkz.fun/docs/embed-options?from=anki\">这里</a>",
   "cloze": "启用填空",
   "clozeDetail": "具体用法请查看官网填空模板文档",
+  "clozeRevealNextOnOutsideClick": "点击填空外区域显示下一个填空",
+  "clozeRevealNextOnOutsideClickDetail": "开启后，点击填空以外区域会自动显示下一个未显示的答案",
   "unsupportedClozeType": "不支持这种类型的答案比较",
   "caseSensitiveCompare": "大小写敏感的答案比较",
   "instantFeedback": "输入答案时实时颜色反馈",

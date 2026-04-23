@@ -58,6 +58,8 @@
   "optionsHelp": "O conteúdo a seguir pode ser selecionado e copiado. Para etapas detalhadas, por favor consulte <a target=\"_blank\" href=\"https://template.ikkz.fun/docs/embed-options?from=anki\">aqui</a>",
   "cloze": "Habilitar Lacunas",
   "clozeDetail": "Para uso específico, consulte a documentação do modelo de lacunas",
+  "clozeRevealNextOnOutsideClick": "Revelar próxima lacuna ao clicar fora",
+  "clozeRevealNextOnOutsideClickDetail": "Quando ativado, clicar fora de uma lacuna revela a próxima resposta oculta",
   "unsupportedClozeType": "Comparação deste tipo de resposta não é suportada",
   "caseSensitiveCompare": "Comparação de resposta sensível a maiúsculas e minúsculas",
   "instantFeedback": "Feedback colorido em tempo real ao inserir uma resposta",

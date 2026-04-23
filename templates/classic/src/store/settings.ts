@@ -14,5 +14,9 @@ export const noScrollAtom = atomWithScopedStorage<boolean>('noScroll', true);
 export const blurOptionsAtom = atomWithScopedStorage<boolean>('blurOptions', false);
 export const hideMcqAnswerAtom = atomWithScopedStorage<boolean>('hideMcqAnswer', false);
 export const clozeAtom = atomWithScopedStorage<boolean>('cloze', false);
+export const clozeRevealNextOnOutsideClickAtom = atomWithScopedStorage<boolean>(
+  'clozeRevealNextOnOutsideClick',
+  true,
+);
 export const instantFeedbackAtom = atomWithScopedStorage<boolean>('instantFeedback', false);
 export const caseSensitiveAtom = atomWithScopedStorage('caseSensitive', true);

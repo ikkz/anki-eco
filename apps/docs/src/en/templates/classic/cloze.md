@@ -10,7 +10,7 @@ Besides the dedicated cloze template, all other templates can enable the cloze f
 
 To use, wrap the text you want to cloze with double curly braces, for example, <span v-pre>`{{text}}`</span>. Multiple clozes and image/formula clozes are also supported.
 
-During the review, you can click the gray box to view the answer, or click anywhere outside the box to view the next answer.
+During review, click the gray box to reveal that cloze answer. You can also enable “Reveal next cloze when clicking outside” in settings (enabled by default) to reveal the next hidden answer by clicking outside.
 
 ---
 
