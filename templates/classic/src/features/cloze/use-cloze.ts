@@ -9,6 +9,7 @@ import {
 } from '@/features/cloze/dom-to-cloze';
 import { getTargetClozeNode } from '@/features/cloze/target-node';
 import { clozeAtom, clozeRevealNextOnOutsideClickAtom } from '@/store/settings';
+import useLatest from 'ahooks/es/useLatest';
 import { entry } from 'at/options';
 import { useAtomValue } from 'jotai';
 import { RefObject, useEffect, useLayoutEffect } from 'react';
@@ -70,7 +71,7 @@ const CLOZED_ATTR = 'data-at-clozed';
 const useCloze = (ref: RefObject<HTMLElement>) => {
   const [back] = useBack();
   const clozeEnabled = useAtomValue(clozeAtom) || entry === 'cloze';
-  const revealNextOnOutsideClick = useAtomValue(clozeRevealNextOnOutsideClickAtom);
+  const revealNextOnOutsideClick = useLatest(useAtomValue(clozeRevealNextOnOutsideClickAtom));
 
   useLayoutEffect(() => {
     const { current: el } = ref;
@@ -104,7 +105,7 @@ const useCloze = (ref: RefObject<HTMLElement>) => {
       if (back || !target || !(target instanceof Element)) {
         return;
       }
-      const node = getTargetClozeNode(el, target, revealNextOnOutsideClick);
+      const node = getTargetClozeNode(el, target, revealNextOnOutsideClick.current ?? false);
       if (!node) {
         return;
       }
@@ -121,7 +122,7 @@ const useCloze = (ref: RefObject<HTMLElement>) => {
     return () => {
       el.removeEventListener('click', onClick, true);
     };
-  }, [back, clozeEnabled, revealNextOnOutsideClick]);
+  }, [back, clozeEnabled]);
 };
 
 export { useCloze };
