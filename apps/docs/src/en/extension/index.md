@@ -11,5 +11,6 @@ Extensions here are built on Anki card templates (not desktop addons), so they c
 
 - [CardMotion](/extension/card-motion) — Realistic flip and next‑card animations for your reviews. Highly customizable.
 - [Tldraw](/extension/tldraw) — Integrate the powerful Tldraw whiteboard; draw and annotate directly on cards during review.
+- [XMarkdown](/extension/xmarkdown) — Render your fields in Markdown format (e.g. paste Markdown replies from an LLM).
 
 <!--@include: @/parts/feedback-en.md -->

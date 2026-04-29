@@ -11,5 +11,6 @@ description: 基于模板而非插件（addon）的跨平台 Anki 扩展
 
 - [CardMotion](/zh/extension/card-motion) —— 在翻转与切换到下一张卡片时展示真实、流畅的动画，支持高度自定义。
 - [Tldraw](/zh/extension/tldraw) —— 集成强大的 Tldraw 画板，在复习时直接在卡片上绘制与标注。
+- [XMarkdown](/zh/extension/xmarkdown) —— 把字段按 Markdown 格式显示（例如直接粘贴大模型的 Markdown 回复）。
 
 <!--@include: @/parts/feedback-zh.md -->

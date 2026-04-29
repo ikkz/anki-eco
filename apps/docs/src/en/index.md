@@ -23,6 +23,9 @@ features:
   - title: CardMotion
     details: Realistic flip and next-card animations; works across all Anki clients
     link: /extension/card-motion
+  - title: XMarkdown
+    details: Render your fields in Markdown format (great for pasting Markdown replies from an LLM)
+    link: /extension/xmarkdown
 #   - title: Feature C
 #     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
