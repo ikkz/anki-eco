@@ -1,6 +1,6 @@
 {
   "name": "@anki-eco/extensions",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "homepage": "https://anki.ikkz.fun",
   "bugs": {
     "url": "https://github.com/ikkz/anki-eco/issues"
@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/ikkz/anki-eco.git"
   },
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -17,7 +20,6 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "development": "./src/index.ts",
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
@@ -38,6 +40,7 @@
     "image-dimensions": "^2.5.0",
     "lit": "^3.3.1",
     "lucide-static": "^0.544.0",
+    "marked": "^18.0.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "tldraw": "^3.15.4"

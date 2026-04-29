@@ -23,4 +23,7 @@ features:
   - title: CardMotion
     details: 真实流畅的翻转与切换动画；支持所有 Anki 客户端
     link: /zh/extension/card-motion
+  - title: XMarkdown
+    details: 把字段按 Markdown 格式显示（适合直接粘贴大模型的 Markdown 回复）
+    link: /zh/extension/xmarkdown
 ---

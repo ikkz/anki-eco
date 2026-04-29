@@ -69,6 +69,10 @@ export default defineConfig({
             text: 'Tldraw',
             link: '/extension/tldraw',
           },
+          {
+            text: 'XMarkdown',
+            link: '/extension/xmarkdown',
+          },
         ],
       },
       { text: 'Dev Guide', link: '/guide/packager' },

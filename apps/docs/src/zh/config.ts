@@ -35,6 +35,10 @@ export default defineAdditionalConfig({
             text: 'Tldraw',
             link: '/zh/extension/tldraw',
           },
+          {
+            text: 'XMarkdown',
+            link: '/zh/extension/xmarkdown',
+          },
         ],
       },
       { text: '开发指南', link: '/zh/guide/quick-start' },
