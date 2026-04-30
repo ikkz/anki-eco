@@ -159,6 +159,8 @@ export default () => {
     return doNothing;
   }, [back, originOrder, prefKeepRandomOrderOnBackLatest, setItemOrder]);
 
+  const [parent] = useAutoAnimate();
+
   useKeyPress(
     ['alt.1', 'alt.2'],
     (event, key) => {
@@ -190,11 +192,11 @@ export default () => {
     <CardShell
       title={t.question}
       questionExtra={
-        <>
+        <div ref={parent}>
           {orderedItems.map(({ node, answer, id }) => (
             <Item index={id} key={id} node={node} answer={answer} shortcutEvent$={shortcutEvent$} />
           ))}
-        </>
+        </div>
       }
       answerTitle={t.note}
       answer={

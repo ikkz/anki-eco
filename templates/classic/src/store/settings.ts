@@ -1,9 +1,10 @@
 import { atomWithScopedStorage } from '@/utils/storage';
+import { entry } from 'at/options';
 
-export const randomOptionsAtom = atomWithScopedStorage<boolean>('randomOptions', true);
+export const randomOptionsAtom = atomWithScopedStorage<boolean>('randomOptions', entry !== 'tf');
 export const keepRandomOrderOnBackAtom = atomWithScopedStorage<boolean>(
   'keepRandomOrderOnBack',
-  false,
+  entry === 'tf',
 );
 export const selectionMenuAtom = atomWithScopedStorage<boolean>('selectionMenu', true);
 
