@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "Anki Eco"
-  text: "增强你的 Anki 体验"
+  name: 'Anki Eco'
+  text: '增强你的 Anki 体验'
   # tagline: 我的项目标语
   actions:
     - theme: brand

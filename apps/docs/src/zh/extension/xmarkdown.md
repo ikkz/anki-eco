@@ -5,65 +5,63 @@ description: 把 Anki 字段按 Markdown 显示
 
 # XMarkdown
 
-把 Anki 的字段内容按 Markdown 格式渲染显示。
+XMarkdown 能够将 Anki 字段中的 Markdown 文本实时渲染为美观的 HTML 页面，例如来自大模型（LLM）生成的结构化回复。
 
-> [!TIP]
-> 搭配 [StyleKit](/zh/extension/style-kit) 使用效果更佳！StyleKit 能为渲染后的 Markdown 内容提供精美、专业的排版样式（标题、列表、引用块等）。
+::: tip 排版建议
+建议搭配 [StyleKit](/zh/extension/style-kit) 使用。XMarkdown 负责「转换结构」，而 StyleKit 负责「视觉美化」（如标题、列表、引用块的精致样式）。
+:::
 
-## 安装与用法
+## 快速开始
 
-在 Anki 卡片模板编辑器中：
+在 Anki 的 **卡片模板编辑器** 中进行以下配置：
 
-1. 添加脚本。
+### 1. 引入脚本
 
-- 先把脚本加到「正面模板」。
-- 如果「背面模板」**没有**包含 <span v-pre>`{{FrontSide}}`</span>，那么背面也需要再添加一次同样的脚本。
+将以下脚本添加到 **正面模板**。如果你的 **背面模板** 没有包含 <span v-pre>`{{FrontSide}}`</span>，则背面也需要添加。
 
 ```html
-<script
-  src="https://cdn.jsdelivr.net/npm/@anki-eco/extensions/dist/xmarkdown.js"
-  defer
-></script>
+<script src="https://cdn.jsdelivr.net/npm/@anki-eco/extensions/dist/xmarkdown.js" defer></script>
 ```
 
-2. 为需要渲染 Markdown 的字段添加一个隐藏块：
+### 2. 指定渲染字段
+
+将原本直接显示的字段（如 <span v-pre>`{{Front}}`</span>）包裹在带有 `data-xmd` 属性的隐藏容器中：
 
 ```html
+<!-- 正面模板 -->
 <div data-xmd hidden>{{Front}}</div>
-```
 
-3. 如果答案也想按 Markdown 显示，就在背面模板再添加一个块（常见写法如下）：
-
-```html
+<!-- 背面模板（示例） -->
 {{FrontSide}}
 <hr id="answer" />
-
 <div data-xmd hidden>{{Back}}</div>
 ```
 
-## 可选：自定义样式类
+## 进阶配置：自定义样式类
 
-如果你想给渲染结果加 class，可以添加 `data-xmd-class`：
+如果你希望为渲染后的容器添加特定的 CSS 类，可以使用 `data-xmd-class` 属性：
 
 ```html
-<div data-xmd data-xmd-class="custom-class" hidden>{{Front}}</div>
+<div data-xmd data-xmd-class="my-custom-style" hidden>{{Content}}</div>
 ```
 
-## 示例：直接粘贴大模型的 Markdown 回复
+## 使用场景：粘贴大模型回复
 
-在 Anki 的笔记编辑器里，你可以把一段大模型的 Markdown 格式回复直接粘贴到字段里（例如 `Front` / `Back`），例如：
+你可以直接将 ChatGPT、Claude 等大模型输出的 Markdown 源码粘贴到 Anki 字段中。例如：
 
 ````md
-# 要点
+# 复习要点
 
-- 第一条
-- 第二条
+- **核心概念**：xxx
+- **注意点**：
+  1. 第一点
+  2. 第二点
 
-```js
-console.log("hello");
+```python
+print("Hello Anki")
 ```
 ````
 
-开启 XMarkdown 后，复习时该字段会按 Markdown 格式显示。
+在复习时，XMarkdown 会自动将其转换为排版整齐的文档。
 
 <!--@include: @/parts/feedback-zh.md -->

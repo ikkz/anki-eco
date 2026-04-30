@@ -16,8 +16,9 @@ This style set comprehensively optimizes common HTML elements, including but not
 - **Code Blocks** (pre, code)
 - As well as paragraphs, links, and other basic text elements.
 
-> [!TIP]
-> Use it with [XMarkdown](/extension/xmarkdown) for the best results! XMarkdown handles the rendering of text into HTML structures, while StyleKit provides beautiful styling for those structures.
+::: tip Typography Tip
+Use it with [XMarkdown](/extension/xmarkdown) for the best results! XMarkdown handles the rendering of text into HTML structures, while StyleKit provides beautiful styling for those structures.
+:::
 
 ## Features
 
@@ -29,21 +30,17 @@ This style set comprehensively optimizes common HTML elements, including but not
 
 ## Installation and Usage
 
-In the Anki card template editor, add the following script to the top (or bottom) of your "Front Template":
+In the Anki card template editor, add the following script to the top (or bottom) of your **Front Template**:
 
 ```html
-<script
-  src="https://cdn.jsdelivr.net/npm/@anki-eco/extensions/dist/style-kit.js"
-  defer
-></script>
+<script src="https://cdn.jsdelivr.net/npm/@anki-eco/extensions/dist/style-kit.js" defer></script>
 ```
 
-> [!TIP]
-> If your "Back Template" **does not** include <span v-pre>`{{FrontSide}}`</span>, you will need to add the same script to the back template as well.
+::: tip Installation Note
+If your **Back Template** does not include <span v-pre>`{{FrontSide}}`</span>, you will need to add the same script to the back template as well.
+:::
 
-## Troubleshooting
-
-### Layout looks broken?
+## Troubleshooting: Layout Broken
 
 If you find that the card layout looks strange after adding StyleKit, it is usually because it conflicts with the built-in styles of the third-party template you are using.
 

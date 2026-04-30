@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "Anki Eco"
-  text: "Enhance your Anki experience"
+  name: 'Anki Eco'
+  text: 'Enhance your Anki experience'
   # tagline: My great project tagline
   actions:
     - theme: brand
