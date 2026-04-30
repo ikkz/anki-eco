@@ -4,6 +4,8 @@ title: True or False
 
 # True or False
 
+- Supports randomizing item order. The order is restored on the answer side unless "Keep random order when showing answer" is enabled.
+
 [[toc]]
 
 ## Fields
