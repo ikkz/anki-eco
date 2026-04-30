@@ -62,49 +62,15 @@ function renderMarkdownSource(source: HTMLElement) {
 
   source.insertAdjacentElement('afterend', rendered);
   source.dataset.xmdRendered = 'true';
-
-  void pv('/xmarkdown');
 }
 
 function renderAll(root: ParentNode) {
   root.querySelectorAll<HTMLElement>(selector).forEach(renderMarkdownSource);
 }
 
-function observeQaAndRender() {
-  const qa = document.getElementById('qa');
-  const root = qa ?? document.body;
-  const observer = new MutationObserver((mutations) => {
-    for (const mutation of mutations) {
-      for (const node of mutation.addedNodes) {
-        if (!(node instanceof Element)) {
-          continue;
-        }
-
-        if (node instanceof HTMLElement && node.matches(selector)) {
-          renderMarkdownSource(node);
-          continue;
-        }
-        renderAll(node);
-      }
-    }
-  });
-
-  observer.observe(root, {
-    childList: true,
-    subtree: true,
-  });
-}
-
 function init() {
   renderAll(document);
-  observeQaAndRender();
+  void pv('/xmarkdown');
 }
 
-if (!window.ankiEcoExtXMarkdownInitialized) {
-  window.ankiEcoExtXMarkdownInitialized = true;
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init, { once: true });
-  } else {
-    init();
-  }
-}
+init();
