@@ -17,13 +17,16 @@ features:
   - title: 模板
     details: 交互式模板（多项选择、正误题、基础问答、匹配、填空、输入），支持在线预览与下载
     link: /zh/templates/classic/
-  - title: Tldraw 集成
-    details: 复习时自由的在卡片上绘画，可与你正在使用的任何模板集成
-    link: /zh/extension/tldraw
-  - title: CardMotion
-    details: 真实流畅的翻转与切换动画；支持所有 Anki 客户端
-    link: /zh/extension/card-motion
   - title: XMarkdown
     details: 把字段按 Markdown 格式显示（适合直接粘贴大模型的 Markdown 回复）
     link: /zh/extension/xmarkdown
+  - title: StyleKit
+    details: 为卡片提供一套美观、专业的排版样式（基于 Tailwind CSS Typography）
+    link: /zh/extension/style-kit
+  - title: CardMotion
+    details: 真实流畅的翻转与切换动画；支持所有 Anki 客户端
+    link: /zh/extension/card-motion
+  - title: Tldraw 集成
+    details: 复习时自由的在卡片上绘画，可与你正在使用的任何模板集成
+    link: /zh/extension/tldraw
 ---

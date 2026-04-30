@@ -1,0 +1,17 @@
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark {
+  @media (prefers-color-scheme: dark) {
+    @slot;
+  }
+
+  &:where(.night-mode, .night-mode *) {
+    @slot;
+  }
+}
+.card {
+  @apply prose prose-neutral dark:prose-invert md:prose-lg;
+  @apply mx-auto p-4 md:p-6;
+  @apply text-left;
+}
