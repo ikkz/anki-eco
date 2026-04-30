@@ -73,6 +73,10 @@ export default defineConfig({
             text: 'XMarkdown',
             link: '/extension/xmarkdown',
           },
+          {
+            text: 'StyleKit',
+            link: '/extension/style-kit',
+          },
         ],
       },
       { text: 'Dev Guide', link: '/guide/packager' },

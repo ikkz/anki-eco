@@ -39,6 +39,10 @@ export default defineAdditionalConfig({
             text: 'XMarkdown',
             link: '/zh/extension/xmarkdown',
           },
+          {
+            text: 'StyleKit',
+            link: '/zh/extension/style-kit',
+          },
         ],
       },
       { text: '开发指南', link: '/zh/guide/quick-start' },

@@ -35,6 +35,7 @@
   "dependencies": {
     "@anki-eco/analytics": "workspace:*",
     "@anki-eco/shared": "workspace:*",
+    "@anki-eco/style-kit": "workspace:*",
     "html-to-image": "^1.11.13",
     "html2canvas": "^1.4.1",
     "image-dimensions": "^2.5.0",

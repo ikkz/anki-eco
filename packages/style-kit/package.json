@@ -1,0 +1,26 @@
+{
+  "name": "@anki-eco/style-kit",
+  "version": "1.1.5",
+  "license": "GPL-3.0-or-later",
+  "style": "./dist/index.css",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "./dist/index.css",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./dist/index.css"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tailwindcss -i ./index.css -o ./dist/index.css"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.4",
+    "@tailwindcss/typography": "^0.5.15",
+    "tailwindcss": "^4.2.4"
+  }
+}
