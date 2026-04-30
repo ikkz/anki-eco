@@ -1,9 +1,9 @@
 import { crossStorage } from '@/utils/cross-storage';
 
-export function getFirstUnansweredIndex(itemCount: number) {
-  for (let i = 0; i < itemCount; i++) {
-    if (typeof crossStorage.getItem(`status-${i}`, undefined) !== 'boolean') {
-      return i;
+export function getFirstUnansweredIndex(itemOrder: number[]) {
+  for (const index of itemOrder) {
+    if (typeof crossStorage.getItem(`status-${index}`, undefined) !== 'boolean') {
+      return index;
     }
   }
   return -1;

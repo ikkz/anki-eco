@@ -2,19 +2,23 @@ import { CardShell } from '@/components/card-shell';
 import { getFirstUnansweredIndex } from '@/features/tf/shortcut';
 import { useBack } from '@/hooks/use-back';
 import { useCrossState } from '@/hooks/use-cross-state';
+import { keepRandomOrderOnBackAtom, randomOptionsAtom } from '@/store/settings';
 import { FIELD_ID } from '@/utils/const';
 import { isFieldEmpty } from '@/utils/field';
 import { useAutoAnimate } from '@formkit/auto-animate/preact';
 import useCreation from 'ahooks/es/useCreation';
 import useEventEmitter from 'ahooks/es/useEventEmitter';
 import useKeyPress from 'ahooks/es/useKeyPress';
+import useLatest from 'ahooks/es/useLatest';
 import useMemoizedFn from 'ahooks/es/useMemoizedFn';
 import * as t from 'at/i18n';
 import { extractItems } from 'at/virtual/extract-tf-items';
 import { AnkiField } from 'at/virtual/field';
 import clsx from 'clsx';
+import { useAtomValue } from 'jotai';
 import { CheckCircle, XCircle } from 'lucide-react';
 import { useEffect, useState, type ReactElement } from 'react';
+import { doNothing, shuffle } from 'remeda';
 
 type ShortcutRequest = {
   index: number;
@@ -119,15 +123,41 @@ const Item = ({ node, answer, index, shortcutEvent$ }: ItemProp) => {
 
 export default () => {
   const [back] = useBack();
+  const prefRandomOptions = useAtomValue(randomOptionsAtom);
+  const prefKeepRandomOrderOnBack = useAtomValue(keepRandomOrderOnBackAtom);
+  const prefKeepRandomOrderOnBackLatest = useLatest(prefKeepRandomOrderOnBack);
   const shortcutEvent$ = useEventEmitter<ShortcutRequest>();
 
-  const items = useCreation(() => {
+  const { items, originOrder, shuffledOrder } = useCreation(() => {
     const field = document.getElementById(FIELD_ID('items'));
     if (!field) {
-      return [];
+      return { items: [], originOrder: [], shuffledOrder: [] };
     }
-    return extractItems(field);
+    const items = extractItems(field).map((item, id) => ({
+      ...item,
+      id,
+    }));
+    const originOrder = items.map((item) => item.id);
+    return {
+      items,
+      originOrder,
+      shuffledOrder: shuffle(originOrder),
+    };
   }, []);
+  const [itemOrder, setItemOrder] = useCrossState(
+    'tf-items-order',
+    prefRandomOptions ? shuffledOrder : originOrder,
+  );
+
+  useEffect(() => {
+    if (back && !prefKeepRandomOrderOnBackLatest.current) {
+      const timeout = setTimeout(() => {
+        setItemOrder(originOrder);
+      }, 600);
+      return () => clearTimeout(timeout);
+    }
+    return doNothing;
+  }, [back, originOrder, prefKeepRandomOrderOnBackLatest, setItemOrder]);
 
   useKeyPress(
     ['alt.1', 'alt.2'],
@@ -136,7 +166,7 @@ export default () => {
         return;
       }
 
-      const index = getFirstUnansweredIndex(items.length);
+      const index = getFirstUnansweredIndex(itemOrder);
       if (index < 0) {
         return;
       }
@@ -154,19 +184,15 @@ export default () => {
 
   const hasNote = !isFieldEmpty(FIELD_ID('note'));
 
+  const orderedItems = itemOrder.map((id) => items[id]);
+
   return (
     <CardShell
       title={t.question}
       questionExtra={
         <>
-          {items.map(({ node, answer }, idx) => (
-            <Item
-              index={idx}
-              key={idx}
-              node={node}
-              answer={answer}
-              shortcutEvent$={shortcutEvent$}
-            />
+          {orderedItems.map(({ node, answer, id }) => (
+            <Item index={id} key={id} node={node} answer={answer} shortcutEvent$={shortcutEvent$} />
           ))}
         </>
       }

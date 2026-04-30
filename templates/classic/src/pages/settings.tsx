@@ -143,6 +143,33 @@ if (entry === 'mcq' || entry === 'mcq_10' || entry === 'mcq_26') {
       </>
     );
   };
+} else if (entry === 'tf') {
+  OptionList = () => {
+    const [randomOptions, setRandomOptions] = useAtom(randomOptionsAtom);
+    const [keepRandomOrderOnBack, setKeepRandomOrderOnBack] = useAtom(keepRandomOrderOnBackAtom);
+
+    return (
+      <>
+        <Checkbox
+          title={t.randomOption}
+          subtitle={t.randomOptionDetail}
+          checked={randomOptions}
+          onChange={setRandomOptions}
+          data-testid="setting:randomOptions"
+        />
+        {randomOptions && (
+          <Checkbox
+            title={t.keepRandomOrderOnBack}
+            subtitle={t.keepRandomOrderOnBackDetail}
+            checked={keepRandomOrderOnBack}
+            onChange={setKeepRandomOrderOnBack}
+            data-testid="setting:keepRandomOrderOnBack"
+          />
+        )}
+        <CommonOptions />
+      </>
+    );
+  };
 } else if (entry === 'input') {
   OptionList = () => {
     const [caseSensitive, setCaseSensitive] = useAtom(caseSensitiveAtom);
