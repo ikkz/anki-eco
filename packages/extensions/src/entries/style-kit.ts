@@ -7,7 +7,11 @@ let style = document.getElementById(id) as HTMLStyleElement | null;
 if (!style) {
   style = document.createElement('style');
   style.id = id;
-  document.head.appendChild(style);
+  if (document.currentScript) {
+    document.currentScript.insertAdjacentElement('afterend', style);
+  } else {
+    document.head.appendChild(style);
+  }
 }
 
 style.textContent = css;
