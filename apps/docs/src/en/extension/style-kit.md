@@ -16,6 +16,9 @@ This style set comprehensively optimizes common HTML elements, including but not
 - **Code Blocks** (pre, code)
 - As well as paragraphs, links, and other basic text elements.
 
+> [!TIP]
+> Use it with [XMarkdown](/extension/xmarkdown) for the best results! XMarkdown handles the rendering of text into HTML structures, while StyleKit provides beautiful styling for those structures.
+
 ## Features
 
 - **Plug and Play**: Applied to the entire card by default, no complex HTML structural changes required.
@@ -29,7 +32,10 @@ This style set comprehensively optimizes common HTML elements, including but not
 In the Anki card template editor, add the following script to the top (or bottom) of your "Front Template":
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@anki-eco/extensions/dist/style-kit.js" defer></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/@anki-eco/extensions/dist/style-kit.js"
+  defer
+></script>
 ```
 
 > [!TIP]

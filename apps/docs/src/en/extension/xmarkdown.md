@@ -7,6 +7,9 @@ description: Render Anki fields as Markdown
 
 Render an Anki field in Markdown format during review.
 
+> [!TIP]
+> Use it with [StyleKit](/extension/style-kit) for an even better experience! StyleKit provides beautiful, professional typography for the rendered Markdown content (headings, lists, quotes, etc.).
+
 ## Install & Use
 
 In Anki’s card template editor:
@@ -17,7 +20,10 @@ In Anki’s card template editor:
 - If your **Back Template** does **not** include <span v-pre>`{{FrontSide}}`</span>, also add the same script tag to the **Back Template**.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@anki-eco/extensions/dist/xmarkdown.js" defer></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/@anki-eco/extensions/dist/xmarkdown.js"
+  defer
+></script>
 ```
 
 2. Add a hidden block for any field you want to render as Markdown:
@@ -54,7 +60,7 @@ In Anki’s note editor, you can paste a Markdown-formatted reply from an LLM di
 - Two
 
 ```js
-console.log('hello');
+console.log("hello");
 ```
 ````
 

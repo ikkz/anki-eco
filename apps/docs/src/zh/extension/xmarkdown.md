@@ -7,6 +7,9 @@ description: 把 Anki 字段按 Markdown 显示
 
 把 Anki 的字段内容按 Markdown 格式渲染显示。
 
+> [!TIP]
+> 搭配 [StyleKit](/zh/extension/style-kit) 使用效果更佳！StyleKit 能为渲染后的 Markdown 内容提供精美、专业的排版样式（标题、列表、引用块等）。
+
 ## 安装与用法
 
 在 Anki 卡片模板编辑器中：
@@ -17,7 +20,10 @@ description: 把 Anki 字段按 Markdown 显示
 - 如果「背面模板」**没有**包含 <span v-pre>`{{FrontSide}}`</span>，那么背面也需要再添加一次同样的脚本。
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@anki-eco/extensions/dist/xmarkdown.js" defer></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/@anki-eco/extensions/dist/xmarkdown.js"
+  defer
+></script>
 ```
 
 2. 为需要渲染 Markdown 的字段添加一个隐藏块：
@@ -54,7 +60,7 @@ description: 把 Anki 字段按 Markdown 显示
 - 第二条
 
 ```js
-console.log('hello');
+console.log("hello");
 ```
 ````
 
