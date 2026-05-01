@@ -5,28 +5,13 @@ description: 美观的 Anki 卡片文本样式库
 
 # StyleKit
 
-StyleKit 为 Anki 卡片提供了一套开箱即用的美观文本样式，其核心设计灵感来自于 [Tailwind CSS Typography](https://tailwindcss-typography.vercel.app/)（您可以前往该网站预览具体的样式效果）。
-
-这套样式对常用的 HTML 元素进行了全面优化，包括但不限于：
-
-- **标题** (h1, h2, h3...)
-- **引用块** (blockquote)
-- **表格** (table)
-- **列表** (ul, ol)
-- **代码块** (pre, code)
-- 以及段落、链接等基础文本元素。
-
-::: tip 排版建议
-搭配 [XMarkdown](/zh/extension/xmarkdown) 使用效果更佳！XMarkdown 负责将文本渲染为 HTML 结构，而 StyleKit 为这些结构提供精美的样式。
-:::
-
-## 特性
+StyleKit 为 Anki 卡片提供了一套开箱即用的美观文本样式，其核心设计基于 [Tailwind CSS Typography](https://tailwindcss-typography.vercel.app/)。
 
 - **即插即用**：默认应用于整张卡片，无需对 HTML 结构进行复杂修改。
 - **黑暗模式支持**：完美适配 Anki 的原生黑暗模式。
-- **响应式设计**：
-  - 在宽屏设备上会自动切换到更大的文本尺寸，提升阅读体验。
-  - 针对不同屏幕宽度设置了最佳的阅读行宽（Max-width），防止文字过长导致阅读疲劳。
+- **响应式设计**：在不同设备上自动优化文字大小与阅读行宽，提升阅读体验。
+
+这套样式对常用的 HTML 元素进行了全面优化，包括标题 (h1, h2, h3...)、引用块 (blockquote)、表格 (table)、列表 (ul, ol)、代码块 (pre, code) 以及段落、链接等基础文本元素。
 
 ## 安装与用法
 

@@ -5,28 +5,13 @@ description: Beautiful text styles for Anki cards
 
 # StyleKit
 
-StyleKit provides a set of beautiful, out-of-the-box text styles for Anki cards, with core design inspired by [Tailwind CSS Typography](https://tailwindcss-typography.vercel.app/) (you can visit the website to preview the styles).
-
-This style set comprehensively optimizes common HTML elements, including but not limited to:
-
-- **Headings** (h1, h2, h3...)
-- **Blockquotes** (blockquote)
-- **Tables** (table)
-- **Lists** (ul, ol)
-- **Code Blocks** (pre, code)
-- As well as paragraphs, links, and other basic text elements.
-
-::: tip Typography Tip
-Use it with [XMarkdown](/extension/xmarkdown) for the best results! XMarkdown handles the rendering of text into HTML structures, while StyleKit provides beautiful styling for those structures.
-:::
-
-## Features
+StyleKit provides a set of beautiful, out-of-the-box text styles for Anki cards, with core design based on [Tailwind CSS Typography](https://tailwindcss-typography.vercel.app/).
 
 - **Plug and Play**: Applied to the entire card by default, no complex HTML structural changes required.
 - **Dark Mode Support**: Perfectly adapts to Anki's native dark mode.
-- **Responsive Design**:
-  - Automatically switches to larger text sizes on wide screens to enhance readability.
-  - Sets an optimal reading width (Max-width) for various screen sizes to prevent eye strain from overly long lines.
+- **Responsive Design**: Automatically optimizes text size and reading width for various screen sizes to enhance readability.
+
+This style set comprehensively optimizes common HTML elements, including headings (h1, h2, h3...), blockquotes, tables, lists, code blocks, as well as paragraphs, links, and other basic text elements.
 
 ## Installation and Usage
 
