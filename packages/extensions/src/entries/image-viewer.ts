@@ -26,7 +26,7 @@ function applyViewerStyle() {
   });
 }
 
-function isImageVisibleOnScreen(image: HTMLImageElement) {
+function isImageVisibleForViewer(image: HTMLImageElement) {
   if (image.getClientRects().length === 0) {
     return false;
   }
@@ -43,11 +43,7 @@ function isImageVisibleOnScreen(image: HTMLImageElement) {
     return false;
   }
 
-  const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
-  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-  return (
-    rect.bottom > 0 && rect.right > 0 && rect.top < viewportHeight && rect.left < viewportWidth
-  );
+  return true;
 }
 
 function parseScriptConfig(rawConfig: unknown): InitImageViewerOptions {
@@ -134,7 +130,7 @@ function initImageViewer(options: InitImageViewerOptions = {}) {
       );
     },
     filter(image: HTMLImageElement) {
-      return isImageVisibleOnScreen(image);
+      return isImageVisibleForViewer(image);
     },
     show() {
       globalStyle = applyFullScreenGlobalStyle(imageViewerScriptSrc);
