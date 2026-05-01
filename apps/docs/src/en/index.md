@@ -17,6 +17,9 @@ features:
   - title: Templates
     details: Interactive templates (MCQ, TF, Basic, Match, Cloze, Input) with preview & download
     link: /templates/classic/
+  - title: ImageViewer
+    details: Open and zoom card images in a full-screen viewer with pan and swipe navigation.
+    link: /extension/image-viewer
   - title: XMarkdown
     details: Render your fields in Markdown format (great for pasting Markdown replies from an LLM)
     link: /extension/xmarkdown

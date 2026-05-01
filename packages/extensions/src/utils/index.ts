@@ -27,6 +27,51 @@ export function markInteractive(element: HTMLElement) {
   element.classList.add('tappable');
 }
 
+type InjectStyleTagOptions = {
+  id?: string;
+  scriptSrcIncludes?: string;
+};
+
+function getStyleAnchorScript(scriptSrcIncludes?: string) {
+  if (document.currentScript instanceof HTMLScriptElement) {
+    return document.currentScript;
+  }
+  if (!scriptSrcIncludes) {
+    return null;
+  }
+
+  const scripts = [...document.querySelectorAll<HTMLScriptElement>('script[src]')];
+  for (let i = scripts.length - 1; i >= 0; i -= 1) {
+    const script = scripts[i];
+    if (script.src.includes(scriptSrcIncludes)) {
+      return script;
+    }
+  }
+  return null;
+}
+
+export function injectStyleTag(cssText: string, options: InjectStyleTagOptions = {}) {
+  const { id, scriptSrcIncludes } = options;
+  let style = id ? (document.getElementById(id) as HTMLStyleElement | null) : null;
+
+  if (!style) {
+    style = document.createElement('style');
+    if (id) {
+      style.id = id;
+    }
+
+    const anchorScript = getStyleAnchorScript(scriptSrcIncludes);
+    if (anchorScript) {
+      anchorScript.insertAdjacentElement('afterend', style);
+    } else {
+      document.head.appendChild(style);
+    }
+  }
+
+  style.textContent = cssText;
+  return style;
+}
+
 export function getAnkiClient() {
   const userAgent = navigator.userAgent;
   if (userAgent.includes('iPad')) {
@@ -37,6 +82,14 @@ export function getAnkiClient() {
     return 'Android';
   }
   return 'Desktop';
+}
+
+export function isIOSOrIPadOSSafariEngine() {
+  const client = getAnkiClient();
+  if (client !== 'iPad' && client !== 'iPhone') {
+    return false;
+  }
+  return navigator.userAgent.includes('AppleWebKit');
 }
 
 declare global {

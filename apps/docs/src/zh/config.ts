@@ -28,12 +28,8 @@ export default defineAdditionalConfig({
             link: '/zh/extension/',
           },
           {
-            text: 'CardMotion',
-            link: '/zh/extension/card-motion',
-          },
-          {
-            text: 'Tldraw',
-            link: '/zh/extension/tldraw',
+            text: 'ImageViewer',
+            link: '/zh/extension/image-viewer',
           },
           {
             text: 'XMarkdown',
@@ -42,6 +38,14 @@ export default defineAdditionalConfig({
           {
             text: 'StyleKit',
             link: '/zh/extension/style-kit',
+          },
+          {
+            text: 'CardMotion',
+            link: '/zh/extension/card-motion',
+          },
+          {
+            text: 'Tldraw',
+            link: '/zh/extension/tldraw',
           },
         ],
       },

@@ -4,6 +4,7 @@ import { customElementOnce, getAnkiClient, markInteractive } from '../utils/inde
 import { twStyle } from '../style.js';
 import { X, BadgeQuestionMark } from 'lucide-static';
 import '@/components/icon-button.js';
+import { applyFullScreenGlobalStyle } from '../utils/full-screen.js';
 
 @customElementOnce('ae-full-screen')
 export class FullScreen extends LitElement {
@@ -74,24 +75,7 @@ export class FullScreen extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
     markInteractive(this);
-
-    document.documentElement.scrollTop = 0;
-    this.globalStyle = document.createElement('style');
-    this.globalStyle.textContent = `
-      html {
-        overflow: hidden !important;
-      }
-
-      html, body {
-        margin: 0 !important;
-        padding: 0 !important;
-      }
-
-      #qa {
-        display: none !important;
-      }
-    `;
-    document.head.appendChild(this.globalStyle);
+    this.globalStyle = applyFullScreenGlobalStyle();
   }
 
   override disconnectedCallback(): void {
