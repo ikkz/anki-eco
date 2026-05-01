@@ -62,12 +62,8 @@ export default defineConfig({
             link: '/extension/',
           },
           {
-            text: 'CardMotion',
-            link: '/extension/card-motion',
-          },
-          {
-            text: 'Tldraw',
-            link: '/extension/tldraw',
+            text: 'ImageViewer',
+            link: '/extension/image-viewer',
           },
           {
             text: 'XMarkdown',
@@ -76,6 +72,14 @@ export default defineConfig({
           {
             text: 'StyleKit',
             link: '/extension/style-kit',
+          },
+          {
+            text: 'CardMotion',
+            link: '/extension/card-motion',
+          },
+          {
+            text: 'Tldraw',
+            link: '/extension/tldraw',
           },
         ],
       },

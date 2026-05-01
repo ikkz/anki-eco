@@ -1,19 +1,7 @@
 import { pv } from '@/utils/event.js';
 import css from '@anki-eco/style-kit?raw';
+import { injectStyleTag } from '@/utils/index.js';
 
-const id = 'anki-eco-style-kit';
-let style = document.getElementById(id) as HTMLStyleElement | null;
-
-if (!style) {
-  style = document.createElement('style');
-  style.id = id;
-  if (document.currentScript) {
-    document.currentScript.insertAdjacentElement('afterend', style);
-  } else {
-    document.head.appendChild(style);
-  }
-}
-
-style.textContent = css;
+injectStyleTag(css, { id: 'anki-eco-style-kit' });
 
 void pv('/style-kit');
