@@ -16,7 +16,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tailwindcss -i ./index.css -o ./dist/index.css"
+    "build": "tailwindcss -m -i ./index.css -o ./dist/index.css"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.2.4",
