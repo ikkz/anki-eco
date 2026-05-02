@@ -5,7 +5,7 @@ description: Open and zoom card images with Viewer.js
 
 # ImageViewer
 
-ImageViewer integrates [Viewer.js](https://fengyuanchen.github.io/viewerjs/) into Anki card templates, so you can open images in a full-screen viewer with zoom, pan, and swipe navigation.
+ImageViewer integrates [Viewer.js](https://fengyuanchen.github.io/viewerjs/) into Anki card templates, so you can open images in a full-screen viewer with zoom, rotate, flip, pan, and swipe navigation.
 
 ::: warning Mobile Compatibility
 This extension works well on the Anki desktop client, but it has not been extensively tested on mobile devices (e.g., AnkiMobile, AnkiDroid).

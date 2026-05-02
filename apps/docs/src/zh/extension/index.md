@@ -9,7 +9,7 @@ description: 基于模板而非插件（addon）的跨平台 Anki 扩展
 
 ## 当前可用的插件
 
-- [ImageViewer](/zh/extension/image-viewer) —— 在全屏查看器（基于 Viewer.js）中放大和平移卡片图片，支持滑动切换。
+- [ImageViewer](/zh/extension/image-viewer) —— 在全屏查看器（基于 Viewer.js）中放大、旋转、翻转和平移卡片图片，支持滑动切换。
 - [XMarkdown](/zh/extension/xmarkdown) —— 把字段按 Markdown 格式显示（例如直接粘贴大模型的 Markdown 回复）。
 - [StyleKit](/zh/extension/style-kit) —— 为卡片提供一套开箱即用的美观文本样式，基于 Tailwind CSS Typography。
 - [CardMotion](/zh/extension/card-motion) —— 在翻转与切换到下一张卡片时展示真实、流畅的动画，支持高度自定义。

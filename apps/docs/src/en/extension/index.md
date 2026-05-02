@@ -9,7 +9,7 @@ Extensions here are built on Anki card templates (not desktop addons), so they c
 
 ## Available Extensions
 
-- [ImageViewer](/extension/image-viewer) — Open card images in a full-screen Viewer.js viewer with zoom and swipe navigation.
+- [ImageViewer](/extension/image-viewer) — Open card images in a full-screen Viewer.js viewer with zoom, rotate, flip, and swipe navigation.
 - [XMarkdown](/extension/xmarkdown) — Render your fields in Markdown format (e.g. paste Markdown replies from an LLM).
 - [StyleKit](/extension/style-kit) — Beautiful, out-of-the-box text styles for your cards, based on Tailwind CSS Typography.
 - [CardMotion](/extension/card-motion) — Realistic flip and next‑card animations for your reviews. Highly customizable.

@@ -5,7 +5,7 @@ description: 基于 Viewer.js 的 Anki 图片查看器
 
 # ImageViewer
 
-ImageViewer 将 [Viewer.js](https://fengyuanchen.github.io/viewerjs/) 集成到 Anki 卡片模板中，支持全屏查看、缩放、拖拽与左右切换图片。
+ImageViewer 将 [Viewer.js](https://fengyuanchen.github.io/viewerjs/) 集成到 Anki 卡片模板中，支持全屏查看、缩放、旋转、翻转、拖拽与左右切换图片。
 
 ::: warning 移动端兼容性
 此扩展在桌面端（Anki Desktop）运行良好，但尚未在移动设备（如 AnkiMobile、AnkiDroid）上进行充分测试。
