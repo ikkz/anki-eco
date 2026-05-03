@@ -40,7 +40,12 @@ title: Classic 模板概览
 
 ### Markdown 基础语法
 
+<details>
+<summary>点击查看渲染结果</summary>
+
 ![markdown-basic](../../../assets/classic/markdown-basic.png)
+
+</details>
 
 ````markdown
 I just love **bold text**. Italicized text is the _cat's meow_. At the command prompt, type `nano`.
@@ -78,7 +83,12 @@ editor.on('change', (e) => {
 
 ### GFM 扩展语法
 
+<details>
+<summary>点击查看渲染结果</summary>
+
 ![markdown-gfm](../../../assets/classic/markdown-gfm.png)
+
+</details>
 
 ```markdown
 Automatic URL Linking: https://github.com/bytedance/bytemd
@@ -97,7 +107,12 @@ Automatic URL Linking: https://github.com/bytedance/bytemd
 
 ### 数学公式
 
+<details>
+<summary>点击查看渲染结果</summary>
+
 ![markdown-math](../../../assets/classic/markdown-math.png)
+
+</details>
 
 ```markdown
 Inline math equation: $a+b$
@@ -109,7 +124,12 @@ $$
 
 ### Mermaid 图表
 
+<details>
+<summary>点击查看渲染结果</summary>
+
 ![markdown-mermaid](../../../assets/classic/markdown-mermaid.png)
+
+</details>
 
 ````markdown
 ```mermaid
