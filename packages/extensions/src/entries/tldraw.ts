@@ -7,7 +7,6 @@ import { html } from 'lit/static-html.js';
 import { initTldraw, ScreenShotType } from '@/features/tldraw/index.js';
 import { property } from 'lit/decorators.js';
 import { buttonStyle } from '@/style.js';
-import { pv } from '@/utils/event.js';
 
 @customElementOnce('ae-tldraw')
 export class TldrawExt extends LitElement {
@@ -26,7 +25,6 @@ export class TldrawExt extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    pv('/tldraw/button');
     markInteractive(this);
     this.addEventListener('click', this.onClick);
   }

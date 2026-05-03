@@ -9,7 +9,7 @@ import { pv } from '@/utils/event.js';
 export type ScreenShotType = 'html2canvas' | 'html-to-image';
 
 export async function initTldraw(selector = '#qa', screenshot: ScreenShotType = 'html2canvas') {
-  pv('/tldraw/show');
+  pv('/tldraw');
   try {
     const target = document.querySelector(selector);
     if (!target || !(target instanceof HTMLElement)) {
