@@ -4,6 +4,7 @@ title: 多项选择
 
 # 多项选择
 
+- 支持 6、10 或 26 个选项（A-F / A-J / A-Z）
 - 支持隐藏选项以避免潜在的提示
 - 支持单选与多选
 - 选项在展示答案后会恢复到展示前的顺序
@@ -22,17 +23,17 @@ title: 多项选择
 | 字段名      | 说明                                                                         |
 | ----------- | ---------------------------------------------------------------------------- |
 | question    | 题干，支持加粗、公式等富文本格式                                             |
-| optionA...F | 选项内容；未填写的选项不会展示，同样支持多种格式                             |
+| optionA...Z | 选项内容；未填写的选项不会展示，同样支持多种格式                             |
 | answer      | 答案；单选题填写正确答案的大写字母，如 A；多选题填写所有正确答案字母，如 ABC |
 | note        | 可填写详细解析、备注等                                                       |
-| noteA...F   | 每个选项的备注/解析                                                          |
+| noteA...Z   | 每个选项的备注/解析                                                          |
 
 ## 预览与下载
 
-> 如果在 AnkiDroid 中遇到卡片延迟很久显示的问题，请尝试打开 “New study screen” 选项，详情参阅 <a href="https://forums.ankiweb.net/t/new-study-screen-official-thread/67394">官方文档</a>
+> 如果在 AnkiDroid 中遇到卡片延迟很久显示的问题，请尝试打开 "New study screen" 选项，详情参阅 <a href="https://forums.ankiweb.net/t/new-study-screen-official-thread/67394">官方文档</a>
 
 > 如果你下载 Markdown 模板，请查看文档：[Markdown 支持](/zh/templates/classic/#markdown-support)
 
-<ClassicTemplateDemo entry="mcq" />
+<ClassicTemplateDemo entry="mcq" :options="[6, 10, 26]" />
 
 <!--@include: @/parts/feedback-zh.md -->

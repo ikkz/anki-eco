@@ -13,8 +13,6 @@ title: Classic 模板概览
 - [排序](/zh/templates/classic/ordering)
 - [填空](/zh/templates/classic/cloze)
 - [输入题](/zh/templates/classic/input)
-- [多项选择（10 选项）](/zh/templates/classic/mcq_10)
-- [多项选择（26 选项）](/zh/templates/classic/mcq_26)
 
 ## 模板内嵌配置（Embedding Options）
 

@@ -6,6 +6,7 @@ type Entry = 'mcq' | 'tf' | 'basic' | 'match' | 'cloze' | 'input' | 'mcq_10' | '
 
 const props = defineProps<{
   entry: Entry;
+  options?: number[];
 }>();
 
 type Locale = 'en' | 'zh' | 'ja' | 'pt_br';
@@ -18,13 +19,25 @@ const selectedLocale = ref<Locale>(
   typeof location !== 'undefined' && location.pathname.startsWith('/zh/') ? 'zh' : 'en',
 );
 const selectedField = ref<Field>('native');
+const selectedOptions = ref<number>(props.options?.[0] ?? 6);
+
+const effectiveEntry = computed<Entry>(() => {
+  if (props.options && props.options.length > 0) {
+    if (selectedOptions.value === 10) return 'mcq_10';
+    if (selectedOptions.value === 26) return 'mcq_26';
+    return 'mcq';
+  }
+  return props.entry;
+});
 
 const distHost = import.meta.env.DEV ? 'http://localhost:4200' : 'https://classic.anki.ikkz.fun';
 
 const distPublicBase = `${distHost}/dist`;
 const releasePublicBase = `${distHost}/release`;
 
-const variantKey = computed(() => `${props.entry}.${selectedLocale.value}.${selectedField.value}`);
+const variantKey = computed(
+  () => `${effectiveEntry.value}.${selectedLocale.value}.${selectedField.value}`,
+);
 
 const downloadPath = computed(() => `${releasePublicBase}/${variantKey.value}.apkg`);
 
@@ -37,6 +50,7 @@ const labels = {
   title: 'Classic Template',
   locale: 'Locale',
   field: 'Field',
+  options: 'Options',
   preview: 'Preview',
   download: 'Download',
 };
@@ -141,7 +155,7 @@ async function loadAndRender() {
     // emulate some preferences used by template runtime
     page.localStorage.clear();
     page.sessionStorage.clear();
-    page.localStorage.setItem(`at:${props.entry}:hideAbout`, 'true');
+    page.localStorage.setItem(`at:${effectiveEntry.value}:hideAbout`, 'true');
 
     const frontHtml = interpolate(front, renderFields);
     const backHtml = interpolate(back, {
@@ -205,6 +219,31 @@ onMounted(() => {
       </div>
 
       <span class="tw-text-gray-300">·</span>
+
+      <div v-if="options && options.length > 0" class="tw-relative">
+        <select
+          v-model="selectedOptions"
+          class="tw-appearance-none tw-bg-transparent tw-pr-5 tw-pl-0 tw-py-1 tw-border-0 tw-cursor-pointer hover:tw-underline focus:tw-outline-none"
+        >
+          <option v-for="o in options" :key="o" :value="o">
+            {{ o }}
+          </option>
+        </select>
+        <svg
+          class="tw-pointer-events-none tw-absolute tw-right-0 tw-top-1/2 -tw-translate-y-1/2 tw-w-4 tw-h-4 tw-text-gray-400"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.38a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </div>
+
+      <span v-if="options && options.length > 0" class="tw-text-gray-300">·</span>
 
       <div class="tw-relative">
         <select
