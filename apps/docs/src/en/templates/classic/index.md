@@ -40,7 +40,12 @@ Below are some of the available formats and examples.
 
 ### Markdown Basic Syntax
 
+<details>
+<summary>Click to view rendered result</summary>
+
 ![markdown-basic](../../../assets/classic/markdown-basic.png)
+
+</details>
 
 ````markdown
 I just love **bold text**. Italicized text is the _cat's meow_. At the command prompt, type `nano`.
@@ -78,7 +83,12 @@ editor.on('change', (e) => {
 
 ### GFM Extended Syntax
 
+<details>
+<summary>Click to view rendered result</summary>
+
 ![markdown-gfm](../../../assets/classic/markdown-gfm.png)
+
+</details>
 
 ```markdown
 Automatic URL Linking: https://github.com/bytedance/bytemd
@@ -97,7 +107,12 @@ Automatic URL Linking: https://github.com/bytedance/bytemd
 
 ### Math Equation
 
+<details>
+<summary>Click to view rendered result</summary>
+
 ![markdown-math](../../../assets/classic/markdown-math.png)
+
+</details>
 
 ```markdown
 Inline math equation: $a+b$
@@ -109,7 +124,12 @@ $$
 
 ### Mermaid Diagrams
 
+<details>
+<summary>Click to view rendered result</summary>
+
 ![markdown-mermaid](../../../assets/classic/markdown-mermaid.png)
+
+</details>
 
 ````markdown
 ```mermaid
