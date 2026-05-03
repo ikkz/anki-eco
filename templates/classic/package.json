@@ -68,7 +68,7 @@
     "koa": "^3.0.3",
     "postcss": "^8.5.1",
     "postcss-nested": "^7.0.2",
-    "rolldown": "1.0.0-rc.17",
+    "rolldown": "1.0.0-rc.18",
     "rollup-plugin-postcss": "^4.0.2",
     "serve": "^14.2.4",
     "tailwindcss": "^3.4.10",

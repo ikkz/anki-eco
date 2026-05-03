@@ -30,14 +30,11 @@ export default defineConfig(() => ({
     outDir: './dist',
     emptyOutDir: false,
     reportCompressedSize: true,
-    commonjsOptions: {
-      transformMixedEsModules: true,
-    },
     lib: {
       entry: 'src/index.ts',
       formats: ['es' as const],
     },
-    rollupOptions: {
+    rolldownOptions: {
       external: [],
     },
   },

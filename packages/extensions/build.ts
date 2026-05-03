@@ -16,23 +16,17 @@ for (const entry of entries) {
     configFile: false,
     root: __dirname,
     ...commonConfig,
-    esbuild: {
-      legalComments: 'none',
-    },
     build: {
       outDir: './dist',
       emptyOutDir: false,
       reportCompressedSize: true,
-      commonjsOptions: {
-        transformMixedEsModules: true,
-      },
       lib: {
         entry: `./src/entries/${entry}.ts`,
         name: `AnkiEcoExtension_${entry}`,
         fileName: () => `${entry}.js`,
         formats: ['umd' as const],
       },
-      rollupOptions: {
+      rolldownOptions: {
         external: [],
       },
     },

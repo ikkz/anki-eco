@@ -21,6 +21,6 @@
     "preact": "^10.27.3"
   },
   "devDependencies": {
-    "vite-plugin-css-injected-by-js": "^3.5.2"
+    "vite-plugin-css-injected-by-js": "^5.0.0"
   }
 }
