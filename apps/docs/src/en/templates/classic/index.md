@@ -13,8 +13,6 @@ title: Overview
 - [Ordering](/templates/classic/ordering)
 - [Cloze](/templates/classic/cloze)
 - [Input](/templates/classic/input)
-- [Multiple Choice (10 options)](/templates/classic/mcq_10)
-- [Multiple Choice (26 options)](/templates/classic/mcq_26)
 
 ## Embedding Options in Templates
 

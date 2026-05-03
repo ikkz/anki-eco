@@ -40,18 +40,10 @@ export default defineConfig({
           { text: 'Match', link: '/templates/classic/match' },
           { text: 'Basic', link: '/templates/classic/basic' },
           { text: 'Cloze', link: '/templates/classic/cloze' },
-          {
-            text: 'Multiple Choice (10 options)',
-            link: '/templates/classic/mcq_10',
-          },
           { text: 'True or False', link: '/templates/classic/tf' },
           { text: 'Item Ordering', link: '/templates/classic/item-ordering' },
           { text: 'Ordering', link: '/templates/classic/ordering' },
           { text: 'Input', link: '/templates/classic/input' },
-          {
-            text: 'Multiple Choice (26 options)',
-            link: '/templates/classic/mcq_26',
-          },
         ],
       },
       {
@@ -111,18 +103,10 @@ export default defineConfig({
             { text: 'Match', link: '/templates/classic/match' },
             { text: 'Basic', link: '/templates/classic/basic' },
             { text: 'Cloze', link: '/templates/classic/cloze' },
-            {
-              text: 'Multiple Choice (10 options)',
-              link: '/templates/classic/mcq_10',
-            },
             { text: 'True or False', link: '/templates/classic/tf' },
             { text: 'Item Ordering', link: '/templates/classic/item-ordering' },
             { text: 'Ordering', link: '/templates/classic/ordering' },
             { text: 'Input', link: '/templates/classic/input' },
-            {
-              text: 'Multiple Choice (26 options)',
-              link: '/templates/classic/mcq_26',
-            },
           ],
         },
       ],
@@ -177,6 +161,9 @@ export default defineConfig({
     define: {
       EXT_CM: { css: EXT_CM_CSS, script: EXT_CM_SCRIPT },
       SPONSORS: JSON.stringify(SPONSORS),
+    },
+    server: {
+      allowedHosts: true,
     },
   },
 });
