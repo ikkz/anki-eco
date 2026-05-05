@@ -6,7 +6,7 @@ labels: bug
 assignees: ''
 ---
 
-<!-- I maintain this project in my limited spare time. If you would like your bug report to be prioritized, please consider sponsoring me here: https://github.com/sponsors/ikkz -->
+<!-- I maintain this project in my limited spare time. If you would like your bug report to be prioritized, please consider sponsoring me here: https://github.com/sponsors/ikkz?frequency=one-time -->
 
 **Describe the bug**
 A clear and concise description of what the bug is.

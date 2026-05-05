@@ -25,7 +25,7 @@ const sponsors = SPONSORS;
     </div>
     <div v-if="showCta" class="sponsor-cta">
       <a
-        href="https://github.com/sponsors/ikkz"
+        href="https://github.com/sponsors/ikkz?frequency=one-time"
         target="_blank"
         rel="noopener noreferrer"
         class="sponsor-cta-link"

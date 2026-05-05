@@ -30,7 +30,7 @@ Thanks to the following sponsors for their support! ❤️
 
 <!-- sponsors-end -->
 
-[Become a sponsor →](https://github.com/sponsors/ikkz)
+[Become a sponsor →](https://github.com/sponsors/ikkz?frequency=one-time)
 
 ## Contributing
 
