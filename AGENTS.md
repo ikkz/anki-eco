@@ -18,44 +18,43 @@ AnkiEco is a monorepo for building cross-platform Anki experiences, including do
 
 ## Environment And Package Management
 
-- Use Node.js `23.6.0` or newer; this repository relies on Node's native TypeScript type stripping.
-- Use Corepack-managed pnpm. The root package manager is `pnpm@9.8.0`.
+- Use Bun as the package manager, script runner, and runtime.
 - Classic template and packager builds require `uv`; CI uses `uv 0.4.27`.
-- Install dependencies with `corepack enable && pnpm install`.
-- Do not switch to npm or yarn, and do not hand-edit `pnpm-lock.yaml`; dependency changes should go through `pnpm`.
+- Install dependencies with `bun install`.
+- Do not switch to npm, yarn, or pnpm, and do not hand-edit `bun.lock`; dependency changes should go through `bun`.
 
 ## Common Commands
 
 Run these from the repository root:
 
-- `pnpm lint`: Run `oxlint`.
-- `pnpm lint:fix`: Apply available lint fixes.
-- `pnpm fmt`: Format with `oxfmt`.
-- `pnpm fmt:check`: Check formatting.
-- `pnpm exec nx show projects`: List Nx project names.
-- `pnpm exec nx affected -t lint test build typecheck package fmt:check`: Run a CI-like affected-project check.
-- `pnpm exec nx run @anki-eco/docs:dev`: Start the docs site.
-- `pnpm exec nx run @anki-eco/docs:build`: Build the docs site.
-- `pnpm exec nx run @anki-eco/classic-templates:dev -- mcq --locale=zh --field=markdown`: Develop a specific Classic template.
-- `pnpm exec nx run @anki-eco/classic-templates:build`: Build the Classic templates.
-- `pnpm exec nx run @anki-eco/classic-templates:test`: Run Classic template tests.
-- `pnpm exec nx run @anki-eco/classic-templates:package`: Package Classic templates via `uv run --frozen build/package.py`.
-- `pnpm exec nx run @anki-eco/packager:build`: Build the packager TypeScript output and Python executable.
-- `pnpm exec nx run @anki-eco/packager:test`: Validate packager output with `test_data`.
+- `bun run lint`: Run `oxlint`.
+- `bun run lint:fix`: Apply available lint fixes.
+- `bun run fmt`: Format with `oxfmt`.
+- `bun run fmt:check`: Check formatting.
+- `bunx nx show projects`: List Nx project names.
+- `bunx nx affected -t lint test build typecheck package fmt:check`: Run a CI-like affected-project check.
+- `bunx nx run @anki-eco/docs:dev`: Start the docs site.
+- `bunx nx run @anki-eco/docs:build`: Build the docs site.
+- `bunx nx run @anki-eco/classic-templates:dev -- mcq --locale=zh --field=markdown`: Develop a specific Classic template.
+- `bunx nx run @anki-eco/classic-templates:build`: Build the Classic templates.
+- `bunx nx run @anki-eco/classic-templates:test`: Run Classic template tests.
+- `bunx nx run @anki-eco/classic-templates:package`: Package Classic templates via `uv run --frozen build/package.py`.
+- `bunx nx run @anki-eco/packager:build`: Build the packager TypeScript output and Python executable.
+- `bunx nx run @anki-eco/packager:test`: Validate packager output with `test_data`.
 
 You can also run workspace scripts directly, for example:
 
-- `pnpm --filter @anki-eco/docs dev`
-- `pnpm --filter @anki-eco/classic-templates test`
+- `bun run --filter @anki-eco/docs dev`
+- `bun run --filter @anki-eco/classic-templates test`
 
 ## Validation Strategy
 
-- After completing any change, run `pnpm -w lint` and `pnpm -w fmt`.
-- For small TypeScript/React/Vue changes, run the relevant project `typecheck` or `test`, plus root `pnpm lint`/`pnpm fmt:check` when appropriate for the risk.
-- For Classic template behavior changes, prefer adding or updating Vitest coverage under `templates/classic/tests`, then run `pnpm exec nx run @anki-eco/classic-templates:test`.
+- After completing any change, run `bun run lint` and `bun run fmt`.
+- For small TypeScript/React/Vue changes, run the relevant project `typecheck` or `test`, plus root `bun run lint`/`bun run fmt:check` when appropriate for the risk.
+- For Classic template behavior changes, prefer adding or updating Vitest coverage under `templates/classic/tests`, then run `bunx nx run @anki-eco/classic-templates:test`.
 - For Classic build or packaging changes, run `build`; if `.apkg` output or Python scripts are involved, run `package`.
-- For packager changes, run `pnpm exec nx run @anki-eco/packager:build`; run `test` when packaging behavior may have changed.
-- For documentation changes, run `pnpm exec nx run @anki-eco/docs:build`, and check whether both English and Chinese docs need updates.
+- For packager changes, run `bunx nx run @anki-eco/packager:build`; run `test` when packaging behavior may have changed.
+- For documentation changes, run `bunx nx run @anki-eco/docs:build`, and check whether both English and Chinese docs need updates.
 - For publishable package entry point or export changes, check the relevant `package.json` `exports`, `types`, `files`, and tsconfig references.
 
 If local environment issues, runtime, or missing dependencies prevent validation, state exactly which commands were not run and why in the final response.

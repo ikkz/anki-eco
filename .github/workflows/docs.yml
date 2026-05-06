@@ -20,17 +20,11 @@ jobs:
         with:
           version: '0.4.27'
 
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-        with:
-          run_install: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '23.6'
-          cache: 'pnpm'
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
 
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm exec nx build docs
+      - run: bun install --frozen-lockfile
+      - run: bunx nx build docs
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
