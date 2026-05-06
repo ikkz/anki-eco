@@ -36,8 +36,7 @@ This project uses node's [type stripping](https://nodejs.org/en/learn/typescript
 After installation, run the following commands to install project dependencies.
 
 ```
-corepack enable
-pnpm install
+bun install
 ```
 
 ### Starting the Development Server
@@ -45,7 +44,7 @@ pnpm install
 This project provides specific development commands. For example, to develop the `mcq` template, run:
 
 ```
-pnpm dev mcq
+bun dev mcq
 ```
 
 Then visit `http://localhost:3000`, by default you will see the `mcq.en.native` template.
@@ -53,7 +52,7 @@ Then visit `http://localhost:3000`, by default you will see the `mcq.en.native` 
 You can also specify the development language and field type through parameters:
 
 ```
-pnpm dev mcq --locale=zh --field=markdown
+bun dev mcq --locale=zh --field=markdown
 ```
 
 To flip the card during development, execute the following in the browser console:
@@ -66,16 +65,16 @@ setBack(true)
 
 Generating an Anki apkg format package requires two steps:
 
-1. Build: Run `pnpm build` to build all templates. You can also pass parameters similar to the development command to specify the build. Omitting an option means all possible values for that option will be built.
+1. Build: Run `bun run build` to build all templates. You can also pass parameters similar to the development command to specify the build. Omitting an option means all possible values for that option will be built.
 
 ```
-pnpm build --entry=mcq --locale=en --field=native
+bun run build --entry=mcq --locale=en --field=native
 ```
 
-2. Package: `pnpm package`
+2. Package: `bun run package`
 
 The Apkg file will be located in the `release` directory.
 
 ### Publishing
 
-If your PR modifies the templates, please run `pnpm changeset`. This will ask for a description of your changes. Please fill it out according to [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Be sure to include the generated Markdown file in the PR.
+If your PR modifies the templates, please run `bunx changeset`. This will ask for a description of your changes. Please fill it out according to [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Be sure to include the generated Markdown file in the PR.
