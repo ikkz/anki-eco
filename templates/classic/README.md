@@ -31,7 +31,7 @@ This project welcomes any form of open-source contribution. Here is some informa
 
 ### Project Initialization
 
-This project uses node's [type stripping](https://nodejs.org/en/learn/typescript/run-natively) feature, so you need to install node version 23.6.0 or above.
+This project uses [Bun](https://bun.sh) as the runtime and package manager.
 
 After installation, run the following commands to install project dependencies.
 

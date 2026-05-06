@@ -6,8 +6,8 @@
   "author": "",
   "type": "module",
   "scripts": {
-    "build": "node --max-old-space-size=4096 build/cli.ts",
-    "dev": "cross-env ROLLUP_WATCH=true node --max-old-space-size=4096 build/cli.ts --dev --entry",
+    "build": "bun build/cli.ts",
+    "dev": "cross-env ROLLUP_WATCH=true bun build/cli.ts --dev --entry",
     "package": "uv run --frozen build/package.py",
     "test": "nx vite:test -- run"
   },
