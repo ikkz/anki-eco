@@ -7,7 +7,8 @@ import {
   getClozeData,
   getClozeNodes,
 } from '@/features/cloze/dom-to-cloze';
-import { getTargetClozeNode } from '@/features/cloze/target-node';
+import { getClozeShortcut } from '@/features/cloze/shortcut';
+import { getNextHiddenClozeNode, getTargetClozeNode } from '@/features/cloze/target-node';
 import { clozeAtom, clozeRevealNextOnOutsideClickAtom } from '@/store/settings';
 import useLatest from 'ahooks/es/useLatest';
 import { entry } from 'at/options';
@@ -117,10 +118,37 @@ const useCloze = (ref: RefObject<HTMLElement>) => {
         }
       });
     };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (back || event.repeat) {
+        return;
+      }
+      const shortcut = getClozeShortcut(event);
+      if (!shortcut) {
+        return;
+      }
+      if (shortcut === 'reveal-next') {
+        const node = getNextHiddenClozeNode(el);
+        if (!node) {
+          return;
+        }
+        event.preventDefault();
+        getClozeNodes(el, node).forEach(showAnswer);
+        return;
+      }
+      const clozeNodes = el.querySelectorAll(`.${CLOZE_CLASS}`);
+      if (!clozeNodes.length) {
+        return;
+      }
+      event.preventDefault();
+      const shouldReveal = Boolean(getNextHiddenClozeNode(el));
+      clozeNodes.forEach(shouldReveal ? showAnswer : hideAnswer);
+    };
     el.addEventListener('click', onClick, true);
+    document.addEventListener('keydown', onKeyDown);
 
     return () => {
       el.removeEventListener('click', onClick, true);
+      document.removeEventListener('keydown', onKeyDown);
     };
   }, [back, clozeEnabled]);
 };

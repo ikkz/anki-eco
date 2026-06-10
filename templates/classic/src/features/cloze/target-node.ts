@@ -2,6 +2,10 @@ import { CLOZE_CLASS } from './dom-to-cloze';
 
 const CLOZE_HIDDEN = 'data-at-cloze-hide';
 
+function getNextHiddenClozeNode(fieldElement: HTMLElement) {
+  return fieldElement.querySelector(`[${CLOZE_HIDDEN}='true'].${CLOZE_CLASS}`);
+}
+
 function getTargetClozeNode(
   fieldElement: HTMLElement,
   target: Element,
@@ -11,7 +15,7 @@ function getTargetClozeNode(
   if (clozeNode || !revealNextOnOutsideClick) {
     return clozeNode;
   }
-  return fieldElement.querySelector(`[${CLOZE_HIDDEN}='true'].${CLOZE_CLASS}`);
+  return getNextHiddenClozeNode(fieldElement);
 }
 
-export { getTargetClozeNode };
+export { getNextHiddenClozeNode, getTargetClozeNode };

@@ -1,4 +1,5 @@
-import { getTargetClozeNode } from '../src/features/cloze/target-node';
+import { getClozeShortcut, isEditableTarget } from '../src/features/cloze/shortcut';
+import { getNextHiddenClozeNode, getTargetClozeNode } from '../src/features/cloze/target-node';
 import { CLOZE_CLASS } from '../src/features/cloze/dom-to-cloze';
 import { describe, expect, test } from 'vitest';
 
@@ -31,5 +32,39 @@ describe('getTargetClozeNode', () => {
 
     const node = getTargetClozeNode(field, cloze as Element, false);
     expect(node).toBe(cloze);
+  });
+});
+
+describe('cloze shortcuts', () => {
+  test('maps W to reveal next and Shift+Space to toggle all', () => {
+    expect(getClozeShortcut(new KeyboardEvent('keydown', { key: 'w' }))).toBe('reveal-next');
+    expect(getClozeShortcut(new KeyboardEvent('keydown', { key: 'W' }))).toBe('reveal-next');
+    expect(getClozeShortcut(new KeyboardEvent('keydown', { key: ' ', shiftKey: true }))).toBe(
+      'toggle-all',
+    );
+  });
+
+  test('ignores modified shortcuts and editable targets', () => {
+    expect(
+      getClozeShortcut(new KeyboardEvent('keydown', { key: 'w', shiftKey: true })),
+    ).toBeUndefined();
+    expect(
+      getClozeShortcut(new KeyboardEvent('keydown', { key: 'w', ctrlKey: true })),
+    ).toBeUndefined();
+    expect(
+      getClozeShortcut(new KeyboardEvent('keydown', { key: 'w', isComposing: true })),
+    ).toBeUndefined();
+
+    const input = document.createElement('input');
+    const contentEditable = document.createElement('div');
+    contentEditable.setAttribute('contenteditable', 'true');
+    expect(isEditableTarget(input)).toBe(true);
+    expect(isEditableTarget(contentEditable)).toBe(true);
+  });
+
+  test('finds the next hidden cloze in document order', () => {
+    const field = document.createElement('div');
+    field.innerHTML = `<span class="${CLOZE_CLASS}" data-at-cloze-hide="false"></span><span id="next" class="${CLOZE_CLASS}" data-at-cloze-hide="true"></span><span class="${CLOZE_CLASS}" data-at-cloze-hide="true"></span>`;
+    expect(getNextHiddenClozeNode(field)).toBe(field.querySelector('#next'));
   });
 });
