@@ -198,7 +198,9 @@ function downloadFile() {
   const link = document.createElement('a');
   link.href = downloadUrl;
   link.download = result.value.outputName;
+  document.body.appendChild(link);
   link.click();
+  document.body.removeChild(link);
 }
 
 onBeforeUnmount(() => {
