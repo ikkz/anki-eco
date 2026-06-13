@@ -244,6 +244,13 @@ onBeforeUnmount(() => {
       </div>
     </template>
 
+    <template v-if="error && !analysis && !busy">
+      <p class="message error">{{ error }}</p>
+      <div class="actions">
+        <button class="secondary" @click="reset">{{ labels.reset }}</button>
+      </div>
+    </template>
+
     <template v-if="analysis">
       <div class="file-info">
         <svg
