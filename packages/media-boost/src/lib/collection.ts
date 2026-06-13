@@ -93,7 +93,7 @@ function nodeAssetPath(url: string): string {
 async function loadAsset(url: string): Promise<Uint8Array> {
   if (runningInNode()) {
     const moduleName = 'node:fs/promises';
-    const { readFile } = await import(moduleName);
+    const { readFile } = await import(/* @vite-ignore */ moduleName);
     return readFile(nodeAssetPath(url));
   }
   const response = await fetch(url);

@@ -43,7 +43,7 @@ async function fixture(): Promise<File> {
     level: 0,
   });
   for (const [index, name] of names.entries()) {
-    await writer.add(String(index), new TextReader(`data:${name}`), { level: 0 });
+    await writer.add(String(index), new TextReader(`data:${name}`), { level: 6 });
   }
   return new File([await writer.close()], 'fixture.apkg');
 }
@@ -128,6 +128,12 @@ describe('media boost APKG', () => {
     expect(fields.join('')).toContain('a.jpg');
     expect(fields.join('')).toContain('b &amp; c.mp3');
     db.close();
+
+    const mediaEntry = byName.get('0');
+    if (!mediaEntry || mediaEntry.directory) throw new Error('missing media');
+    expect(new TextDecoder().decode(await mediaEntry.getData(new Uint8ArrayWriter()))).toBe(
+      'data:a.jpg',
+    );
     await reader.close();
   });
 

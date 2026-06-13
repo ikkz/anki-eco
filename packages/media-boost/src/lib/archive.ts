@@ -202,11 +202,18 @@ async function copyEntry(
   writer: ZipWriter<unknown>,
   signal?: AbortSignal,
 ): Promise<void> {
-  await writer.add(entry.filename, new Uint8ArrayReader(await entryBytes(entry, signal)), {
-    level: 0,
-    lastModDate: entry.lastModDate,
-    signal,
-  });
+  const stream = new TransformStream<Uint8Array, Uint8Array>();
+  await Promise.all([
+    entry.getData(stream.writable, { passThrough: true, signal }),
+    writer.add(entry.filename, stream.readable, {
+      compressionMethod: entry.compressionMethod,
+      lastModDate: entry.lastModDate,
+      passThrough: true,
+      signal,
+      signature: entry.signature,
+      uncompressedSize: entry.uncompressedSize,
+    }),
+  ]);
 }
 
 export async function generateMediaBoostPackage(

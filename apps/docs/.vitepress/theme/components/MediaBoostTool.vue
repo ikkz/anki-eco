@@ -19,6 +19,7 @@ const completed = ref(false);
 const dragging = ref(false);
 let worker: Worker | undefined;
 let requestId = 0;
+let downloadUrl: string | undefined;
 
 const labels = computed(() =>
   isZh.value
@@ -86,6 +87,16 @@ function getWorker() {
   }));
 }
 
+function disposeWorker() {
+  worker?.terminate();
+  worker = undefined;
+}
+
+function disposeDownloadUrl() {
+  if (downloadUrl) URL.revokeObjectURL(downloadUrl);
+  downloadUrl = undefined;
+}
+
 function runWorker<T>(type: 'analyze' | 'generate', payload: Record<string, unknown>): Promise<T> {
   const activeWorker = getWorker();
   const id = String(++requestId);
@@ -96,6 +107,7 @@ function runWorker<T>(type: 'analyze' | 'generate', payload: Record<string, unkn
         progress.value = event.data.progress;
       } else {
         activeWorker.removeEventListener('message', listener);
+        disposeWorker();
         if (event.data.type === 'result') resolve(event.data.result);
         else reject(Object.assign(new Error(event.data.error.message), event.data.error));
       }
@@ -106,8 +118,11 @@ function runWorker<T>(type: 'analyze' | 'generate', payload: Record<string, unkn
 }
 
 async function processFile(selected: File) {
+  disposeDownloadUrl();
   file.value = selected;
   analysis.value = undefined;
+  result.value = undefined;
+  progress.value = undefined;
   completed.value = false;
   error.value = '';
   busy.value = true;
@@ -150,12 +165,7 @@ async function generate() {
   busy.value = true;
   try {
     result.value = await runWorker<MediaBoostResult>('generate', { file: file.value });
-    const url = URL.createObjectURL(result.value.blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = result.value.outputName;
-    link.click();
-    setTimeout(() => URL.revokeObjectURL(url), 30_000);
+    downloadFile();
     completed.value = true;
   } catch (reason) {
     if ((reason as { code?: string }).code !== 'ABORTED') {
@@ -167,6 +177,8 @@ async function generate() {
 }
 
 function reset() {
+  disposeWorker();
+  disposeDownloadUrl();
   file.value = undefined;
   analysis.value = undefined;
   progress.value = undefined;
@@ -182,17 +194,16 @@ function cancel() {
 
 function downloadFile() {
   if (!result.value) return;
-  const url = URL.createObjectURL(result.value.blob);
+  downloadUrl ??= URL.createObjectURL(result.value.blob);
   const link = document.createElement('a');
-  link.href = url;
+  link.href = downloadUrl;
   link.download = result.value.outputName;
   link.click();
-  setTimeout(() => URL.revokeObjectURL(url), 30_000);
 }
 
 onBeforeUnmount(() => {
-  worker?.terminate();
-  worker = undefined;
+  disposeWorker();
+  disposeDownloadUrl();
 });
 </script>
 
