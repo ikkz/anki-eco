@@ -279,7 +279,13 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="actions">
-        <button v-if="!busy" class="primary" @click="generate">{{ labels.generate }}</button>
+        <button
+          v-if="!busy"
+          class="primary plausible-event-name=media-boost-click"
+          @click="generate"
+        >
+          {{ labels.generate }}
+        </button>
         <button v-if="busy" class="secondary" @click="cancel">{{ labels.cancel }}</button>
       </div>
 

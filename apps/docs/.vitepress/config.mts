@@ -163,7 +163,7 @@ export default defineConfig({
       {
         defer: '',
         'data-domain': 'anki-eco',
-        src: 'https://pla.ikkz.fun/js/script.js',
+        src: 'https://pla.ikkz.fun/js/script.file-downloads.tagged-events.js',
       },
     ],
   ],
