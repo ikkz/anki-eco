@@ -75,7 +75,7 @@ export default defineConfig({
           },
         ],
       },
-      { text: 'Dev Guide', link: '/guide/packager' },
+      { text: 'Tools', link: '/tools/media-boost' },
       {
         text: 'Sponsor',
         link: '/sponsor',
@@ -90,6 +90,17 @@ export default defineConfig({
             {
               text: 'Packager',
               link: '/guide/packager',
+            },
+          ],
+        },
+      ],
+      '/tools/': [
+        {
+          text: 'Tools',
+          items: [
+            {
+              text: 'Media Boost',
+              link: '/tools/media-boost',
             },
           ],
         },
@@ -164,6 +175,9 @@ export default defineConfig({
     },
     server: {
       allowedHosts: true,
+    },
+    worker: {
+      format: 'es',
     },
   },
 });

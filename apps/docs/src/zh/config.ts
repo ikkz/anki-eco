@@ -47,7 +47,7 @@ export default defineAdditionalConfig({
           },
         ],
       },
-      { text: '开发指南', link: '/zh/guide/quick-start' },
+      { text: '工具', link: '/zh/tools/media-boost' },
       {
         text: '赞助',
         link: '/zh/sponsor',
@@ -74,6 +74,17 @@ export default defineAdditionalConfig({
             {
               text: '打包器',
               link: '/zh/guide/packager',
+            },
+          ],
+        },
+      ],
+      '/zh/tools/': [
+        {
+          text: '工具',
+          items: [
+            {
+              text: 'Media Boost',
+              link: '/zh/tools/media-boost',
             },
           ],
         },

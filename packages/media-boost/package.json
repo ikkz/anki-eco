@@ -15,5 +15,12 @@
       "default": "./dist/index.js"
     }
   },
-  "dependencies": {}
+  "dependencies": {
+    "@hpcc-js/wasm-zstd": "1.13.0",
+    "@zip.js/zip.js": "2.8.26",
+    "sql.js": "1.14.1"
+  },
+  "devDependencies": {
+    "@types/sql.js": "1.4.9"
+  }
 }
