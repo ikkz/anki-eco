@@ -3,6 +3,7 @@ import type { Theme } from 'vitepress';
 import ClassicTemplateDemo from './components/ClassicTemplateDemo.vue';
 import SponsorList from './components/SponsorList.vue';
 import HomeSponsors from './components/HomeSponsors.vue';
+import MediaBoostTool from './components/MediaBoostTool.vue';
 import './index.css';
 import { h } from 'vue';
 
@@ -16,5 +17,6 @@ export default {
   enhanceApp({ app }) {
     app.component('ClassicTemplateDemo', ClassicTemplateDemo);
     app.component('SponsorList', SponsorList);
+    app.component('MediaBoostTool', MediaBoostTool);
   },
 } as Theme;

@@ -8,6 +8,9 @@
     "build": "vitepress build",
     "preview": "vitepress preview"
   },
+  "dependencies": {
+    "@anki-eco/media-boost": "workspace:*"
+  },
   "devDependencies": {
     "@anki-eco/extensions": "workspace:*",
     "autoprefixer": "^10.4.20",

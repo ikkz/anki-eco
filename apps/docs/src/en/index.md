@@ -17,6 +17,9 @@ features:
   - title: Templates
     details: Interactive templates (MCQ, TF, Basic, Match, Cloze, Input) with preview & download
     link: /templates/classic/
+  - title: Media Sync Accelerator
+    details: Slow media sync from AnkiWeb? Import locally in an instant—works right in your mobile browser
+    link: /tools/media-boost
   - title: ImageViewer
     details: Open and zoom card images in a full-screen viewer with rotate, flip, pan, and swipe navigation.
     link: /extension/image-viewer

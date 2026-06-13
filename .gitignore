@@ -49,3 +49,8 @@ classic-legacy
 
 .nx/polygraph
 .nx/self-healing
+
+
+anki
+.claude/worktrees
+.claude/settings.local.json

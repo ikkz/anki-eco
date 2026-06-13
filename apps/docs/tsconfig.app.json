@@ -41,6 +41,9 @@
   "references": [
     {
       "path": "../../packages/extensions/tsconfig.lib.json"
+    },
+    {
+      "path": "../../packages/media-boost/tsconfig.lib.json"
     }
   ]
 }

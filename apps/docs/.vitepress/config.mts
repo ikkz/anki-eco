@@ -75,7 +75,7 @@ export default defineConfig({
           },
         ],
       },
-      { text: 'Dev Guide', link: '/guide/packager' },
+      { text: 'Tools', link: '/tools/media-boost' },
       {
         text: 'Sponsor',
         link: '/sponsor',
@@ -90,6 +90,17 @@ export default defineConfig({
             {
               text: 'Packager',
               link: '/guide/packager',
+            },
+          ],
+        },
+      ],
+      '/tools/': [
+        {
+          text: 'Tools',
+          items: [
+            {
+              text: 'Media Sync Accelerator',
+              link: '/tools/media-boost',
             },
           ],
         },
@@ -152,7 +163,7 @@ export default defineConfig({
       {
         defer: '',
         'data-domain': 'anki-eco',
-        src: 'https://pla.ikkz.fun/js/script.js',
+        src: 'https://pla.ikkz.fun/js/script.file-downloads.tagged-events.js',
       },
     ],
   ],
@@ -164,6 +175,9 @@ export default defineConfig({
     },
     server: {
       allowedHosts: true,
+    },
+    worker: {
+      format: 'es',
     },
   },
 });
