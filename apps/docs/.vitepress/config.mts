@@ -99,7 +99,7 @@ export default defineConfig({
           text: 'Tools',
           items: [
             {
-              text: 'Media Boost',
+              text: 'Media Sync Accelerator',
               link: '/tools/media-boost',
             },
           ],

@@ -17,6 +17,9 @@ features:
   - title: 模板
     details: 交互式模板（多项选择、正误题、基础问答、匹配、填空、输入），支持在线预览与下载
     link: /zh/templates/classic/
+  - title: 媒体同步加速
+    details: 从 AnkiWeb 同步大量媒体太慢？本地导入即可瞬间完成，支持手机浏览器直接操作
+    link: /zh/tools/media-boost
   - title: ImageViewer
     details: 在全屏查看器中放大、旋转、翻转和平移卡片图片，支持滑动切换。
     link: /zh/extension/image-viewer
