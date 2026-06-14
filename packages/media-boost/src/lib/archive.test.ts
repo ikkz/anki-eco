@@ -8,8 +8,32 @@ import {
   ZipWriter,
 } from '@zip.js/zip.js';
 import { Zstd } from '@hpcc-js/wasm-zstd';
+import { existsSync } from 'node:fs';
+import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 import initSqlJs from 'sql.js';
+import sqlWasmUrl from 'sql.js/dist/sql-wasm.wasm?url';
 import { beforeAll, describe, expect, it } from 'vitest';
+
+function runningInNode(): boolean {
+  return typeof process !== 'undefined' && Boolean(process.versions?.node);
+}
+
+function nodeAssetPath(url: string): string {
+  if (url.startsWith('/@fs/')) return url.slice('/@fs'.length);
+  if (url.startsWith('/')) return `${process.cwd()}${url}`;
+  return url;
+}
+
+function locateSqlWasm(): string {
+  if (runningInNode()) {
+    const resolved = nodeAssetPath(sqlWasmUrl);
+    if (existsSync(resolved)) return resolved;
+    const require2 = createRequire(import.meta.url);
+    return fileURLToPath(require2.resolve('sql.js/dist/sql-wasm.wasm'));
+  }
+  return sqlWasmUrl;
+}
 import { analyzeMediaBoostPackage, generateMediaBoostPackage } from './archive.js';
 import { buildHelperCollection } from './collection.js';
 
@@ -89,7 +113,7 @@ describe('media boost APKG', () => {
   it('splits large media lists into unique paused helper notes', async () => {
     const names = Array.from({ length: 20_001 }, (_, index) => `${index}.jpg`);
     const collection = await buildHelperCollection(names, 5000);
-    const SQL = await initSqlJs();
+    const SQL = await initSqlJs({ locateFile: locateSqlWasm });
     const db = new SQL.Database(collection);
     expect(db.exec('select count(*), count(distinct guid) from notes')[0].values[0]).toEqual([
       5, 5,
@@ -120,7 +144,7 @@ describe('media boost APKG', () => {
     const encodedCollection = await collectionEntry.getData(new Uint8ArrayWriter());
     expect([...encodedCollection.subarray(0, 4)]).toEqual([0x28, 0xb5, 0x2f, 0xfd]);
     const collection = zstd.decompress(encodedCollection);
-    const SQL = await initSqlJs();
+    const SQL = await initSqlJs({ locateFile: locateSqlWasm });
     const db = new SQL.Database(collection);
     expect(db.exec('select count(*) from notes')[0].values[0][0]).toBe(2);
     expect(db.exec('select count(*) from cards where queue = -1')[0].values[0][0]).toBe(2);
