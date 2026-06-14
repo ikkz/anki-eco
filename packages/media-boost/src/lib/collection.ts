@@ -1,3 +1,6 @@
+import { createRequire } from 'node:module';
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import initSqlJs from 'sql.js';
 import sqlWasmUrl from 'sql.js/dist/sql-wasm.wasm?url';
 import templateUrl from '../assets/helper-template.sqlite?url';
@@ -111,9 +114,19 @@ export async function buildHelperCollection(
   referencesPerNote: number,
   signal?: AbortSignal,
 ): Promise<Uint8Array> {
+  const locateSqlWasm = (): string => {
+    if (runningInNode()) {
+      const resolved = nodeAssetPath(sqlWasmUrl);
+      if (existsSync(resolved)) return resolved;
+      const require2 = createRequire(import.meta.url);
+      return fileURLToPath(require2.resolve('sql.js/dist/sql-wasm.wasm'));
+    }
+    return sqlWasmUrl;
+  };
+
   const [template, SQL] = await Promise.all([
     loadAsset(templateUrl),
-    initSqlJs({ locateFile: () => (runningInNode() ? nodeAssetPath(sqlWasmUrl) : sqlWasmUrl) }),
+    initSqlJs({ locateFile: locateSqlWasm }),
   ]);
 
   const db = new SQL.Database(template);
