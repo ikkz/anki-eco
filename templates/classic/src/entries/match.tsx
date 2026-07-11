@@ -1,11 +1,10 @@
 import { CardShell } from '@/components/card-shell';
-import { NativeText } from '@/components/native-text';
 import { Tag } from '@/components/tag';
 import { useBack } from '@/hooks/use-back';
+import { extractCollections, MatchCollection, MatchItem } from '@/features/match/extract';
 import { useCrossState } from '@/hooks/use-cross-state';
 import { tw } from '@/styles/tw';
 import { FIELD_ID } from '@/utils/const';
-import { domToText } from '@/utils/dom-to-text';
 import { isFieldEmpty } from '@/utils/field';
 import {
   useDraggable,
@@ -21,25 +20,29 @@ import useMemoizedFn from 'ahooks/es/useMemoizedFn';
 import * as t from 'at/i18n';
 import { AnkiField } from 'at/virtual/field';
 import clsx from 'clsx';
-import { FC, useMemo } from 'react';
+import { FC, useLayoutEffect, useMemo, useRef } from 'react';
 import { shuffle, clone } from 'remeda';
 
-type Item = {
-  id: string;
-  name: string;
-};
+type Item = MatchItem;
 
-type Category = {
-  id: string;
-  name: string;
-};
+type Collection = MatchCollection;
 
-type Collection = {
-  category: Category;
-  items: Item[];
-};
+const belongTo = (item: Item, items: Item[]) => !!items.find(({ id }) => id === item.id);
 
-const belongTo = (item: Item, items: Item[]) => !!items.find(({ name }) => name === item.name);
+const HtmlContent: FC<{ html: string }> = ({ html }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useLayoutEffect(() => {
+    const span = ref.current;
+    if (!span) {
+      return;
+    }
+    span.innerHTML = html;
+    window.MathJax?.typesetPromise?.([span]).catch(() => undefined);
+  }, [html]);
+
+  return <span ref={ref} />;
+};
 
 const ItemComponent: FC<{
   item: Item;
@@ -80,7 +83,7 @@ const ItemComponent: FC<{
           )[status]
         }
       >
-        <NativeText text={item.name} />
+        <HtmlContent html={item.html} />
       </Tag>
     </div>
   );
@@ -194,35 +197,7 @@ export default () => {
   const hasNote = !isFieldEmpty(FIELD_ID('note'));
   const collections = useCreation((): Collection[] => {
     const node = document.getElementById(FIELD_ID('items'));
-    const text = node ? domToText(node, ['br']) : '';
-    return text
-      .split('\n')
-      .filter((line) => line.includes('::'))
-      .map((line) => {
-        const colonIndex = line.indexOf('::');
-        const category = line.substring(0, colonIndex).trim();
-        const items = line
-          .substring(colonIndex + 2)
-          .split(',,')
-          .map((item) => item.trim());
-        return {
-          category,
-          items,
-        };
-      })
-      .map(
-        ({ category, items }, idx) =>
-          ({
-            category: {
-              name: category,
-              id: idx.toString(),
-            },
-            items: items.map((item, itemIdx) => ({
-              name: item,
-              id: `${idx}-${itemIdx}`,
-            })),
-          }) as Collection,
-      );
+    return node ? extractCollections(node) : [];
   }, []);
 
   const [shuffledCollections] = useCrossState('shuffled-collections', () => shuffle(collections));
