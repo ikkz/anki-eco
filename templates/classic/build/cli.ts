@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { type BuildConfig, configs } from './config.ts';
-import { rollupOptions } from './rollup.ts';
+import { rolldownOptions } from './rollup.ts';
 import { configMatch } from './utils.ts';
 import { parseArgs } from 'node:util';
 import { rolldown, watch } from 'rolldown';
@@ -32,7 +32,7 @@ const argConfig: Partial<Pick<BuildConfig, 'entry' | 'locale' | 'field'>> = {
 if (!args.dev) {
   for (const config of configs.filter((config) => configMatch(argConfig, config))) {
     console.log('build', config);
-    const { inputOptions, outputOptions } = await rollupOptions(config, {
+    const { inputOptions, outputOptions } = await rolldownOptions(config, {
       dev: false,
     });
     const bundle = await rolldown(inputOptions);
@@ -40,7 +40,7 @@ if (!args.dev) {
     bundle.close();
   }
 } else {
-  const { inputOptions, outputOptions } = await rollupOptions(
+  const { inputOptions, outputOptions } = await rolldownOptions(
     {
       entry: argConfig.entry || 'basic',
       locale: argConfig.locale || 'en',

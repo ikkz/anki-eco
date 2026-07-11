@@ -50,7 +50,6 @@
       "plugin": "@nx/vite/plugin",
       "options": {
         "buildTargetName": "build",
-        "testTargetName": "vite:test",
         "serveTargetName": "serve",
         "devTargetName": "dev",
         "previewTargetName": "preview",
@@ -58,6 +57,12 @@
         "typecheckTargetName": "vite:typecheck",
         "buildDepsTargetName": "build-deps",
         "watchDepsTargetName": "watch-deps"
+      }
+    },
+    {
+      "plugin": "@nx/vitest",
+      "options": {
+        "testTargetName": "vite:test"
       }
     },
     {
@@ -100,17 +105,20 @@
   },
   "release": {
     "projects": ["packages/*"],
-    "releaseTagPattern": "release/{version}",
     "git": {},
     "version": {
       "preVersionCommand": "bunx nx run-many -t build -p packages/*",
       "versionActionsOptions": {
         "skipLockFileUpdate": true
       }
+    },
+    "releaseTag": {
+      "pattern": "release/{version}"
     }
   },
   "tui": {
     "enabled": false
   },
-  "analytics": false
+  "analytics": false,
+  "neverConnectToCloud": true
 }

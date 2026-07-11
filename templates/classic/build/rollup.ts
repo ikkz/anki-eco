@@ -25,7 +25,10 @@ const packageJson = JSON.parse(
   }),
 );
 
-export async function rollupOptions(config: BuildConfig, { dev = false }: { dev?: boolean } = {}) {
+export async function rolldownOptions(
+  config: BuildConfig,
+  { dev = false }: { dev?: boolean } = {},
+) {
   const resolveImportPath = (...segments: string[]) =>
     pathToFileURL(path.resolve(import.meta.dirname, ...segments)).href;
 

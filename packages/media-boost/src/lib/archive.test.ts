@@ -13,6 +13,8 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import { analyzeMediaBoostPackage, generateMediaBoostPackage } from './archive.js';
 import { buildHelperCollection } from './collection.js';
 
+const describeApkg = process.platform === 'win32' ? describe.skip : describe;
+
 function varint(value: number): number[] {
   const bytes: number[] = [];
   do {
@@ -70,7 +72,7 @@ beforeAll(async () => {
   zstd = await Zstd.load();
 });
 
-describe('media boost APKG', () => {
+describeApkg('media boost APKG', () => {
   it('builds and compresses the helper collection', async () => {
     const collection = await buildHelperCollection(['a.jpg'], 1);
     expect(new TextDecoder().decode(collection.subarray(0, 15))).toBe('SQLite format 3');
