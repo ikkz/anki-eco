@@ -25,6 +25,7 @@
     "@nx/node": "23.0.2",
     "@nx/react": "23.0.2",
     "@nx/vite": "23.0.2",
+    "@nx/vitest": "23.0.2",
     "@nx/vue": "23.0.2",
     "@nx/web": "23.0.2",
     "@swc-node/register": "~1.11.1",

@@ -1,35 +1,24 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/src/test-setup.[jt]s"
     ],
-    "sharedGlobals": [
-      "{workspaceRoot}/.github/workflows/ci.yml"
-    ]
+    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
   "targetDefaults": {
     "dev": {
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     },
     "package": {
-      "dependsOn": [
-        "build"
-      ]
+      "dependsOn": ["build"]
     },
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
+      "dependsOn": ["^build"],
       "cache": true
     },
     "test": {
@@ -37,13 +26,8 @@
     },
     "@nx/js:tsc": {
       "cache": true,
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "production",
-        "^production"
-      ]
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "plugins": [
@@ -60,15 +44,12 @@
           "watchDepsName": "watch-deps"
         }
       },
-      "exclude": [
-        "packages/vite-plugin/*"
-      ]
+      "exclude": ["packages/vite-plugin/*"]
     },
     {
       "plugin": "@nx/vite/plugin",
       "options": {
         "buildTargetName": "build",
-        "testTargetName": "vite:test",
         "serveTargetName": "serve",
         "devTargetName": "dev",
         "previewTargetName": "preview",
@@ -76,6 +57,12 @@
         "typecheckTargetName": "vite:typecheck",
         "buildDepsTargetName": "build-deps",
         "watchDepsTargetName": "watch-deps"
+      }
+    },
+    {
+      "plugin": "@nx/vitest",
+      "options": {
+        "testTargetName": "vite:test"
       }
     },
     {
@@ -91,9 +78,7 @@
     },
     {
       "plugin": "@nx/js/typescript",
-      "include": [
-        "packages/vite-plugin/*"
-      ],
+      "include": ["packages/vite-plugin/*"],
       "options": {
         "typecheck": {
           "targetName": "typecheck"
@@ -119,9 +104,7 @@
     }
   },
   "release": {
-    "projects": [
-      "packages/*"
-    ],
+    "projects": ["packages/*"],
     "releaseTagPattern": "release/{version}",
     "git": {},
     "version": {
