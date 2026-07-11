@@ -36,7 +36,7 @@ jobs:
       - name: Build Classic en native templates
         run: |
           rm -rf templates/classic/output
-          bun run --filter @anki-eco/classic-templates build -- --locale=en --field=native
+          bunx nx run @anki-eco/classic-templates:build -- --locale=en --field=native
           bun run --filter @anki-eco/classic-templates package
 
       - name: Upload Classic en native templates
