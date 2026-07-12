@@ -2,7 +2,6 @@
   "extends": ["../../tsconfig.base.json"],
   "compilerOptions": {
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-
     "rootDir": ".",
     "outDir": "dist-types",
     "tsBuildInfoFile": "dist-types/tsconfig.lib.tsbuildinfo",
@@ -15,7 +14,8 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "react-jsx",
     "module": "es2022",
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "types": ["node"]
   },
   "include": ["src", "build/entries.ts"],
   "references": [
