@@ -27,7 +27,7 @@ An example:
 ```
 Mammals::Tiger,,Elephant
 Birds::Penguin,,Parrot
-<img src="animal.png">::Cat image,,Dog image
+Reptiles::Cobra,,Crocodile
 ```
 
 | Field name | Description                                                                                                   |

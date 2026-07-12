@@ -27,7 +27,7 @@ title: 匹配
 ```
 Mammals::Tiger,,Elephant
 Birds::Penguin,,Parrot
-<img src="animal.png">::猫图片,,狗图片
+Reptiles::Cobra,,Crocodile
 ```
 
 | 字段名   | 说明                             |
