@@ -19,7 +19,7 @@ Notes for `items`
 
 - Each line starts with a category, followed by two colons separating it from the items under that category
 - Each item is separated by two commas
-- Items can contain rich content such as images, formulas, and formatted text. The category name is read as plain text.
+- Categories and items can contain rich content such as images, formulas, and formatted text.
 - Categories and items are shuffled to enhance active recall
 
 An example:
