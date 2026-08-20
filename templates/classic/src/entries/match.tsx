@@ -102,7 +102,9 @@ const CategoryContainer: FC<{
   );
   return (
     <div ref={setNodeRef} className={clsx('border p-2 min-h-20 rounded', tw.borderColor)}>
-      <div className="font-semibold text-lg">{category.name}</div>
+      <div className="font-semibold text-lg">
+        <HtmlContent html={category.html} />
+      </div>
       <div className="flex flex-wrap gap-2 mt-2">
         {dropped.map((item) => (
           <ItemComponent

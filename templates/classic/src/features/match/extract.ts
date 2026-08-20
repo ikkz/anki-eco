@@ -5,18 +5,12 @@ export type MatchItem = {
 
 export type MatchCategory = {
   id: string;
-  name: string;
+  html: string;
 };
 
 export type MatchCollection = {
   category: MatchCategory;
   items: MatchItem[];
-};
-
-const getTextFromHtml = (html: string) => {
-  const container = document.createElement('div');
-  container.innerHTML = html;
-  return container.textContent?.trim() || '';
 };
 
 export const extractCollections = (field: HTMLElement): MatchCollection[] =>
@@ -27,7 +21,7 @@ export const extractCollections = (field: HTMLElement): MatchCollection[] =>
     .map((line) => {
       const colonIndex = line.indexOf('::');
       return {
-        category: getTextFromHtml(line.substring(0, colonIndex)),
+        category: line.substring(0, colonIndex).trim(),
         items: line
           .substring(colonIndex + 2)
           .split(',,')
@@ -37,7 +31,7 @@ export const extractCollections = (field: HTMLElement): MatchCollection[] =>
     })
     .map(({ category, items }, idx) => ({
       category: {
-        name: category,
+        html: category,
         id: idx.toString(),
       },
       items: items.map((item, itemIdx) => ({
