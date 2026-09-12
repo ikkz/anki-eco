@@ -13,9 +13,6 @@ const { values: args } = parseArgs({
     locale: {
       type: 'string',
     },
-    field: {
-      type: 'string',
-    },
     dev: {
       type: 'boolean',
       default: false,
@@ -23,10 +20,9 @@ const { values: args } = parseArgs({
   },
 });
 
-const argConfig: Partial<Pick<BuildConfig, 'entry' | 'locale' | 'field'>> = {
+const argConfig: Partial<Pick<BuildConfig, 'entry' | 'locale'>> = {
   entry: args.entry as BuildConfig['entry'],
   locale: args.locale as BuildConfig['locale'],
-  field: args.field as BuildConfig['field'],
 };
 
 if (!args.dev) {
@@ -44,7 +40,6 @@ if (!args.dev) {
     {
       entry: argConfig.entry || 'basic',
       locale: argConfig.locale || 'en',
-      field: argConfig.field || 'native',
       name: 'dev',
       type_id: 0,
       deck_id: 0,

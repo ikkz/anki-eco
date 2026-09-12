@@ -10,15 +10,12 @@ const props = defineProps<{
 }>();
 
 type Locale = 'en' | 'zh' | 'ja' | 'pt_br';
-type Field = 'native' | 'markdown';
 
 const locales: Locale[] = ['en', 'zh', 'ja', 'pt_br'];
-const fields: Field[] = ['native', 'markdown'];
 
 const selectedLocale = ref<Locale>(
   typeof location !== 'undefined' && location.pathname.startsWith('/zh/') ? 'zh' : 'en',
 );
-const selectedField = ref<Field>('native');
 const selectedOptions = ref<number>(props.options?.[0] ?? 6);
 
 const effectiveEntry = computed<Entry>(() => {
@@ -35,9 +32,7 @@ const distHost = import.meta.env.DEV ? 'http://localhost:4200' : 'https://classi
 const distPublicBase = `${distHost}/dist`;
 const releasePublicBase = `${distHost}/release`;
 
-const variantKey = computed(
-  () => `${effectiveEntry.value}.${selectedLocale.value}.${selectedField.value}`,
-);
+const variantKey = computed(() => `${effectiveEntry.value}.${selectedLocale.value}`);
 
 const downloadPath = computed(() => `${releasePublicBase}/${variantKey.value}.apkg`);
 
@@ -49,7 +44,6 @@ const version = ref<string>('...');
 const labels = {
   title: 'Classic Template',
   locale: 'Locale',
-  field: 'Field',
   options: 'Options',
   preview: 'Preview',
   download: 'Download',
@@ -227,31 +221,6 @@ onMounted(() => {
         >
           <option v-for="o in options" :key="o" :value="o">
             {{ o }}
-          </option>
-        </select>
-        <svg
-          class="tw-pointer-events-none tw-absolute tw-right-0 tw-top-1/2 -tw-translate-y-1/2 tw-w-4 tw-h-4 tw-text-gray-400"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.38a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
-            clip-rule="evenodd"
-          />
-        </svg>
-      </div>
-
-      <span v-if="options && options.length > 0" class="tw-text-gray-300">·</span>
-
-      <div class="tw-relative">
-        <select
-          v-model="selectedField"
-          class="tw-appearance-none tw-bg-transparent tw-pr-5 tw-pl-0 tw-py-1 tw-border-0 tw-cursor-pointer hover:tw-underline focus:tw-outline-none"
-        >
-          <option v-for="f in fields" :key="f" :value="f">
-            {{ f }}
           </option>
         </select>
         <svg

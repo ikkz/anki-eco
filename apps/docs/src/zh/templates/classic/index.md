@@ -4,6 +4,10 @@ title: Classic 模板概览
 
 # 概览
 
+::: warning 版本 3 迁移提示
+Classic Templates 3.0 移除了 Markdown 变体，同时下载名称不再包含 `.native` 后缀。如果你需要在自定义卡片模板中渲染 Markdown，请使用 [XMarkdown 扩展](/zh/extension/xmarkdown)。
+:::
+
 ## 模板列表
 
 - [多项选择](/zh/templates/classic/mcq)
@@ -27,130 +31,5 @@ title: Classic 模板概览
 2. 在该模板的「Front Template」中，粘贴设置页面中显示的已格式化配置到对应位置。
 
 ![embed-options](../../../assets/classic/embed-options.png)
-
-<a id="markdown-support"></a>
-
-## Markdown 支持
-
-模板的 Markdown 由 ByteMD 提供。如需实时预览编辑效果，可直接使用 ByteMD 的 playground。
-
-但请注意，模板中并未启用 playground 里全部插件，具体启用列表请参考模板的 markdown 渲染实现。
-
-下面是可用语法与示例。
-
-### Markdown 基础语法
-
-<details>
-<summary>点击查看渲染结果</summary>
-
-![markdown-basic](../../../assets/classic/markdown-basic.png)
-
-</details>
-
-````markdown
-I just love **bold text**. Italicized text is the _cat's meow_. At the command prompt, type `nano`.
-
-My favorite markdown editor is [ByteMD](https://github.com/bytedance/bytemd).
-
-1. First item
-2. Second item
-3. Third item
-
-> Dorothy followed her through many of the beautiful rooms in her castle.
-
-```js
-import gfm from '@bytemd/plugin-gfm';
-import { Editor, Viewer } from 'bytemd';
-
-const plugins = [
-  gfm(),
-  // Add more plugins here
-];
-
-const editor = new Editor({
-  target: document.body, // DOM to render
-  props: {
-    value: '',
-    plugins,
-  },
-});
-
-editor.on('change', (e) => {
-  editor.$set({ value: e.detail.value });
-});
-```
-````
-
-### GFM 扩展语法
-
-<details>
-<summary>点击查看渲染结果</summary>
-
-![markdown-gfm](../../../assets/classic/markdown-gfm.png)
-
-</details>
-
-```markdown
-Automatic URL Linking: https://github.com/bytedance/bytemd
-
-~~The world is flat.~~ We now know that the world is round.
-
-- [x] Write the press release
-- [ ] Update the website
-- [ ] Contact the media
-
-| Syntax    | Description |
-| --------- | ----------- |
-| Header    | Title       |
-| Paragraph | Text        |
-```
-
-### 数学公式
-
-<details>
-<summary>点击查看渲染结果</summary>
-
-![markdown-math](../../../assets/classic/markdown-math.png)
-
-</details>
-
-```markdown
-Inline math equation: $a+b$
-
-$$
-\displaystyle \left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
-$$
-```
-
-### Mermaid 图表
-
-<details>
-<summary>点击查看渲染结果</summary>
-
-![markdown-mermaid](../../../assets/classic/markdown-mermaid.png)
-
-</details>
-
-````markdown
-```mermaid
-mindmap
-  root((mindmap))
-    Origins
-      Long history
-      ::icon(fa fa-book)
-      Popularisation
-        British popular psychology author Tony Buzan
-    Research
-      On effectiveness<br/>and features
-      On Automatic creation
-        Uses
-            Creative techniques
-            Strategic planning
-            Argument mapping
-    Tools
-      Pen and paper
-      Mermaid
-```
-````
 
 <!--@include: @/parts/feedback-zh.md -->

@@ -6,7 +6,6 @@ export interface BuildConfig {
   name: string;
   locale: string;
   entry: keyof typeof entries;
-  field: 'native' | 'markdown';
 }
 
 interface ConfigItem {
@@ -36,11 +35,6 @@ export const items: ConfigItem[] = [
     key: 'locale',
     len: 4,
     variants: ['zh', 'en', 'ja', 'pt_br'],
-  },
-  {
-    key: 'field',
-    len: 2,
-    variants: ['native', 'markdown'],
   },
 ];
 

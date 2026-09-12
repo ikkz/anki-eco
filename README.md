@@ -14,7 +14,7 @@ AnkiEco is a toolkit for building cross-platform Anki experiences with template-
 ## Highlights
 
 - **Template-first extensions**: CardMotion adds polished review animations; Tldraw embeds a full whiteboard across Anki Desktop, AnkiMobile, AnkiDroid, and AnkiWeb
-- **Classic template library**: Ready-to-use templates covering multiple choice, cloze, input, match, and true/false flows with markdown, math, and Mermaid support
+- **Classic template library**: Ready-to-use templates covering multiple choice, cloze, input, match, and true/false flows with native Anki field rendering
 - **Deck packaging workflow**: `@anki-eco/packager` converts template sources into shareable `.apkg` archives for single or multi-deck projects
 - **Shared toolkits**: `@anki-eco/kit`, `@anki-eco/shared`, and related packages provide reusable runtime helpers for templates and extensions
 

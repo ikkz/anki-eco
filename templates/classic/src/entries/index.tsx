@@ -3,7 +3,7 @@ import store from '@/store';
 import { APP_CONTAINER_ID } from '@/utils/const';
 import { isBack } from '@/utils/is-back';
 import { sendEvent } from '@anki-eco/analytics';
-import { entry, locale, field } from 'at/options';
+import { entry, locale } from 'at/options';
 import { Provider } from 'jotai';
 import { render } from 'preact';
 import { ComponentType } from 'react';
@@ -49,7 +49,6 @@ if (!isBack() && !window.e2eAnki) {
   setTimeout(() => {
     sendEvent('anki-eco-classic', `/${entry}`, 'pageview', {
       locale,
-      field,
     });
   }, 10);
 }

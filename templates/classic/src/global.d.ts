@@ -3,7 +3,6 @@ declare module 'at/options' {
   export const fields: string[];
   export const entry: BuildConfig['entry'];
   export const locale: BuildConfig['locale'];
-  export const field: BuildConfig['field'];
 }
 
 declare module 'at/i18n' {

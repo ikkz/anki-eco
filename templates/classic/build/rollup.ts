@@ -60,14 +60,10 @@ export async function rolldownOptions(
           'at/i18n': dataToEsm(i18nMap),
           entry: buildEntry(),
           'at/virtual/field': `export {default as AnkiField} from '${resolveImportPath(
-            config.field === 'markdown'
-              ? '../src/features/markdown/field.tsx'
-              : '../src/components/native-field.tsx',
+            '../src/components/native-field.tsx',
           )}'`,
           'at/virtual/extract-tf-items': `export {extractItems} from '${resolveImportPath(
-            config.field === 'markdown'
-              ? '../src/features/tf/extract-markdown-items.ts'
-              : '../src/features/tf/extract-native-items.ts',
+            '../src/features/tf/extract-native-items.ts',
           )}'`,
         }),
         replacePlugin(
