@@ -1,11 +1,11 @@
 import { CardShell } from '@/components/card-shell';
+import { AnkiField } from '@/components/field';
 import { ClozeInputField, Report } from '@/features/cloze/cloze-input-field';
 import '@/styles/input.css';
 import { tw } from '@/styles/tw';
 import { FIELD_ID } from '@/utils/const';
 import { isFieldEmpty } from '@/utils/field';
 import * as t from 'at/i18n';
-import { AnkiField } from 'at/virtual/field';
 import clsx from 'clsx';
 import { LocateFixed } from 'lucide-react';
 import { useState } from 'react';

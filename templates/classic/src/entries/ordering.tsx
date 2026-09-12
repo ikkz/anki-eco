@@ -1,4 +1,5 @@
 import { CardShell } from '@/components/card-shell';
+import { AnkiField } from '@/components/field';
 import { NativeText } from '@/components/native-text';
 import { Tag } from '@/components/tag';
 import { useBack } from '@/hooks/use-back';
@@ -25,7 +26,6 @@ import {
 import useCreation from 'ahooks/es/useCreation';
 import useMemoizedFn from 'ahooks/es/useMemoizedFn';
 import * as t from 'at/i18n';
-import { AnkiField } from 'at/virtual/field';
 import clsx from 'clsx';
 import { FC, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { shuffle } from 'remeda';

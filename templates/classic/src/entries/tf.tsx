@@ -1,4 +1,6 @@
 import { CardShell } from '@/components/card-shell';
+import { AnkiField } from '@/components/field';
+import { extractItems } from '@/features/tf/extract-native-items';
 import { getFirstUnansweredIndex } from '@/features/tf/shortcut';
 import { useBack } from '@/hooks/use-back';
 import { useCrossState } from '@/hooks/use-cross-state';
@@ -12,8 +14,6 @@ import useKeyPress from 'ahooks/es/useKeyPress';
 import useLatest from 'ahooks/es/useLatest';
 import useMemoizedFn from 'ahooks/es/useMemoizedFn';
 import * as t from 'at/i18n';
-import { extractItems } from 'at/virtual/extract-tf-items';
-import { AnkiField } from 'at/virtual/field';
 import clsx from 'clsx';
 import { useAtomValue } from 'jotai';
 import { CheckCircle, XCircle } from 'lucide-react';

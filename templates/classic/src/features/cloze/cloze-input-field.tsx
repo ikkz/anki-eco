@@ -6,7 +6,7 @@ import {
   getClozeData,
   getClozeNodes,
 } from './dom-to-cloze';
-import type { FieldProps } from '@/components/native-field';
+import { AnkiField, type FieldProps } from '@/components/field';
 import { useBack } from '@/hooks/use-back';
 import { caseSensitiveAtom, instantFeedbackAtom } from '@/store/settings';
 import { flipToBack } from '@/utils/bridge';
@@ -14,7 +14,6 @@ import { IS_DEV } from '@/utils/const';
 import { crossStorage } from '@/utils/cross-storage';
 import { getEditOps, Op } from '@/utils/edit-ops';
 import useLatest from 'ahooks/es/useLatest';
-import { AnkiField } from 'at/virtual/field';
 import { useAtomValue } from 'jotai';
 import { FC, useEffect, useLayoutEffect, useRef } from 'react';
 

@@ -4,10 +4,6 @@ title: Classic 模板概览
 
 # 概览
 
-::: warning 版本 3 迁移提示
-Classic Templates 3.0 移除了 Markdown 变体，同时下载名称不再包含 `.native` 后缀。如果你需要在自定义卡片模板中渲染 Markdown，请使用 [XMarkdown 扩展](/zh/extension/xmarkdown)。
-:::
-
 ## 模板列表
 
 - [多项选择](/zh/templates/classic/mcq)
@@ -31,5 +27,11 @@ Classic Templates 3.0 移除了 Markdown 变体，同时下载名称不再包含
 2. 在该模板的「Front Template」中，粘贴设置页面中显示的已格式化配置到对应位置。
 
 ![embed-options](../../../assets/classic/embed-options.png)
+
+<a id="markdown-support"></a>
+
+## Markdown 支持
+
+Classic Templates 3.0 移除了 Markdown 变体，同时下载名称不再包含 `.native` 后缀。如果你需要在自定义卡片模板中渲染 Markdown，请使用 [XMarkdown 扩展](/zh/extension/xmarkdown)。
 
 <!--@include: @/parts/feedback-zh.md -->

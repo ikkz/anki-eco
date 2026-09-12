@@ -4,10 +4,6 @@ title: Overview
 
 # Overview
 
-::: warning Version 3 migration
-Classic Templates 3.0 removes the Markdown variants and the `.native` suffix from download names. If you need Markdown rendering in a custom card template, use the [XMarkdown extension](/extension/xmarkdown).
-:::
-
 ## Templates
 
 - [Multiple Choice](/templates/classic/mcq)
@@ -31,5 +27,11 @@ To resolve these issues, you need to paste the formatted template settings below
 2. Find the "Front Template" of this template and paste the formatted template configuration you see on the settings page into the corresponding location. Below is an example image from the Mac version of Anki, other versions may display differently.
 
 ![embed-options](../../../assets/classic/embed-options.png)
+
+<a id="markdown-support"></a>
+
+## Markdown support
+
+Classic Templates 3.0 removes the Markdown variants and the `.native` suffix from download names. If you need Markdown rendering in a custom card template, use the [XMarkdown extension](/extension/xmarkdown).
 
 <!--@include: @/parts/feedback-en.md -->
