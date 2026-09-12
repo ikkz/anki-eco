@@ -2,7 +2,16 @@
 import { computed, ref, watch, onMounted } from 'vue';
 import hostHtml from './anki-host.html?raw';
 
-type Entry = 'mcq' | 'tf' | 'basic' | 'match' | 'cloze' | 'input' | 'mcq_10' | 'mcq_26';
+type Entry =
+  | 'mcq'
+  | 'tf'
+  | 'basic'
+  | 'match'
+  | 'cloze'
+  | 'cloze_native'
+  | 'input'
+  | 'mcq_10'
+  | 'mcq_26';
 
 const props = defineProps<{
   entry: Entry;
@@ -59,8 +68,20 @@ function interpolate(html: string, data: Record<string, string>) {
   // lodash-like "{{ key }}" interpolation (no eval, just replace)
   return html.replace(/{{([\s\S]+?)}}/g, (_, expr) => {
     const key = String(expr).trim();
+    if (key === 'cloze:question') return renderClozePreview(data.question || '');
     return data[key] ?? '';
   });
+}
+
+// ponytail: preview-only subset; Anki remains the source of truth for nested clozes.
+function renderClozePreview(text: string) {
+  return text.replace(
+    /\{\{c(\d+)::(.*?)(?:::(.*?))?\}\}/g,
+    (_, ordinal: string, answer: string, hint: string | undefined) =>
+      ordinal === '1'
+        ? `<span class="cloze" data-cloze="${answer.replaceAll('"', '&quot;')}" data-ordinal="1">[${hint || '...'}]</span>`
+        : `<span class="cloze-inactive" data-ordinal="${ordinal}">${answer}</span>`,
+  );
 }
 
 async function fetchText(url: string) {

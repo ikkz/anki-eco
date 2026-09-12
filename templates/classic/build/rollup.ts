@@ -2,7 +2,7 @@ import type { BuildConfig } from './config.ts';
 import { entries } from './entries.ts';
 import devServer from './plugins/dev-server/index.ts';
 import generateTemplate from './plugins/generate-template.ts';
-import { ensureValue, findMatchNote } from './utils.ts';
+import { ensureValue, findMatchNote, renderNativeClozePreview } from './utils.ts';
 import nodePolyfills from '@rolldown/plugin-node-polyfills';
 import html from '@rollup/plugin-html';
 import virtual from '@rollup/plugin-virtual';
@@ -194,13 +194,17 @@ ${buildFields()}
     const entry = entries[config.entry];
     const notes = findMatchNote(config);
     return entry.fields
-      .map(
-        (field: string) =>
-          `    <div id="at-field-${field}">${envValue(
-            `{{${field}}}`,
-            notes[0].fields[field as never] || '',
-          )}</div>`,
-      )
+      .map((field: string) => {
+        const value = notes[0].fields[field as never] || '';
+        return `    <div id="at-field-${field}">${envValue(
+          config.entry === 'cloze_native' && field === 'question'
+            ? `{{cloze:${field}}}`
+            : `{{${field}}}`,
+          config.entry === 'cloze_native' && field === 'question'
+            ? renderNativeClozePreview(value)
+            : value,
+        )}</div>`;
+      })
       .join('\n');
   }
 

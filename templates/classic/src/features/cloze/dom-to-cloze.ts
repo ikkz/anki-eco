@@ -16,10 +16,12 @@ function insertAfter(node: Node, toInsert: Node) {
 
 export const CLOZE_CLASS = 'at-cloze-unit';
 export const CLOZE_ANSWER_ATTR = 'data-at-cloze-answer';
+export const CLOZE_HINT_ATTR = 'data-at-cloze-hint';
+export const CLOZE_HINT_CLASS = 'at-cloze-hint';
 export const CLOZE_INDEX_ATTR = 'data-at-cloze-unit';
 export const CLOZE_TYPE_ATTR = 'data-at-cloze-type';
 
-type ClozeType = 'text' | 'whole';
+type ClozeType = 'text' | 'whole' | 'native';
 
 function setClozeType(node: Element, type: ClozeType) {
   node.setAttribute(CLOZE_TYPE_ATTR, type);
@@ -28,6 +30,7 @@ function setClozeType(node: Element, type: ClozeType) {
 export type ClozeUnitData = {
   type: ClozeType;
   answer: string;
+  hint?: string;
   index: number;
 };
 
@@ -35,11 +38,51 @@ export function getClozeData(node: Element): ClozeUnitData | undefined {
   if (!node.classList.contains(CLOZE_CLASS)) {
     return undefined;
   }
+  const hint = node.getAttribute(CLOZE_HINT_ATTR);
   return {
     type: node.getAttribute(CLOZE_TYPE_ATTR) as ClozeType,
     index: Number(node.getAttribute(CLOZE_INDEX_ATTR)),
     answer: node.getAttribute(CLOZE_ANSWER_ATTR) || '',
+    ...(hint ? { hint } : {}),
   };
+}
+
+export function hideNativeCloze(node: Element, hint?: string) {
+  node.textContent = '\u00a0'.repeat(8);
+  if (!hint) {
+    return;
+  }
+  const trigger = document.createElement('span');
+  trigger.className = CLOZE_HINT_CLASS;
+  trigger.tabIndex = 0;
+  trigger.setAttribute('role', 'button');
+  trigger.setAttribute('aria-expanded', 'false');
+  const placeholder = document.createElement('span');
+  placeholder.className = 'at-cloze-hint-placeholder';
+  placeholder.setAttribute('aria-hidden', 'true');
+  placeholder.textContent = '\u00a0'.repeat(3);
+  const text = document.createElement('span');
+  text.className = 'at-cloze-hint-text';
+  text.setAttribute('role', 'tooltip');
+  text.innerHTML = hint;
+  trigger.setAttribute('aria-label', text.textContent || hint);
+  trigger.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      toggleClozeHint(trigger);
+    }
+  });
+  trigger.append(placeholder, text);
+  node.appendChild(trigger);
+}
+
+export function toggleClozeHint(target: Element) {
+  const hint = target.closest(`.${CLOZE_HINT_CLASS}`);
+  if (!hint) {
+    return false;
+  }
+  hint.setAttribute('aria-expanded', String(hint.getAttribute('aria-expanded') !== 'true'));
+  return true;
 }
 
 function markUnit(node: Element, index: number) {
@@ -90,6 +133,21 @@ export function getClozeNodes(container: Element, node: Element | number) {
 }
 
 export function domToCloze(container: HTMLElement): number {
+  const nativeClozes = Array.from(container.querySelectorAll('.cloze[data-cloze]'));
+  if (nativeClozes.length) {
+    nativeClozes.forEach((node, index) => {
+      const renderedHint = node.innerHTML.slice(1, -1);
+      setClozeType(node, 'native');
+      node.classList.add(CLOZE_CLASS);
+      node.setAttribute(CLOZE_INDEX_ATTR, String(index));
+      node.setAttribute(CLOZE_ANSWER_ATTR, node.getAttribute('data-cloze') || '');
+      if (renderedHint && renderedHint !== '...') {
+        node.setAttribute(CLOZE_HINT_ATTR, renderedHint);
+      }
+    });
+    return nativeClozes.length;
+  }
+
   let unitIndex = 0;
   let inUnit = false;
 

@@ -8,6 +8,8 @@ export interface BuildConfig {
   entry: keyof typeof entries;
 }
 
+type BuildSelector = Partial<Pick<BuildConfig, 'entry' | 'locale'>>;
+
 interface ConfigItem {
   key: keyof BuildConfig;
   len: number;
@@ -29,6 +31,7 @@ export const items: ConfigItem[] = [
       'input',
       'ordering',
       'item-ordering',
+      'cloze_native',
     ] as const satisfies (keyof typeof entries)[],
   },
   {
@@ -82,5 +85,26 @@ configs.forEach((config) => {
     config.type_id = LEGACY_TEMPLATE_MAP[config.type_id];
   }
 });
+
+export function selectBuildConfigs(selector: BuildSelector, all: boolean, isCi: boolean) {
+  if (all && Object.values(selector).some(Boolean)) {
+    throw new Error('--all cannot be combined with --entry or --locale.');
+  }
+  if (!isCi && !all && !selector.entry) {
+    throw new Error('Specify one template with --entry=<name>, or build everything with --all.');
+  }
+
+  const selected = all
+    ? configs
+    : configs.filter((config) =>
+        Object.entries(selector)
+          .filter(([, value]) => Boolean(value))
+          .every(([key, value]) => config[key as keyof BuildConfig] === value),
+      );
+  if (!selected.length) {
+    throw new Error('No template configurations match the supplied options.');
+  }
+  return selected;
+}
 
 export { configs };

@@ -12,6 +12,7 @@ title: Overview
 - [Match](/templates/classic/match)
 - [Ordering](/templates/classic/ordering)
 - [Cloze](/templates/classic/cloze)
+- [Native Cloze](/templates/classic/cloze-native)
 - [Input](/templates/classic/input)
 
 ## Embedding Options in Templates

@@ -12,6 +12,7 @@ title: Classic 模板概览
 - [匹配](/zh/templates/classic/match)
 - [排序](/zh/templates/classic/ordering)
 - [填空](/zh/templates/classic/cloze)
+- [原生填空](/zh/templates/classic/cloze-native)
 - [输入题](/zh/templates/classic/input)
 
 ## 模板内嵌配置（Embedding Options）

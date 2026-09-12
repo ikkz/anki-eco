@@ -1,7 +1,6 @@
 #!/usr/bin/env node
-import { type BuildConfig, configs } from './config.ts';
+import { type BuildConfig, selectBuildConfigs } from './config.ts';
 import { rolldownOptions } from './rollup.ts';
-import { configMatch } from './utils.ts';
 import os from 'node:os';
 import { parseArgs } from 'node:util';
 import { rolldown, watch } from 'rolldown';
@@ -18,6 +17,10 @@ const { values: args } = parseArgs({
       type: 'boolean',
       default: false,
     },
+    all: {
+      type: 'boolean',
+      default: false,
+    },
   },
 });
 
@@ -27,7 +30,7 @@ const argConfig: Partial<Pick<BuildConfig, 'entry' | 'locale'>> = {
 };
 
 if (!args.dev) {
-  const targetConfigs = configs.filter((config) => configMatch(argConfig, config));
+  const targetConfigs = selectBuildConfigs(argConfig, args.all, Boolean(process.env.CI));
   const concurrency = Math.max(1, os.availableParallelism?.() ?? os.cpus().length ?? 4);
   let nextIndex = 0;
   const workers = Array.from({ length: Math.min(concurrency, targetConfigs.length) }, async () => {
