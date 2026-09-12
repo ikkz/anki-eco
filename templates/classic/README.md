@@ -20,8 +20,7 @@ The development server is available at `http://localhost:3000`. Run `setBack(tru
 
 ```sh
 bunx nx run @anki-eco/classic-templates:test
-bunx nx run @anki-eco/classic-templates:build -- --entry=mcq --locale=en
-bunx nx run @anki-eco/classic-templates:build -- --all
+bunx nx run @anki-eco/classic-templates:build
 bunx nx run @anki-eco/classic-templates:package
 ```
 
