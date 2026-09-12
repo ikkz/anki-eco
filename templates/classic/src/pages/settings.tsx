@@ -50,7 +50,7 @@ const CommonOptions: FC = () => {
         onChange={setSelectionMenu}
         data-testid="setting:selectionMenu"
       />
-      {!['cloze', 'input'].includes(entry) ? (
+      {!entry.startsWith('cloze') && entry !== 'input' ? (
         <Checkbox
           title={t.cloze}
           subtitle={t.clozeDetail}
@@ -59,7 +59,7 @@ const CommonOptions: FC = () => {
           data-testid="setting:cloze"
         />
       ) : null}
-      {entry === 'cloze' || cloze ? (
+      {entry.startsWith('cloze') || cloze ? (
         <Checkbox
           title={t.clozeRevealNextOnOutsideClick}
           subtitle={t.clozeRevealNextOnOutsideClickDetail}

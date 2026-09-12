@@ -6,6 +6,8 @@ import {
   domToCloze,
   getClozeData,
   getClozeNodes,
+  hideNativeCloze,
+  toggleClozeHint,
 } from '@/features/cloze/dom-to-cloze';
 import { getClozeShortcut } from '@/features/cloze/shortcut';
 import { getNextHiddenClozeNode, getTargetClozeNode } from '@/features/cloze/target-node';
@@ -38,6 +40,10 @@ function showAnswer(node: Element) {
       node.textContent = answer;
       break;
     }
+    case 'native': {
+      node.innerHTML = answer || '';
+      break;
+    }
     case 'whole': {
       if (node.nodeName === 'IMG') {
         node.setAttribute('src', answer || '');
@@ -58,6 +64,10 @@ function hideAnswer(node: Element) {
       node.textContent = '        ';
       break;
     }
+    case 'native': {
+      hideNativeCloze(node, getClozeData(node)?.hint);
+      break;
+    }
     case 'whole': {
       if (node.nodeName === 'IMG') {
         node.setAttribute('src', hiddenImg);
@@ -71,7 +81,7 @@ const CLOZED_ATTR = 'data-at-clozed';
 
 const useCloze = (ref: RefObject<HTMLElement>) => {
   const [back] = useBack();
-  const clozeEnabled = useAtomValue(clozeAtom) || entry === 'cloze';
+  const clozeEnabled = useAtomValue(clozeAtom) || entry.startsWith('cloze');
   const revealNextOnOutsideClick = useLatest(useAtomValue(clozeRevealNextOnOutsideClickAtom));
 
   useLayoutEffect(() => {
@@ -104,6 +114,11 @@ const useCloze = (ref: RefObject<HTMLElement>) => {
     const onClick = (event: MouseEvent) => {
       const { target } = event;
       if (back || !target || !(target instanceof Element)) {
+        return;
+      }
+      if (toggleClozeHint(target)) {
+        event.preventDefault();
+        event.stopPropagation();
         return;
       }
       const node = getTargetClozeNode(el, target, revealNextOnOutsideClick.current ?? false);

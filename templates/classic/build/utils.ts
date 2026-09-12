@@ -25,3 +25,14 @@ export function renderTemplate(html: string, data: object) {
     interpolate: /{{([\s\S]+?)}}/g,
   })(data);
 }
+
+// ponytail: dev-preview subset; Anki remains the source of truth for nested clozes.
+export function renderNativeClozePreview(text: string, currentOrdinal = '1') {
+  return text.replace(
+    /\{\{c(\d+)::(.*?)(?:::(.*?))?\}\}/g,
+    (_, ordinal: string, answer: string, hint: string | undefined) =>
+      ordinal === currentOrdinal
+        ? `<span class="cloze" data-cloze="${answer.replaceAll('"', '&quot;')}" data-ordinal="${ordinal}">[${hint || '...'}]</span>`
+        : `<span class="cloze-inactive" data-ordinal="${ordinal}">${answer}</span>`,
+  );
+}

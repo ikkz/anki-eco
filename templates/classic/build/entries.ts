@@ -241,6 +241,21 @@ const entries = {
       },
     ],
   }),
+  cloze_native: defineEntry({
+    desc: 'Native cloze template with one card per cloze number',
+    fields: ['question', 'answer', 'note', 'Tags'],
+    notes: [
+      {
+        config: {},
+        fields: {
+          question:
+            'The capital of China is {{c1::Beijing::capital city}}, its political center is also {{c1::Beijing}}, and its largest city is {{c2::Shanghai}}.',
+          answer: 'answer',
+          note: 'note',
+        },
+      },
+    ],
+  }),
   input: defineEntry({
     desc: 'Type in answer',
     fields: ['question', 'answer', 'note', 'Tags'],

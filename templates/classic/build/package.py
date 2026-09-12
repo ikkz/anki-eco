@@ -37,6 +37,9 @@ for name in os.listdir(dist_dir):
         f"IKKZ__{config['name']}".upper(),
         fields=list(map(lambda field: {"name": field, "font": "Arial"}, fields)),
         templates=[{"name": "Card 1", "qfmt": front, "afmt": back}],
+        model_type=genanki.Model.CLOZE
+        if config["entry"] == "cloze_native"
+        else genanki.Model.FRONT_BACK,
     )
     deck = genanki.Deck(
         deck_id=config["deck_id"], name=f"{config['name']} demo by ikkz"

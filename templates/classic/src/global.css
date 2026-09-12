@@ -41,6 +41,33 @@ div[id^='at-field'] {
   @apply cursor-pointer bg-neutral-200 dark:bg-neutral-600;
 }
 
+.at-cloze-hint {
+  @apply relative cursor-help bg-amber-200 text-inherit dark:bg-amber-700;
+
+  &:focus-visible {
+    @apply outline outline-2 outline-indigo-500;
+  }
+}
+
+.at-cloze-hint-text {
+  @apply pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 hidden -translate-x-1/2 whitespace-nowrap rounded border border-neutral-200 bg-white px-2 py-1 text-sm leading-normal text-neutral-700 shadow-sm dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-100;
+}
+
+.at-cloze-hint:focus-visible .at-cloze-hint-text,
+.at-cloze-hint[aria-expanded='true'] .at-cloze-hint-text {
+  display: inline;
+}
+
+@media (hover: hover) {
+  .at-cloze-hint:hover .at-cloze-hint-text {
+    display: inline;
+  }
+}
+
+[data-at-entry='cloze_native'] .anki-field {
+  overflow: visible;
+}
+
 [data-at-cloze-type='text'] {
   @apply py-px;
 }
