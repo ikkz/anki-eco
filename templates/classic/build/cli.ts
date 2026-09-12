@@ -2,6 +2,7 @@
 import { type BuildConfig, configs } from './config.ts';
 import { rolldownOptions } from './rollup.ts';
 import { configMatch } from './utils.ts';
+import os from 'node:os';
 import { parseArgs } from 'node:util';
 import { rolldown, watch } from 'rolldown';
 
@@ -13,9 +14,6 @@ const { values: args } = parseArgs({
     locale: {
       type: 'string',
     },
-    field: {
-      type: 'string',
-    },
     dev: {
       type: 'boolean',
       default: false,
@@ -23,28 +21,33 @@ const { values: args } = parseArgs({
   },
 });
 
-const argConfig: Partial<Pick<BuildConfig, 'entry' | 'locale' | 'field'>> = {
+const argConfig: Partial<Pick<BuildConfig, 'entry' | 'locale'>> = {
   entry: args.entry as BuildConfig['entry'],
   locale: args.locale as BuildConfig['locale'],
-  field: args.field as BuildConfig['field'],
 };
 
 if (!args.dev) {
-  for (const config of configs.filter((config) => configMatch(argConfig, config))) {
-    console.log('build', config);
-    const { inputOptions, outputOptions } = await rolldownOptions(config, {
-      dev: false,
-    });
-    const bundle = await rolldown(inputOptions);
-    await bundle.write(outputOptions);
-    bundle.close();
-  }
+  const targetConfigs = configs.filter((config) => configMatch(argConfig, config));
+  const concurrency = Math.max(1, os.availableParallelism?.() ?? os.cpus().length ?? 4);
+  let nextIndex = 0;
+  const workers = Array.from({ length: Math.min(concurrency, targetConfigs.length) }, async () => {
+    while (nextIndex < targetConfigs.length) {
+      const config = targetConfigs[nextIndex++];
+      console.log('build', config);
+      const { inputOptions, outputOptions } = await rolldownOptions(config, {
+        dev: false,
+      });
+      const bundle = await rolldown(inputOptions);
+      await bundle.write(outputOptions);
+      await bundle.close();
+    }
+  });
+  await Promise.all(workers);
 } else {
   const { inputOptions, outputOptions } = await rolldownOptions(
     {
       entry: argConfig.entry || 'basic',
       locale: argConfig.locale || 'en',
-      field: argConfig.field || 'native',
       name: 'dev',
       type_id: 0,
       deck_id: 0,

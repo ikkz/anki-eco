@@ -13,7 +13,7 @@ on:
       - 'nx.json'
 
 jobs:
-  en-native-artifact:
+  en-artifact:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -33,15 +33,15 @@ jobs:
 
       - run: bun install --frozen-lockfile
 
-      - name: Build Classic en native templates
+      - name: Build Classic en templates
         run: |
           rm -rf templates/classic/output
-          bunx nx run @anki-eco/classic-templates:build -- --locale=en --field=native
+          bunx nx run @anki-eco/classic-templates:build -- --locale=en
           bun run --filter @anki-eco/classic-templates package
 
-      - name: Upload Classic en native templates
+      - name: Upload Classic en templates
         uses: actions/upload-artifact@v4
         with:
-          name: classic-templates-en-native
+          name: classic-templates-en
           path: templates/classic/output/release/*.apkg
           if-no-files-found: error

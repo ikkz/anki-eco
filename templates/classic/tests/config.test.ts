@@ -2,7 +2,17 @@ import { configs } from '../build/config';
 import { describe, expect, test } from 'vitest';
 
 describe('config', () => {
-  test('all config id should be different', () => {
+  test('generates one config per entry and locale with stable native ids', () => {
+    expect(configs).toHaveLength(40);
+    expect(configs.every(({ name, entry, locale }) => name === `${entry}.${locale}`)).toBe(true);
     expect(new Set(configs.map(({ type_id }) => type_id)).size).eq(configs.length);
+    expect(configs.find(({ name }) => name === 'mcq.zh')).toMatchObject({
+      type_id: 1730012858034,
+      deck_id: 1610612736,
+    });
+    expect(configs.find(({ name }) => name === 'basic.en')).toMatchObject({
+      type_id: 1971232741,
+      deck_id: 1610612770,
+    });
   });
 });

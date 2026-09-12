@@ -1,8 +1,8 @@
 import { CardShell } from '@/components/card-shell';
+import { AnkiField } from '@/components/field';
 import { FIELD_ID } from '@/utils/const';
 import { isFieldEmpty } from '@/utils/field';
 import * as t from 'at/i18n';
-import { AnkiField } from 'at/virtual/field';
 import clsx from 'clsx';
 
 export default () => {

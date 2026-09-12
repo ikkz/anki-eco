@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import { CardShell } from '@/components/card-shell';
 import { DomRenderer } from '@/components/dom-renderer';
+import { AnkiField } from '@/components/field';
 import { useBack } from '@/hooks/use-back';
 import { useCrossState } from '@/hooks/use-cross-state';
 import { FIELD_ID } from '@/utils/const';
@@ -26,7 +27,6 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import useCreation from 'ahooks/es/useCreation';
 import * as t from 'at/i18n';
-import { AnkiField } from 'at/virtual/field';
 import clsx from 'clsx';
 import { shuffle } from 'remeda';
 

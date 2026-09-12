@@ -1,5 +1,6 @@
 import { shouldShowAnswerBlock } from './mcq.utils';
 import { CardShell } from '@/components/card-shell';
+import { AnkiField } from '@/components/field';
 import { useBack } from '@/hooks/use-back';
 import { useCrossState } from '@/hooks/use-cross-state';
 import {
@@ -24,7 +25,6 @@ import useSelections from 'ahooks/es/useSelections';
 import * as t from 'at/i18n';
 import { locale } from 'at/options';
 import { fields } from 'at/options';
-import { AnkiField } from 'at/virtual/field';
 import clsx from 'clsx';
 import { useAtomValue } from 'jotai';
 import { useEffect, useRef } from 'react';

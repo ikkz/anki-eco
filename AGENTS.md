@@ -35,7 +35,7 @@ Run these from the repository root:
 - `bunx nx affected -t lint test build typecheck package fmt:check`: Run a CI-like affected-project check.
 - `bunx nx run @anki-eco/docs:dev`: Start the docs site.
 - `bunx nx run @anki-eco/docs:build`: Build the docs site.
-- `bunx nx run @anki-eco/classic-templates:dev -- mcq --locale=zh --field=markdown`: Develop a specific Classic template.
+- `bunx nx run @anki-eco/classic-templates:dev -- mcq --locale=zh`: Develop a specific Classic template.
 - `bunx nx run @anki-eco/classic-templates:build`: Build the Classic templates.
 - `bunx nx run @anki-eco/classic-templates:test`: Run Classic template tests.
 - `bunx nx run @anki-eco/classic-templates:package`: Package Classic templates via `uv run --frozen build/package.py`.
@@ -72,11 +72,11 @@ If local environment issues, runtime, or missing dependencies prevent validation
 
 - Main source is in `templates/classic/src`:
   - `entries`: Template entry points.
-  - `features`: Interactive features such as `cloze`, `markdown`, `ordering`, `tf`, and `tools`.
+  - `features`: Interactive features such as `cloze`, `ordering`, `tf`, and `tools`.
   - `store`: Jotai/state configuration.
   - `hooks`, `components`, and `utils`: Shared frontend logic.
 - Build logic lives in `templates/classic/build`; the development server plugin is under `build/plugins/dev-server`.
-- Development commands accept template, locale, and field arguments, for example `mcq --locale=en --field=native`.
+- Development commands accept template and locale arguments, for example `mcq --locale=en`.
 - During development, run `setBack(true)` in the browser console to flip to the back side of a card.
 - Template changes must account for Anki Desktop, AnkiMobile, AnkiDroid, and AnkiWeb constraints. Avoid browser or Node APIs that are unavailable in those environments.
 - For Classic template changes, update `templates/classic/package.json` version according to semver: new features require a minor version bump, and bug fixes require a patch version bump. If `git` history or the current diff shows the version has already been bumped for the change, keep that existing version change.

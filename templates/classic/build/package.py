@@ -18,6 +18,8 @@ if not path.exists(dist_dir):
     exit(1)
 
 for name in os.listdir(dist_dir):
+    if name == "dev":
+        continue
     folder = path.join(dist_dir, name)
     with open(path.join(folder, "build.json"), encoding="utf-8") as f:
         build = json.load(f)

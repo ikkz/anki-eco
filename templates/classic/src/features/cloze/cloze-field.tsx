@@ -1,6 +1,5 @@
 import { useCloze } from './use-cloze';
-import type { FieldProps } from '@/components/native-field';
-import { AnkiField } from 'at/virtual/field';
+import { AnkiField, type FieldProps } from '@/components/field';
 import { FC, useRef } from 'react';
 
 export const ClozeField: FC<FieldProps> = (props) => {

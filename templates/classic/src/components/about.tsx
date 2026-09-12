@@ -2,12 +2,14 @@ import { entry, locale } from 'at/options';
 import clsx from 'clsx';
 import { memo, useEffect, useState } from 'react';
 
+const docsEntry = entry.split('_')[0];
+
 export const EnAbout = () => (
   <div className={clsx('prose prose-sm', 'dark:prose-invert')}>
     <p>Thanks for using my carefully crafted Anki template!</p>
     <ul>
       <li>
-        <a href={`https://anki.ikkz.fun/templates/classic/${entry}.html`}>Docs &amp; updates</a>
+        <a href={`https://anki.ikkz.fun/templates/classic/${docsEntry}`}>Docs &amp; updates</a>
       </li>
       <li>
         <a href="https://anki.ikkz.fun/sponsor" target="_blank" rel="noreferrer">
@@ -30,7 +32,7 @@ export const ZhAbout = () => (
     <p>感谢你使用我精心打磨的 Anki 模板！</p>
     <ul>
       <li>
-        <a href={`https://anki.ikkz.fun/templates/classic/${entry}.html`}>文档与更新</a>
+        <a href={`https://anki.ikkz.fun/zh/templates/classic/${docsEntry}`}>文档与更新</a>
       </li>
       <li>
         <a href="https://anki.ikkz.fun/zh/sponsor" target="_blank" rel="noreferrer">

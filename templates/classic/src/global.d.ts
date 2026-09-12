@@ -3,7 +3,6 @@ declare module 'at/options' {
   export const fields: string[];
   export const entry: BuildConfig['entry'];
   export const locale: BuildConfig['locale'];
-  export const field: BuildConfig['field'];
 }
 
 declare module 'at/i18n' {
@@ -12,14 +11,6 @@ declare module 'at/i18n' {
     typeof import('../translations/ja.json') &
     typeof import('../translations/pt_br.json');
   export = i18nMap;
-}
-
-declare module 'at/virtual/field' {
-  export const AnkiField: typeof import('./components/native-field').default;
-}
-
-declare module 'at/virtual/extract-tf-items' {
-  export const extractItems: typeof import('./features/tf/extract-native-items').extractItems;
 }
 
 declare module '*.png' {

@@ -11,7 +11,7 @@ export interface FieldProps {
   clone?: boolean;
 }
 
-export const NativeField: FC<FieldProps> = memo(({ name, className, domRef, clone }) => {
+export const AnkiField: FC<FieldProps> = memo(({ name, className, domRef, clone }) => {
   const fieldNode = useCreation(
     () => document.getElementById(FIELD_ID(name)) as HTMLDivElement | null,
     [name],
@@ -56,4 +56,4 @@ export const NativeField: FC<FieldProps> = memo(({ name, className, domRef, clon
   );
 });
 
-export default NativeField;
+export default AnkiField;

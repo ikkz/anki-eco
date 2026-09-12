@@ -55,7 +55,7 @@
   "toolHelp": "<p>Cada ferramenta requer a definição de uma URL. Por exemplo, para o Google Search:</p><pre><code>https://www.google.com/search?q={q}</code></pre><p>Quando você seleciona um texto e clica na ferramenta correspondente, o <code>{q}</code> no link será substituído pelo texto selecionado, e o navegador navegará automaticamente para o link atualizado.</p><p>Texto de prefixo e texto de sufixo referem-se à adição de texto antes e depois do texto selecionado, que então é usado como <code>{q}</code> para substituição.</p>",
   "optionsHint": "Se as configurações forem perdidas após reabrir o Anki, ou se você quiser que as seguintes configurações sejam sincronizadas entre dispositivos, por favor acesse ",
   "optionsPage": "Configuração de Opções",
-  "optionsHelp": "O conteúdo a seguir pode ser selecionado e copiado. Para etapas detalhadas, por favor consulte <a target=\"_blank\" href=\"https://template.ikkz.fun/docs/embed-options?from=anki\">aqui</a>",
+  "optionsHelp": "O conteúdo a seguir pode ser selecionado e copiado. Para etapas detalhadas, por favor consulte <a target=\"_blank\" href=\"https://anki.ikkz.fun/templates/classic/?from=anki\">aqui</a>",
   "cloze": "Habilitar Lacunas",
   "clozeDetail": "Para uso específico, consulte a documentação do modelo de lacunas",
   "clozeRevealNextOnOutsideClick": "Revelar próxima lacuna ao clicar fora",

@@ -77,7 +77,7 @@ function asWhole(node: Node): node is HTMLElement {
   if (node.nodeType !== Node.ELEMENT_NODE) {
     return false;
   }
-  const selectors = ['img', 'mjx-container', 'svg', '.math', '.bytemd-mermaid'];
+  const selectors = ['img', 'mjx-container', 'svg'];
   return (node as HTMLElement).matches(selectors.join(','));
 }
 
