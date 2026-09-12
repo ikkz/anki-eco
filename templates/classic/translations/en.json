@@ -55,7 +55,7 @@
   "toolHelp": "<p>Each tool requires a URL to be set. For example, Google Search:</p><pre><code>https://www.google.com/search?q={q}</code></pre><p>When you select text and click the corresponding tool, the <code>{q}</code> in the link will be replaced with the selected text, and the browser will automatically navigate to the updated link.</p><p>Prefix text and suffix text refer to adding text before and after the selected text, which is then used as <code>{q}</code> for replacement.</p>",
   "optionsHint": "If the settings are lost after reopening Anki, or if you want the following settings to sync across devices, please go to ",
   "optionsPage": "Options Configuration",
-  "optionsHelp": "The following content can be selected and copied. For detailed steps, please refer to <a target=\"_blank\" href=\"https://template.ikkz.fun/docs/embed-options?from=anki\">here</a>",
+  "optionsHelp": "The following content can be selected and copied. For detailed steps, please refer to <a target=\"_blank\" href=\"https://anki.ikkz.fun/templates/classic/?from=anki\">here</a>",
   "cloze": "Enable Cloze",
   "clozeDetail": "For specific usage, please refer to the cloze template documentation",
   "clozeRevealNextOnOutsideClick": "Reveal next cloze when clicking outside",

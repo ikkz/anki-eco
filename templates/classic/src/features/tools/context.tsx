@@ -2,10 +2,10 @@ import { useTextSelection } from '@/hooks/use-text-selection';
 import { toolsAtom } from '@/store/tools';
 import { tw } from '@/styles/tw';
 import { getUrl } from '@/utils/tool';
+import useThrottle from 'ahooks/es/useThrottle';
 import clsx from 'clsx';
 import { useAtomValue } from 'jotai/react';
 import { FC, PropsWithChildren, useMemo, useRef } from 'react';
-import { useThrottle } from 'react-use';
 
 export const ToolsContext: FC<PropsWithChildren & { enabled?: boolean }> = ({
   children,
@@ -13,7 +13,7 @@ export const ToolsContext: FC<PropsWithChildren & { enabled?: boolean }> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const { clientRect, textContent } = useTextSelection(ref);
-  const throttledRect = useThrottle(clientRect, 60);
+  const throttledRect = useThrottle(clientRect, { wait: 60 });
   const text = textContent?.trim();
   const tools = useAtomValue(toolsAtom);
 

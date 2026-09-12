@@ -55,7 +55,7 @@
   "toolHelp": "<p>各ツールにはURLを設定する必要があります。例えば、Google検索の場合:</p><pre><code>https://www.google.com/search?q={q}</code></pre><p>テキストを選択した後、対応するツールをクリックすると、リンク内の <code>{q}</code> が選択したテキストに置き換えられ、置き換え後のリンクに自動的にジャンプします。</p><p>前置テキストと後置テキストは、選択したテキストの前後に対応するテキストを追加し、それを <code>{q}</code> として置き換えを実行するものです。</p>",
   "optionsHint": "Ankiを再起動した後に以前の設定が失われたり、デバイス間で設定を同期したい場合は、以下の設定ページに進んでください",
   "optionsPage": "オプション設定",
-  "optionsHelp": "以下の内容を選択してコピーできます。詳細手順は <a target=\"_blank\" href=\"https://template.ikkz.fun/docs/embed-options?from=anki\">こちら</a> をご覧ください。",
+  "optionsHelp": "以下の内容を選択してコピーできます。詳細手順は <a target=\"_blank\" href=\"https://anki.ikkz.fun/templates/classic/?from=anki\">こちら</a> をご覧ください。",
   "cloze": "クローズを有効にする",
   "clozeDetail": "具体的な使い方は、公式のクローズテンプレートのドキュメントをご覧ください",
   "clozeRevealNextOnOutsideClick": "クローズ外クリックで次のクローズを表示",
