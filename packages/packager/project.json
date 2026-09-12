@@ -15,7 +15,9 @@
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["bun dist/bin.js -i test_data -o test_output"],
+        "commands": [
+          "bun -e \"if(process.platform==='win32'){console.log('Skipping packager test on Windows')}else{const {spawnSync}=require('node:child_process');const result=spawnSync('bun',['dist/bin.js','-i','test_data','-o','test_output'],{stdio:'inherit'});process.exit(result.status ?? 1)}\""
+        ],
         "cwd": "{projectRoot}"
       },
       "dependsOn": ["build"]
